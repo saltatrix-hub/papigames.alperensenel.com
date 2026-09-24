@@ -50,19 +50,30 @@ class WorldScene extends Phaser.Scene {
     this.region = ASTRAYA.REGIONS[regionId];
     this.state.region = regionId;
 
-    const theme = this.region.theme;
-    const tileKey = `tile_${theme}`;
-    const pathKey = `path_${theme}`;
-    const waterKey = `water_${theme}`;
+    const sheetByRegion = {
+      dawnwatch: 'tiles_grass',
+      verdant: 'tiles_grass',
+      moonfen: 'tiles_stone'
+    };
+    const sheet = sheetByRegion[regionId] || 'tiles_grass';
+    const pathFrame = 10;
+    const waterFrame = 20;
+    const groundFrames = [0, 1, 2, 3, 8, 9];
+
+    // Soft map concept / blockout underlay for region identity
+    const mapKey = `map_${regionId}`;
+    if (this.textures.exists(mapKey)) {
+      this.add.image(this.mapW / 2, this.mapH / 2, mapKey).setDisplaySize(this.mapW, this.mapH).setAlpha(0.18).setDepth(0);
+    }
 
     for (let y = 0; y < this.mapH; y += 48) {
       for (let x = 0; x < this.mapW; x += 48) {
-        let key = tileKey;
-        if (Math.hypot(x - 200, y - 180) < 120 && regionId === 'dawnwatch') key = pathKey;
-        if (y > 500 && y < 580 && x > 300 && x < 900) key = pathKey;
-        if (regionId === 'moonfen' && ((x + y) % 240 < 48)) key = waterKey;
-        if (regionId === 'verdant' && x > 900 && y > 500) key = waterKey;
-        this.add.image(x + 24, y + 24, key).setDepth(0);
+        let frame = Phaser.Utils.Array.GetRandom(groundFrames);
+        if (Math.hypot(x - 200, y - 180) < 120 && regionId === 'dawnwatch') frame = pathFrame;
+        if (y > 500 && y < 580 && x > 300 && x < 900) frame = pathFrame;
+        if (regionId === 'moonfen' && ((x + y) % 240 < 48)) frame = waterFrame;
+        if (regionId === 'verdant' && x > 900 && y > 500) frame = waterFrame;
+        this.add.image(x + 24, y + 24, sheet, frame).setDepth(1);
       }
     }
 
@@ -252,6 +263,7 @@ class WorldScene extends Phaser.Scene {
     if (Phaser.Input.Keyboard.JustDown(this.cursors.interact)) this.tryInteract();
     if (Phaser.Input.Keyboard.JustDown(this.cursors.inventory)) this.game.events.emit('astraya-toggle-inv');
     if (Phaser.Input.Keyboard.JustDown(this.cursors.heal)) this.usePotion();
+    if (Phaser.Input.Keyboard.JustDown(this.cursors.map)) this.toggleRegionMap();
     if (Phaser.Input.Keyboard.JustDown(this.cursors.skill1)) this.castSkill(0);
     if (Phaser.Input.Keyboard.JustDown(this.cursors.skill2)) this.castSkill(1);
     if (Phaser.Input.Keyboard.JustDown(this.cursors.skill3)) this.castSkill(2);
@@ -702,6 +714,28 @@ class WorldScene extends Phaser.Scene {
 
   announce(msg) {
     this.game.events.emit('astraya-toast', msg);
+  }
+
+  toggleRegionMap() {
+    if (this.mapOverlay) {
+      this.mapOverlay.forEach((o) => o.destroy());
+      this.mapOverlay = null;
+      return;
+    }
+    const key = `map_${this.regionId}`;
+    const art = this.textures.exists(key) ? key : 'art_world';
+    const dim = this.add.rectangle(640, 360, 1280, 720, 0x000000, 0.72).setScrollFactor(0).setDepth(5000);
+    const img = this.add.image(640, 340, art).setDisplaySize(900, 520).setScrollFactor(0).setDepth(5001);
+    const title = this.add
+      .text(640, 60, `${this.region.name} — Region Map (M to close)`, {
+        fontFamily: 'Cinzel, serif',
+        fontSize: '22px',
+        color: '#f5e6c8'
+      })
+      .setOrigin(0.5)
+      .setScrollFactor(0)
+      .setDepth(5002);
+    this.mapOverlay = [dim, img, title];
   }
 
   persist() {
