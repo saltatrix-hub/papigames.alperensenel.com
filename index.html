@@ -1,160 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>ASTRAYA — 2D MMORPG</title>
-    <meta
-      name="description"
-      content="Astraya: a top-down 2D MMORPG adventure across Dawnwatch, Verdant Trail, and Moonfen Marsh. Six classes. Nine seals. The Second Dawn."
-    />
+    <meta name="description" content="Astraya: dokuz mühür, altı sınıf, İkinci Şafak. Dawnwatch'tan Abyss Kapısı'na uzanan top-down 2D MMORPG." />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <section class="game-stage" id="play">
-      <div class="game-chrome">
-        <div class="brand compact">
-          <span class="brand-mark">◈</span>
-          <strong>ASTRAYA</strong>
-        </div>
-        <div class="game-actions">
-          <a class="chrome-link" href="#world">Lore</a>
-          <a class="chrome-link" href="#gallery">Art</a>
-          <button type="button" class="btn-fs" id="btn-fullscreen" title="Fullscreen (F)">Fullscreen</button>
-        </div>
-      </div>
-      <div id="game-root" tabindex="0" aria-label="Astraya game canvas"></div>
-    </section>
+    <canvas id="world" tabindex="0" aria-label="Astraya oyun alanı"></canvas>
 
-    <div class="shell">
-      <header class="topbar">
+    <!-- TITLE / CHARACTER -->
+    <div id="title" class="overlay">
+      <div class="title-bg"></div>
+      <div class="title-veil"></div>
+      <header class="title-top">
         <div class="brand">
           <span class="brand-mark">◈</span>
           <div>
             <strong>ASTRAYA</strong>
-            <em>Nine Seals · Second Dawn</em>
+            <em>Dokuz Mühür · İkinci Şafak</em>
           </div>
         </div>
-        <nav>
-          <a href="#play">Play</a>
-          <a href="#world">World</a>
-          <a href="#classes">Classes</a>
-          <a href="#gallery">Art</a>
-        </nav>
+        <button type="button" class="ghost" id="btn-fs-title">Tam Ekran</button>
       </header>
-
-      <main>
-        <section class="intro-band">
-          <p class="eyebrow">PAPI GAMES · 2D MMORPG CLIENT</p>
-          <h1>ASTRAYA</h1>
-          <p class="lede">
-            The seals fracture. Violet veins pulse beneath Dawnwatch. Choose your class and hold the
-            continent against the Abyss.
-          </p>
-          <div class="cta-row">
-            <a class="btn primary" href="#play">Back to Game</a>
-            <a class="btn ghost" href="design/">Design Pack</a>
+      <div class="title-hero">
+        <p class="eyebrow">PAPI GAMES · 2D MMORPG</p>
+        <h1>ASTRAYA</h1>
+        <p class="lede">Mühürler çatlıyor. Dawnwatch’ın altında mor damarlar yanıyor. Sınıfını seç, kıtayı Abyss’e karşı tut.</p>
+      </div>
+      <div class="title-body">
+        <aside class="slot-col">
+          <h2>Kayıtlar</h2>
+          <div id="slots" class="slots"></div>
+          <p class="hint">WASD hareket · Sol tık saldırı · 1–8 yetenek · E etkileşim · Shift yuvarlan</p>
+        </aside>
+        <section class="create-col" id="create">
+          <h2>Yeni Kahraman</h2>
+          <div id="class-grid" class="class-grid"></div>
+          <div class="create-preview">
+            <canvas id="preview" width="220" height="260"></canvas>
+            <div class="create-meta">
+              <p id="class-blurb"></p>
+              <label>İsim <input id="hero-name" maxlength="16" placeholder="Kahraman adı" autocomplete="off" /></label>
+              <div class="look-row">
+                <span>Saç</span>
+                <div id="hair-swatches" class="swatches"></div>
+              </div>
+              <div class="look-row">
+                <span>Ten</span>
+                <div id="skin-swatches" class="swatches"></div>
+              </div>
+              <button type="button" class="btn gold" id="btn-start">Maceraya Başla</button>
+            </div>
           </div>
         </section>
-
-        <section class="strip" id="world">
-          <h2>The Continent</h2>
-          <div class="cards">
-            <article>
-              <img src="assets/maps/Dawnwatch_Village_blockout.png" alt="Dawnwatch Village blockout" />
-              <h3>Dawnwatch Village</h3>
-              <p>Safe hub. Learn the prologue, cull corrupted beasts, and face Garrick the Red.</p>
-            </article>
-            <article>
-              <img src="assets/maps/Verdant_Trail_blockout.png" alt="Verdant Trail blockout" />
-              <h3>Verdant Trail</h3>
-              <p>Forest corruption spreads. Hunt wolves and entlings, then challenge Thornmaw.</p>
-            </article>
-            <article>
-              <img src="assets/maps/Moonfen_Marsh_blockout.png" alt="Moonfen Marsh blockout" />
-              <h3>Moonfen Marsh</h3>
-              <p>Lantern paths and restless dead. Confront Grave-Mother Nereza.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="strip classes" id="classes">
-          <h2>Six Paths</h2>
-          <figure class="feature-art">
-            <img
-              src="assets/concept/classes_turnaround_concept.png"
-              alt="Astraya class turnaround — same asset used in-game character select"
-            />
-            <figcaption>
-              Same file loaded in-game as character select (<code>assets/concept/classes_turnaround_concept.png</code>)
-            </figcaption>
-          </figure>
-          <div class="class-grid">
-            <div><b>Knight</b><span>Tank · Valor</span></div>
-            <div><b>Berserker</b><span>Rage cleave</span></div>
-            <div><b>Assassin</b><span>Stealth burst</span></div>
-            <div><b>Ranger</b><span>Ranged kite</span></div>
-            <div><b>Mage</b><span>Arcane AoE</span></div>
-            <div><b>Priest</b><span>Faith support</span></div>
-          </div>
-        </section>
-
-        <section class="strip" id="gallery">
-          <h2>Concept Gallery</h2>
-          <p class="gallery-note">
-            These are the exact files the client boots and renders (title, codex, select, combat sprites).
-          </p>
-          <div class="gallery">
-            <figure>
-              <img src="assets/concept/world_map_concept.png" alt="World map concept" />
-              <figcaption>World map · title background</figcaption>
-            </figure>
-            <figure>
-              <img src="assets/concept/classes_turnaround_concept.png" alt="Classes turnaround" />
-              <figcaption>Classes · character select</figcaption>
-            </figure>
-            <figure>
-              <img src="assets/concept/monster_boss_concept.png" alt="Monster and boss concept" />
-              <figcaption>Monsters · in-world enemies</figcaption>
-            </figure>
-            <figure>
-              <img src="assets/concept/project_asset_overview.png" alt="Project asset overview" />
-              <figcaption>Asset overview · codex</figcaption>
-            </figure>
-            <figure>
-              <img src="assets/concept/class_equipment_atlas.png" alt="Class equipment atlas" />
-              <figcaption>Equipment atlas · codex</figcaption>
-            </figure>
-            <figure>
-              <img src="assets/concept/costume_cosmetic_concept.png" alt="Costume cosmetics" />
-              <figcaption>Cosmetics · codex</figcaption>
-            </figure>
-            <figure>
-              <img src="assets/concept/dungeon_ui_concept.png" alt="Dungeon UI concept" />
-              <figcaption>Dungeon UI · codex</figcaption>
-            </figure>
-          </div>
-        </section>
-      </main>
-
-      <footer>
-        <p>Built from the Astraya Master Game Design Document · Art from the production design pack</p>
-      </footer>
+      </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/systems/assets.js"></script>
-    <script src="js/systems/save.js"></script>
-    <script src="js/scenes/menu.js"></script>
-    <script src="js/scenes/world.js"></script>
-    <script src="js/scenes/hud.js"></script>
-    <script src="js/main.js"></script>
+    <!-- HUD -->
+    <div id="hud" class="hidden">
+      <div class="hud-tl">
+        <div class="player-card" data-ui>
+          <canvas id="portrait" width="72" height="72"></canvas>
+          <div class="pc-meta">
+            <div class="pc-name"><b id="hud-name">—</b> <em id="hud-title"></em></div>
+            <div class="pc-sub"><span id="hud-class"></span> · Sv <span id="hud-level">1</span></div>
+            <div class="bar hp"><i id="bar-hp"></i><span id="txt-hp"></span></div>
+            <div class="bar res"><i id="bar-res"></i><span id="txt-res"></span></div>
+          </div>
+        </div>
+        <div id="party" class="party"></div>
+        <div id="buffs" class="buffs"></div>
+      </div>
+
+      <div class="hud-tc">
+        <div id="region-title" class="region-title hidden"></div>
+        <div id="target" class="target hidden" data-ui>
+          <div class="tg-name"><b id="tg-name"></b> <span id="tg-lvl"></span></div>
+          <div class="bar hp slim"><i id="tg-hp"></i><span id="tg-hp-txt"></span></div>
+        </div>
+        <div id="boss" class="boss hidden" data-ui>
+          <div class="boss-name" id="boss-name"></div>
+          <div class="bar hp bossbar"><i id="boss-hp"></i><span id="boss-hp-txt"></span></div>
+          <div id="boss-cast" class="boss-cast hidden"><i></i><span></span></div>
+        </div>
+      </div>
+
+      <div class="hud-tr">
+        <div class="wallet" data-ui>
+          <span title="Altın">🪙 <b id="hud-gold">0</b></span>
+          <span title="Astral Kristal">✦ <b id="hud-crystals">0</b></span>
+          <button type="button" class="icon-btn" id="btn-menu" title="Menü (Esc)">☰</button>
+        </div>
+        <div id="tracker" class="tracker" data-ui></div>
+      </div>
+
+      <div class="hud-bl">
+        <div id="chat" class="chat" data-ui>
+          <div id="chat-log" class="chat-log"></div>
+          <input id="chat-in" maxlength="140" placeholder="Sohbet… (Enter)" />
+        </div>
+      </div>
+
+      <div class="hud-bc">
+        <div id="castbar" class="castbar hidden"><i></i><span></span></div>
+        <div id="xpwrap" class="xpwrap">
+          <div class="bar xp"><i id="bar-xp"></i></div>
+          <span id="txt-xp"></span>
+        </div>
+        <div id="hotbar" class="hotbar" data-ui></div>
+        <div class="utilbar" data-ui>
+          <button type="button" class="util" id="util-hp" data-slot="hp"><em>Q</em><span>Can</span></button>
+          <button type="button" class="util" id="util-mp" data-slot="mp"><em>F</em><span>Kaynak</span></button>
+          <button type="button" class="util" id="util-dodge"><em>⇧</em><span>Yuvarlan</span><i id="dodge-cd"></i></button>
+          <button type="button" class="util" id="util-mount"><em>R</em><span>Binek</span></button>
+        </div>
+      </div>
+
+      <div class="hud-br">
+        <canvas id="minimap" width="196" height="196" data-ui></canvas>
+        <div id="prompt" class="prompt hidden"></div>
+      </div>
+
+      <nav class="dock" data-ui>
+        <button data-panel="char" title="Karakter (C)">C</button>
+        <button data-panel="inv" title="Envanter (I)">I</button>
+        <button data-panel="skills" title="Yetenekler (K)">K</button>
+        <button data-panel="quests" title="Görevler (J)">J</button>
+        <button data-panel="map" title="Harita (M)">M</button>
+        <button data-panel="social" title="Parti (P)">P</button>
+        <button data-panel="shop" title="Kristal Mağaza">✦</button>
+        <button data-panel="settings" title="Ayarlar (O)">⚙</button>
+      </nav>
+    </div>
+
+    <!-- PANELS -->
+    <div id="panels"></div>
+
+    <!-- DIALOG -->
+    <div id="dialog" class="overlay hidden">
+      <div class="dlg" data-ui>
+        <header><canvas id="dlg-face" width="64" height="64"></canvas><div><b id="dlg-name"></b><em id="dlg-sub"></em></div></header>
+        <p id="dlg-text"></p>
+        <div id="dlg-choices" class="choices"></div>
+      </div>
+    </div>
+
+    <!-- DEATH -->
+    <div id="death" class="overlay hidden">
+      <div class="death-card" data-ui>
+        <h2>Düştün</h2>
+        <p>Ruhun Dawnwatch’ın şafağına çekiliyor… veya bulunduğun yerde uyanabilirsin.</p>
+        <button type="button" class="btn gold" id="btn-respawn">Diril</button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div id="loading" class="overlay hidden">
+      <div class="load-card">
+        <div class="spin"></div>
+        <b id="load-name">Astraya</b>
+        <span>Işınlanıyor…</span>
+      </div>
+    </div>
+
+    <!-- TOASTS / ANNOUNCE / LOOT -->
+    <div id="announce" class="announce hidden"></div>
+    <div id="toasts"></div>
+    <div id="loots"></div>
+    <div id="tip" class="tip hidden"></div>
+    <div id="prompt-modal" class="overlay hidden">
+      <div class="dlg slim" data-ui>
+        <header><div><b id="pm-title">İsim</b></div></header>
+        <input id="pm-in" maxlength="16" />
+        <div class="choices">
+          <button type="button" class="btn gold" id="pm-ok">Onayla</button>
+          <button type="button" class="ghost" id="pm-cancel">Vazgeç</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>

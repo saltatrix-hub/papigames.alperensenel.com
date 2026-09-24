@@ -1,69 +1,56 @@
-const config = {
-  type: Phaser.AUTO,
-  parent: 'game-root',
-  width: 1280,
-  height: 720,
-  backgroundColor: '#070b16',
-  physics: {
-    default: 'arcade',
-    arcade: { debug: false }
-  },
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 1280,
-    height: 720
-  },
-  scene: [BootScene, TitleScene, CharacterSelectScene, WorldScene, HUDScene]
-};
+import { Input } from './core/input.js';
+import { audio } from './core/audio.js';
+import { Game, loadSettings } from './game/game.js';
+import { Renderer } from './render/renderer.js';
+import { UI } from './ui/ui.js';
 
-function refreshGameScale() {
-  const game = window.astrayaGame;
-  if (!game) return;
-  game.scale.resize(1280, 720);
-  game.scale.refresh();
-}
+const canvas = document.getElementById('world');
+const input = new Input(canvas);
+const renderer = new Renderer(canvas, null);
+const ui = new UI();
+const game = new Game(ui, input, renderer);
+renderer.game = game;
+try { ui.bind(game, input, renderer); } catch (err) { console.error('ui.bind', err); window.__bindErr = String(err && err.stack || err); }
+window.astraya = { game, ui, renderer, input };
 
-function toggleFullscreen() {
-  const stage = document.getElementById('play');
-  if (!stage) return;
-  const active = document.fullscreenElement || document.webkitFullscreenElement;
-  if (!active) {
-    const req = stage.requestFullscreen || stage.webkitRequestFullscreen;
-    if (req) req.call(stage);
-  } else {
-    const exit = document.exitFullscreen || document.webkitExitFullscreen;
-    if (exit) exit.call(document);
-  }
-}
-
-window.addEventListener('load', () => {
-  window.astrayaGame = new Phaser.Game(config);
-
-  const root = document.getElementById('game-root');
-  if (root) {
-    root.focus({ preventScroll: true });
-    root.addEventListener('pointerdown', () => root.focus({ preventScroll: true }));
-  }
-
-  const btn = document.getElementById('btn-fullscreen');
-  if (btn) btn.addEventListener('click', toggleFullscreen);
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'f' || e.key === 'F') {
-      const tag = (e.target && e.target.tagName) || '';
-      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-      e.preventDefault();
-      toggleFullscreen();
-    }
-  });
-
-  ['fullscreenchange', 'webkitfullscreenchange'].forEach((ev) => {
-    document.addEventListener(ev, () => {
-      requestAnimationFrame(refreshGameScale);
-      setTimeout(refreshGameScale, 120);
-    });
-  });
-
-  window.addEventListener('resize', () => refreshGameScale());
+window.addEventListener('resize', () => renderer.resize());
+window.addEventListener('pointermove', (e) => {
+  input.mouse.overUI = !!e.target.closest('[data-ui], .panel, .dlg, .dock, .slot, .class-card, .btn, .ghost, .cell, .eq-slot, .map-card, .util, .slot-key, input, button');
 });
+
+document.getElementById('btn-fs-title')?.addEventListener('click', toggleFs);
+document.getElementById('btn-menu')?.addEventListener('click', () => ui.open('settings'));
+document.getElementById('btn-respawn')?.addEventListener('click', () => game.respawn());
+
+function toggleFs() {
+  const el = document.documentElement;
+  if (!document.fullscreenElement) el.requestFullscreen?.();
+  else document.exitFullscreen?.();
+}
+
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000);
+  last = now;
+  try {
+    if (game.running) {
+      game.update(dt);
+      renderer.render();
+      ui.tick(dt);
+      audio.update(game.player?.inCombat > 0);
+    } else {
+      ui.tickTitle(dt);
+    }
+  } catch (err) {
+    console.error(err);
+    window.__loopErr = String(err && err.stack || err);
+  }
+  input.endFrame();
+  requestAnimationFrame(frame);
+}
+
+const settings = loadSettings();
+audio.init();
+audio.setVolumes(settings.sfx * settings.master, settings.music * settings.master);
+requestAnimationFrame(frame);
+canvas.focus();
