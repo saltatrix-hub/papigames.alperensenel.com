@@ -1,0 +1,9 @@
+﻿passive_id,name,unlock_level,effect
+PAS_MAG_001,Expanded Mind,5,Max mana +10%
+PAS_MAG_002,Elemental Study,12,Element damage +6%
+PAS_MAG_003,Quick Casting,20,Cast time -8%
+PAS_MAG_004,Arcane Resonance,32,Different element casts stack +2% dmg x5
+PAS_MAG_005,Overchannel,48,High-cost spells crit +6%
+PAS_MAG_006,Astral Genius,64,AoE radius +8%
+PAS_MAG_007,Leywalker,78,Moving for 3s restores mana
+PAS_MAG_008,Grand Theorem,92,Rune cooldown -15%

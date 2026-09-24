@@ -1,0 +1,74 @@
+[
+  {
+    "region": "Dawnwatch Village",
+    "min_level": 1,
+    "max_level": 10,
+    "theme": "Safe Hub / pastoral coast",
+    "content": "Main village, class halls, auction, crafting, inn",
+    "boss": "Garrick the Red"
+  },
+  {
+    "region": "Verdant Trail",
+    "min_level": 5,
+    "max_level": 20,
+    "theme": "Forest / meadow",
+    "content": "open field, gathering, wolf dens, ancient roots",
+    "boss": "Thornmaw"
+  },
+  {
+    "region": "Moonfen Marsh",
+    "min_level": 20,
+    "max_level": 30,
+    "theme": "Swamp / undead",
+    "content": "curse zones, lantern paths, crypt entrances",
+    "boss": "Grave-Mother Nereza"
+  },
+  {
+    "region": "Ashen Wastes",
+    "min_level": 25,
+    "max_level": 38,
+    "theme": "Volcanic badlands",
+    "content": "elite camps, mining, forge ruins",
+    "boss": "Forge-Eater Golm"
+  },
+  {
+    "region": "Ironroot Depths",
+    "min_level": 32,
+    "max_level": 45,
+    "theme": "Underground root cavern",
+    "content": "crystal mines, spider hive, fungal forest",
+    "boss": "Hive Queen Velkra"
+  },
+  {
+    "region": "Sunscar Desert",
+    "min_level": 38,
+    "max_level": 50,
+    "theme": "Desert / ruins",
+    "content": "caravans, mirages, buried temples",
+    "boss": "Dune Tyrant Khar"
+  },
+  {
+    "region": "Celestine Ruins",
+    "min_level": 45,
+    "max_level": 58,
+    "theme": "Sky ruins / arcane",
+    "content": "runes, broken bridges, arcane sentinels",
+    "boss": "Arbiter of Halos"
+  },
+  {
+    "region": "Frostpeak Highlands",
+    "min_level": 52,
+    "max_level": 70,
+    "theme": "Snow / mountain",
+    "content": "mount routes, temple climb, blizzard events",
+    "boss": "Icefang Matriarch"
+  },
+  {
+    "region": "Abyss Gate",
+    "min_level": 65,
+    "max_level": 100,
+    "theme": "Void corruption / endgame",
+    "content": "rift events, raid entrances, mythic farm",
+    "boss": "Eclipse Seraph Malzor"
+  }
+]

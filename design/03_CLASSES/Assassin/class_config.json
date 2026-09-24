@@ -1,0 +1,198 @@
+{
+  "role": "Mobility + DPS",
+  "resource": "Focus",
+  "weapon": "Dual Daggers / Short Swords",
+  "armor": "Light Leather",
+  "primary": "AGI",
+  "secondary": "DEX",
+  "color": "Violet/Black",
+  "identity": "Stealth, poison, backstab, combo burst",
+  "skills": [
+    [
+      "Shadow Jab",
+      1,
+      "Active",
+      "Double strike",
+      1.1,
+      3,
+      15,
+      "2m target",
+      "2 hits",
+      "90 threat"
+    ],
+    [
+      "Vanish",
+      4,
+      "Active",
+      "Stealth reset",
+      0,
+      22,
+      30,
+      "Self",
+      "Stealth 4s",
+      "Threat -100%"
+    ],
+    [
+      "Backstab",
+      6,
+      "Active",
+      "Rear burst",
+      1.9,
+      6,
+      20,
+      "2m rear",
+      "Guaranteed crit from rear",
+      "100 threat"
+    ],
+    [
+      "Poison Edge",
+      9,
+      "Active",
+      "Weapon poison",
+      0.8,
+      10,
+      18,
+      "2m",
+      "Poison 8s",
+      "90 threat"
+    ],
+    [
+      "Shadowstep",
+      12,
+      "Active",
+      "Teleport behind",
+      1.0,
+      12,
+      22,
+      "8m target",
+      "Position behind",
+      "80 threat"
+    ],
+    [
+      "Fan of Knives",
+      16,
+      "Active",
+      "Cone AoE",
+      1.65,
+      14,
+      25,
+      "140° cone 4m",
+      "Bleed 5s",
+      "100 threat"
+    ],
+    [
+      "Smoke Veil",
+      20,
+      "Active",
+      "Defensive field",
+      0,
+      24,
+      35,
+      "5m circle",
+      "Dodge +20%",
+      "0 threat"
+    ],
+    [
+      "Crimson Mark",
+      26,
+      "Active",
+      "Vulnerability mark",
+      0.7,
+      18,
+      20,
+      "Single target",
+      "Damage taken +8%",
+      "90 threat"
+    ],
+    [
+      "Eviscerate",
+      32,
+      "Active",
+      "Combo finisher",
+      2.6,
+      16,
+      35,
+      "2m",
+      "Consumes combo",
+      "110 threat"
+    ],
+    [
+      "Night Parade",
+      40,
+      "Active",
+      "Shadow clones",
+      2.8,
+      36,
+      45,
+      "5m chain",
+      "6 shadow hits",
+      "100 threat"
+    ],
+    [
+      "Death Lotus",
+      54,
+      "Active",
+      "AoE spin",
+      3.1,
+      45,
+      60,
+      "5m circle",
+      "Dodge during cast",
+      "120 threat"
+    ],
+    [
+      "Kingkiller Art",
+      72,
+      "Ultimate",
+      "Single target burst",
+      4.0,
+      90,
+      80,
+      "3m",
+      "Execute scaling",
+      "130 threat"
+    ]
+  ],
+  "passives": [
+    [
+      "Fleet Soles",
+      5,
+      "Move speed +5%, dodge +3%"
+    ],
+    [
+      "Keen Blades",
+      11,
+      "Crit damage +10%"
+    ],
+    [
+      "Venom Lore",
+      19,
+      "Poison duration +25%"
+    ],
+    [
+      "Umbra Training",
+      28,
+      "Stealth exit damage +12% for 3s"
+    ],
+    [
+      "Murderous Intent",
+      42,
+      "Boss single target damage +6%"
+    ],
+    [
+      "Phantom Body",
+      58,
+      "Once/120s lethal hit leaves 1 HP and Vanish"
+    ],
+    [
+      "Silent Step",
+      74,
+      "Shadowstep grants dodge 1.5s"
+    ],
+    [
+      "Perfect Kill",
+      90,
+      "Marked target crit rate +8%"
+    ]
+  ]
+}

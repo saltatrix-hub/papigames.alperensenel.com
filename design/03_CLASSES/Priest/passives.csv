@@ -1,0 +1,9 @@
+﻿passive_id,name,unlock_level,effect
+PAS_PRI_001,Serene Mind,4,Faith regen +10%
+PAS_PRI_002,Kindled Prayer,10,Heal power +8%
+PAS_PRI_003,Graceful Steps,18,Support cast grants MS +5%
+PAS_PRI_004,Sacred Chorus,28,Aura duration +20%
+PAS_PRI_005,Mercy Beyond,42,Targets below 35% HP heal +15%
+PAS_PRI_006,Saints Authority,62,Buff potency +8%
+PAS_PRI_007,Radiant Memory,78,First revive each dungeon costs no resource
+PAS_PRI_008,Beacon of Dawn,92,Sanctuary grants 5% damage reduction

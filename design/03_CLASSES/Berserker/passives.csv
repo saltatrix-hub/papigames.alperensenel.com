@@ -1,0 +1,9 @@
+﻿passive_id,name,unlock_level,effect
+PAS_BER_001,Rageheart,5,Damage taken generates +20% Rage
+PAS_BER_002,Battle Scarred,12,Missing HP grants up to +12% DEF
+PAS_BER_003,Cleaver Instinct,20,Bleed damage +15%
+PAS_BER_004,Butchers Rhythm,34,Crit reduces Rage skill CD by 0.5s
+PAS_BER_005,Titan Hide,46,"Armor +8%, stun resist +10%"
+PAS_BER_006,Lord of Slaughter,62,Rage spend skills heal 2% dealt
+PAS_BER_007,Red Mist,76,Below 35% HP damage +10%
+PAS_BER_008,Warborn,90,Stance swap has no GCD

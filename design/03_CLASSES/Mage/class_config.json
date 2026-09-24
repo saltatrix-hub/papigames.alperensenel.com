@@ -1,0 +1,198 @@
+{
+  "role": "Ranged AoE DPS",
+  "resource": "Mana",
+  "weapon": "Arcane Staff / Orb / Grimoire",
+  "armor": "Cloth",
+  "primary": "INT",
+  "secondary": "SPI",
+  "color": "Cobalt/Silver",
+  "identity": "Element combos, burst AoE, gravity control",
+  "skills": [
+    [
+      "Arc Bolt",
+      1,
+      "Active",
+      "Basic spell",
+      1.15,
+      2,
+      18,
+      "13m projectile",
+      "Arcane tag",
+      "60 threat"
+    ],
+    [
+      "Flame Sigil",
+      4,
+      "Active",
+      "Ground burn",
+      1.45,
+      8,
+      26,
+      "4m circle",
+      "Burn 6s",
+      "70 threat"
+    ],
+    [
+      "Frost Needle",
+      7,
+      "Active",
+      "Single target slow",
+      1.4,
+      6,
+      20,
+      "13m projectile",
+      "Slow 35% 3s",
+      "60 threat"
+    ],
+    [
+      "Mana Shield",
+      10,
+      "Active",
+      "Barrier",
+      0,
+      24,
+      30,
+      "Self",
+      "Absorb via mana",
+      "0 threat"
+    ],
+    [
+      "Chain Lightning",
+      14,
+      "Active",
+      "Chain AoE",
+      1.85,
+      12,
+      32,
+      "5 targets",
+      "Shock 4s",
+      "70 threat"
+    ],
+    [
+      "Arcane Pulse",
+      18,
+      "Active",
+      "Point blank AoE",
+      1.7,
+      10,
+      28,
+      "4m circle",
+      "Push 0.6m",
+      "70 threat"
+    ],
+    [
+      "Gravity Well",
+      24,
+      "Active",
+      "Pull field",
+      0.9,
+      18,
+      40,
+      "5m circle",
+      "Pull + slow",
+      "80 threat"
+    ],
+    [
+      "Meteor Shard",
+      30,
+      "Active",
+      "Large AoE",
+      2.35,
+      16,
+      45,
+      "6m circle",
+      "Burn 8s",
+      "90 threat"
+    ],
+    [
+      "Mirror Rune",
+      38,
+      "Active",
+      "Spell echo",
+      0,
+      28,
+      22,
+      "Self rune",
+      "Next spell repeats 45%",
+      "0 threat"
+    ],
+    [
+      "Frozen Domain",
+      46,
+      "Active",
+      "Control field",
+      1.2,
+      32,
+      55,
+      "7m circle",
+      "Slow 45%, brittle",
+      "90 threat"
+    ],
+    [
+      "Astral Cataclysm",
+      60,
+      "Active",
+      "Burst nuke",
+      3.4,
+      70,
+      80,
+      "7m circle",
+      "Knockdown minor mobs",
+      "100 threat"
+    ],
+    [
+      "Eclipse Orbit",
+      78,
+      "Ultimate",
+      "Overdrive",
+      0,
+      110,
+      100,
+      "Self",
+      "Spell power +25% 12s",
+      "0 threat"
+    ]
+  ],
+  "passives": [
+    [
+      "Expanded Mind",
+      5,
+      "Max mana +10%"
+    ],
+    [
+      "Elemental Study",
+      12,
+      "Element damage +6%"
+    ],
+    [
+      "Quick Casting",
+      20,
+      "Cast time -8%"
+    ],
+    [
+      "Arcane Resonance",
+      32,
+      "Different element casts stack +2% dmg x5"
+    ],
+    [
+      "Overchannel",
+      48,
+      "High-cost spells crit +6%"
+    ],
+    [
+      "Astral Genius",
+      64,
+      "AoE radius +8%"
+    ],
+    [
+      "Leywalker",
+      78,
+      "Moving for 3s restores mana"
+    ],
+    [
+      "Grand Theorem",
+      92,
+      "Rune cooldown -15%"
+    ]
+  ]
+}

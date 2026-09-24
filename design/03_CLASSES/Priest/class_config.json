@@ -1,0 +1,198 @@
+{
+  "role": "AoE Support + Buff + Attack",
+  "resource": "Faith",
+  "weapon": "Holy Mace / Censer / Sacred Tome",
+  "armor": "Cloth / Light Robe",
+  "primary": "SPI",
+  "secondary": "INT",
+  "color": "Ivory/Gold/Red",
+  "identity": "AoE healing, buffs, cleanse, holy utility",
+  "skills": [
+    [
+      "Sacred Spark",
+      1,
+      "Active",
+      "Holy projectile",
+      1.0,
+      2,
+      16,
+      "12m projectile",
+      "Holy tag",
+      "50 threat"
+    ],
+    [
+      "Minor Mend",
+      3,
+      "Active",
+      "Single heal",
+      1.2,
+      4,
+      20,
+      "12m ally",
+      "Instant heal",
+      "-80 threat"
+    ],
+    [
+      "Blessing of Grace",
+      6,
+      "Active",
+      "Party buff",
+      0,
+      18,
+      24,
+      "6m allies",
+      "AS/MS +8%",
+      "0 threat"
+    ],
+    [
+      "Halo Pulse",
+      9,
+      "Active",
+      "AoE holy damage",
+      1.45,
+      10,
+      26,
+      "4m circle",
+      "Weak blind 1s",
+      "60 threat"
+    ],
+    [
+      "Sanctuary Field",
+      13,
+      "Active",
+      "AoE HoT",
+      0,
+      20,
+      30,
+      "6m circle",
+      "Heal over time",
+      "-120 threat"
+    ],
+    [
+      "Purify",
+      17,
+      "Active",
+      "Cleanse",
+      0,
+      14,
+      22,
+      "12m ally",
+      "Removes 2 debuffs",
+      "-40 threat"
+    ],
+    [
+      "Guardian Hymn",
+      22,
+      "Active",
+      "Defense aura",
+      0,
+      24,
+      28,
+      "7m circle",
+      "DEF/MDEF +10%",
+      "0 threat"
+    ],
+    [
+      "Luminous Chains",
+      28,
+      "Active",
+      "Damage/support chain",
+      1.7,
+      18,
+      35,
+      "4 targets",
+      "Heals ally if bounced",
+      "50 threat"
+    ],
+    [
+      "Resurrection",
+      36,
+      "Active",
+      "Revive ally",
+      0,
+      120,
+      50,
+      "10m ally",
+      "Revive 35% HP",
+      "0 threat"
+    ],
+    [
+      "Judgment Ray",
+      44,
+      "Active",
+      "Line holy attack",
+      1.85,
+      16,
+      40,
+      "12x1.5m line",
+      "Holy vulnerability",
+      "60 threat"
+    ],
+    [
+      "Choir of Dawn",
+      58,
+      "Active",
+      "Major group heal",
+      0,
+      50,
+      65,
+      "8m party",
+      "Heal + renew buffs",
+      "-180 threat"
+    ],
+    [
+      "Apotheosis",
+      76,
+      "Ultimate",
+      "Support overdrive",
+      0,
+      120,
+      90,
+      "Self",
+      "Heal/buff power +30%",
+      "0 threat"
+    ]
+  ],
+  "passives": [
+    [
+      "Serene Mind",
+      4,
+      "Faith regen +10%"
+    ],
+    [
+      "Kindled Prayer",
+      10,
+      "Heal power +8%"
+    ],
+    [
+      "Graceful Steps",
+      18,
+      "Support cast grants MS +5%"
+    ],
+    [
+      "Sacred Chorus",
+      28,
+      "Aura duration +20%"
+    ],
+    [
+      "Mercy Beyond",
+      42,
+      "Targets below 35% HP heal +15%"
+    ],
+    [
+      "Saints Authority",
+      62,
+      "Buff potency +8%"
+    ],
+    [
+      "Radiant Memory",
+      78,
+      "First revive each dungeon costs no resource"
+    ],
+    [
+      "Beacon of Dawn",
+      92,
+      "Sanctuary grants 5% damage reduction"
+    ]
+  ]
+}

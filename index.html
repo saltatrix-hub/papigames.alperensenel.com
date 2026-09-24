@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASTRAYA — 2D MMORPG</title>
+    <meta
+      name="description"
+      content="Astraya: a top-down 2D MMORPG adventure across Dawnwatch, Verdant Trail, and Moonfen Marsh. Six classes. Nine seals. The Second Dawn."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark">◈</span>
+          <div>
+            <strong>ASTRAYA</strong>
+            <em>Nine Seals · Second Dawn</em>
+          </div>
+        </div>
+        <nav>
+          <a href="#play">Play</a>
+          <a href="#world">World</a>
+          <a href="#classes">Classes</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero" id="play">
+          <div class="hero-copy">
+            <p class="eyebrow">PAPI GAMES · 2D MMORPG CLIENT</p>
+            <h1>ASTRAYA</h1>
+            <p class="lede">
+              The seals fracture. Violet veins pulse beneath Dawnwatch. Choose your class and hold the
+              continent against the Abyss.
+            </p>
+            <div class="cta-row">
+              <a class="btn primary" href="#game-root">Enter the Realm</a>
+              <a class="btn ghost" href="design/">Design Pack</a>
+            </div>
+          </div>
+          <div class="hero-frame">
+            <div id="game-root" tabindex="0" aria-label="Astraya game canvas"></div>
+          </div>
+        </section>
+
+        <section class="strip" id="world">
+          <h2>The Continent</h2>
+          <div class="cards">
+            <article>
+              <h3>Dawnwatch Village</h3>
+              <p>Safe hub. Learn the prologue, cull corrupted beasts, and face Garrick the Red.</p>
+            </article>
+            <article>
+              <h3>Verdant Trail</h3>
+              <p>Forest corruption spreads. Hunt wolves and entlings, then challenge Thornmaw.</p>
+            </article>
+            <article>
+              <h3>Moonfen Marsh</h3>
+              <p>Lantern paths and restless dead. Confront Grave-Mother Nereza.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="strip classes" id="classes">
+          <h2>Six Paths</h2>
+          <div class="class-grid">
+            <div><b>Knight</b><span>Tank · Valor</span></div>
+            <div><b>Berserker</b><span>Rage cleave</span></div>
+            <div><b>Assassin</b><span>Stealth burst</span></div>
+            <div><b>Ranger</b><span>Ranged kite</span></div>
+            <div><b>Mage</b><span>Arcane AoE</span></div>
+            <div><b>Priest</b><span>Faith support</span></div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>Built from the Astraya Master Game Design Document · Local saves in your browser</p>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/systems/assets.js"></script>
+    <script src="js/systems/save.js"></script>
+    <script src="js/scenes/menu.js"></script>
+    <script src="js/scenes/world.js"></script>
+    <script src="js/scenes/hud.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

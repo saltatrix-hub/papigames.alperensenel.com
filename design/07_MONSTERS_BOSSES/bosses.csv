@@ -1,0 +1,10 @@
+﻿boss_id,name,region,level,type,ability_package
+BOSS_01,Thornmaw,Verdant Trail,20,World Boss,"Root slam,Vine prison,Seed burst,Add summon,Enrage"
+BOSS_02,Grave-Mother Nereza,Moonfen Marsh,30,World Boss,"Soul drain,Lantern adds,Curse stacks,Mist phase,Wail"
+BOSS_03,Forge-Eater Golm,Ashen Wastes,38,World Boss,"Magma slam,Vents,Chain drag,Armor phase,Overheat"
+BOSS_04,Hive Queen Velkra,Ironroot Depths,45,Dungeon Boss,"Web zones,Eggs,Cocoon,Venom cone,Frenzy"
+BOSS_05,Dune Tyrant Khar,Sunscar Desert,50,World Boss,"Burrow,Sand surge,Tail sweep,Mirage split,Collapse"
+BOSS_06,Arbiter of Halos,Celestine Ruins,58,Dungeon Boss,"Rune sequence,Seal burst,Beam,Cage,Halo collapse"
+BOSS_07,Icefang Matriarch,Frostpeak Highlands,70,World Boss,"Frost breath,Spear rain,Blizzard,Nest call,Frozen Moon"
+BOSS_08,Gate Herald Xyron,Abyss Gate,80,Dungeon Boss,"Void lash,Rift bloom,Sanity breach,Orbital ruin,Dark horizon"
+BOSS_09,Eclipse Seraph Malzor,Abyss Gate,100,Raid Final,"Gravity spear,Eclipse nova,Starfall,LightDark shift,Broken choir,Second Dawn"

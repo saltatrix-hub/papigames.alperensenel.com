@@ -1,0 +1,9 @@
+﻿passive_id,name,unlock_level,effect
+PAS_KNI_001,Iron Discipline,4,Block +4% and armor +6%
+PAS_KNI_002,Shield Mastery,10,Shield block value +12%
+PAS_KNI_003,Unbroken Resolve,18,Damage taken while CC -10%
+PAS_KNI_004,Royal Bearing,28,Nearby allies DEF +4%
+PAS_KNI_005,Fortress Soul,44,Max HP +12%
+PAS_KNI_006,Paragon of Duty,60,Guard skills cooldown -10%
+PAS_KNI_007,Immovable,75,Knockback resistance +50%
+PAS_KNI_008,Crown Defender,90,Barrier power +15%

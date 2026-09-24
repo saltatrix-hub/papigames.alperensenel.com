@@ -1,0 +1,13 @@
+﻿shop_id,name,category,astral_crystal_price,power_policy,duration
+CS_001,Knight Celestial Guardian Costume,Costume,1200,Cosmetic,Permanent
+CS_002,Berserker Crimson King Costume,Costume,1200,Cosmetic,Permanent
+CS_003,Assassin Moonlight Huntress Costume,Costume,1200,Cosmetic,Permanent
+CS_004,Ranger Flower Fairy Costume,Costume,1200,Cosmetic,Permanent
+CS_005,Mage Cosmic Oracle Costume,Costume,1200,Cosmetic,Permanent
+CS_006,Priest Divine Harmony Costume,Costume,1200,Cosmetic,Permanent
+CS_010,Spectral Stag Mount,Mount,900,Cosmetic,Permanent
+CS_011,Desert Drake Mount,Mount,1100,Cosmetic,Permanent
+CS_020,Inventory +24 Slots,Convenience,500,Account Utility,Permanent
+CS_021,Storage Tab,Convenience,450,Account Utility,Permanent
+CS_030,Season Premium Pass,BattlePass,1000,Seasonal Cosmetics,Season
+CS_040,Name Change,Service,400,Service,One use

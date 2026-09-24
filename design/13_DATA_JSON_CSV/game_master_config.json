@@ -1,0 +1,2268 @@
+{
+  "regions": [
+    {
+      "region": "Dawnwatch Village",
+      "min_level": 1,
+      "max_level": 10,
+      "theme": "Safe Hub / pastoral coast",
+      "content": "Main village, class halls, auction, crafting, inn",
+      "boss": "Garrick the Red"
+    },
+    {
+      "region": "Verdant Trail",
+      "min_level": 5,
+      "max_level": 20,
+      "theme": "Forest / meadow",
+      "content": "open field, gathering, wolf dens, ancient roots",
+      "boss": "Thornmaw"
+    },
+    {
+      "region": "Moonfen Marsh",
+      "min_level": 20,
+      "max_level": 30,
+      "theme": "Swamp / undead",
+      "content": "curse zones, lantern paths, crypt entrances",
+      "boss": "Grave-Mother Nereza"
+    },
+    {
+      "region": "Ashen Wastes",
+      "min_level": 25,
+      "max_level": 38,
+      "theme": "Volcanic badlands",
+      "content": "elite camps, mining, forge ruins",
+      "boss": "Forge-Eater Golm"
+    },
+    {
+      "region": "Ironroot Depths",
+      "min_level": 32,
+      "max_level": 45,
+      "theme": "Underground root cavern",
+      "content": "crystal mines, spider hive, fungal forest",
+      "boss": "Hive Queen Velkra"
+    },
+    {
+      "region": "Sunscar Desert",
+      "min_level": 38,
+      "max_level": 50,
+      "theme": "Desert / ruins",
+      "content": "caravans, mirages, buried temples",
+      "boss": "Dune Tyrant Khar"
+    },
+    {
+      "region": "Celestine Ruins",
+      "min_level": 45,
+      "max_level": 58,
+      "theme": "Sky ruins / arcane",
+      "content": "runes, broken bridges, arcane sentinels",
+      "boss": "Arbiter of Halos"
+    },
+    {
+      "region": "Frostpeak Highlands",
+      "min_level": 52,
+      "max_level": 70,
+      "theme": "Snow / mountain",
+      "content": "mount routes, temple climb, blizzard events",
+      "boss": "Icefang Matriarch"
+    },
+    {
+      "region": "Abyss Gate",
+      "min_level": 65,
+      "max_level": 100,
+      "theme": "Void corruption / endgame",
+      "content": "rift events, raid entrances, mythic farm",
+      "boss": "Eclipse Seraph Malzor"
+    }
+  ],
+  "classes": {
+    "Knight": {
+      "role": "Tank",
+      "resource": "Valor",
+      "weapon": "Longsword + Tower Shield / Mace + Shield",
+      "armor": "Heavy Plate",
+      "primary": "VIT",
+      "secondary": "STR",
+      "color": "Royal Blue/Gold",
+      "identity": "Threat, block, guard links, party mitigation",
+      "skills": [
+        [
+          "Shield Rush",
+          1,
+          "Active",
+          "Gap closer + stun",
+          1.2,
+          8,
+          20,
+          "2.2x1.0 rectangle",
+          "1.2s stun",
+          "220 threat"
+        ],
+        [
+          "Bulwark Stance",
+          3,
+          "Stance",
+          "Tank stance",
+          0,
+          20,
+          0,
+          "Self",
+          "-20% damage taken",
+          "+35% threat"
+        ],
+        [
+          "Taunting Cry",
+          5,
+          "Active",
+          "AoE taunt",
+          0,
+          18,
+          25,
+          "5m circle",
+          "3s taunt",
+          "Set top threat +10%"
+        ],
+        [
+          "Radiant Slash",
+          8,
+          "Active",
+          "Frontal cleave",
+          1.45,
+          6,
+          22,
+          "120° cone 3m",
+          "Holy mark 6s",
+          "150 threat"
+        ],
+        [
+          "Guardian Oath",
+          12,
+          "Active",
+          "Protect ally",
+          0,
+          22,
+          30,
+          "Target ally",
+          "30% damage redirect",
+          "100 threat"
+        ],
+        [
+          "Aegis Wall",
+          16,
+          "Active",
+          "Party barrier",
+          0,
+          24,
+          35,
+          "4x2.5m wall",
+          "Shield 12% max HP",
+          "80 threat"
+        ],
+        [
+          "Counter Bastion",
+          20,
+          "Active",
+          "Block counter",
+          1.8,
+          14,
+          18,
+          "2m frontal",
+          "Knockback 0.8m",
+          "170 threat"
+        ],
+        [
+          "Lionheart Banner",
+          26,
+          "Active",
+          "Defense aura",
+          0,
+          45,
+          40,
+          "6m circle",
+          "DEF +12%, Tenacity +15%",
+          "50 threat"
+        ],
+        [
+          "Hammer of Judgment",
+          32,
+          "Active",
+          "AoE slam",
+          2.0,
+          20,
+          45,
+          "4m circle",
+          "Slow 35% 4s",
+          "190 threat"
+        ],
+        [
+          "Sanctified Rampart",
+          40,
+          "Active",
+          "Mass barrier",
+          0,
+          55,
+          60,
+          "7m circle",
+          "Barrier + cleanse resist",
+          "120 threat"
+        ],
+        [
+          "Kings Challenge",
+          52,
+          "Active",
+          "Boss taunt tool",
+          0,
+          35,
+          50,
+          "Single target",
+          "Threat lock 5s",
+          "Top threat +25%"
+        ],
+        [
+          "Last Bastion",
+          70,
+          "Ultimate",
+          "Cheat death",
+          0,
+          180,
+          0,
+          "Self",
+          "Cannot die 5s",
+          "0 threat"
+        ]
+      ],
+      "passives": [
+        [
+          "Iron Discipline",
+          4,
+          "Block +4% and armor +6%"
+        ],
+        [
+          "Shield Mastery",
+          10,
+          "Shield block value +12%"
+        ],
+        [
+          "Unbroken Resolve",
+          18,
+          "Damage taken while CC -10%"
+        ],
+        [
+          "Royal Bearing",
+          28,
+          "Nearby allies DEF +4%"
+        ],
+        [
+          "Fortress Soul",
+          44,
+          "Max HP +12%"
+        ],
+        [
+          "Paragon of Duty",
+          60,
+          "Guard skills cooldown -10%"
+        ],
+        [
+          "Immovable",
+          75,
+          "Knockback resistance +50%"
+        ],
+        [
+          "Crown Defender",
+          90,
+          "Barrier power +15%"
+        ]
+      ]
+    },
+    "Berserker": {
+      "role": "Tank / DPS",
+      "resource": "Rage",
+      "weapon": "Greataxe / Greatsword",
+      "armor": "Heavy Hybrid",
+      "primary": "STR",
+      "secondary": "VIT",
+      "color": "Crimson/Black",
+      "identity": "Rage, cleave, lifesteal, stance swap",
+      "skills": [
+        [
+          "Savage Cleave",
+          1,
+          "Active",
+          "Frontal AoE",
+          1.35,
+          4,
+          10,
+          "120° cone",
+          "Bleed 4s",
+          "120 threat"
+        ],
+        [
+          "War Roar",
+          4,
+          "Active",
+          "AoE challenge",
+          0,
+          18,
+          0,
+          "5m circle",
+          "Fear immunity 3s",
+          "180 threat"
+        ],
+        [
+          "Blood Crash",
+          7,
+          "Active",
+          "Heavy strike",
+          1.7,
+          8,
+          20,
+          "2.5m target",
+          "Bleed 8s",
+          "130 threat"
+        ],
+        [
+          "Ravager Stance",
+          10,
+          "Stance",
+          "DPS stance",
+          0,
+          20,
+          0,
+          "Self",
+          "Damage +15%, DEF -10%",
+          "-20% threat"
+        ],
+        [
+          "Defender Stance",
+          10,
+          "Stance",
+          "Tank stance",
+          0,
+          20,
+          0,
+          "Self",
+          "Damage taken -12%",
+          "+45% threat"
+        ],
+        [
+          "Whirlwind Carve",
+          14,
+          "Active",
+          "Spin AoE",
+          2.2,
+          14,
+          30,
+          "4m circle",
+          "Pull micro 0.4m",
+          "140 threat"
+        ],
+        [
+          "Skullsplitter",
+          18,
+          "Active",
+          "Armor break",
+          1.8,
+          12,
+          25,
+          "2.5m",
+          "Armor -15% 8s",
+          "150 threat"
+        ],
+        [
+          "Blood Pact",
+          24,
+          "Active",
+          "Self buff",
+          0,
+          40,
+          0,
+          "Self",
+          "Lifesteal +12%",
+          "0 threat"
+        ],
+        [
+          "Titanbreaker Leap",
+          30,
+          "Active",
+          "Leap AoE",
+          2.05,
+          18,
+          35,
+          "4m impact",
+          "Stun 1s",
+          "180 threat"
+        ],
+        [
+          "Chain of Carnage",
+          38,
+          "Active",
+          "Multi-hit cleave",
+          2.4,
+          24,
+          45,
+          "5m chain",
+          "Bleed refresh",
+          "150 threat"
+        ],
+        [
+          "Unyielding Frenzy",
+          50,
+          "Active",
+          "Burst mode",
+          0,
+          60,
+          50,
+          "Self",
+          "AS +25%, Rage gain +35%",
+          "0 threat"
+        ],
+        [
+          "Execution Storm",
+          68,
+          "Ultimate",
+          "Execute AoE",
+          3.2,
+          28,
+          60,
+          "5m circle",
+          "Bonus under 30% HP",
+          "180 threat"
+        ]
+      ],
+      "passives": [
+        [
+          "Rageheart",
+          5,
+          "Damage taken generates +20% Rage"
+        ],
+        [
+          "Battle Scarred",
+          12,
+          "Missing HP grants up to +12% DEF"
+        ],
+        [
+          "Cleaver Instinct",
+          20,
+          "Bleed damage +15%"
+        ],
+        [
+          "Butchers Rhythm",
+          34,
+          "Crit reduces Rage skill CD by 0.5s"
+        ],
+        [
+          "Titan Hide",
+          46,
+          "Armor +8%, stun resist +10%"
+        ],
+        [
+          "Lord of Slaughter",
+          62,
+          "Rage spend skills heal 2% dealt"
+        ],
+        [
+          "Red Mist",
+          76,
+          "Below 35% HP damage +10%"
+        ],
+        [
+          "Warborn",
+          90,
+          "Stance swap has no GCD"
+        ]
+      ]
+    },
+    "Assassin": {
+      "role": "Mobility + DPS",
+      "resource": "Focus",
+      "weapon": "Dual Daggers / Short Swords",
+      "armor": "Light Leather",
+      "primary": "AGI",
+      "secondary": "DEX",
+      "color": "Violet/Black",
+      "identity": "Stealth, poison, backstab, combo burst",
+      "skills": [
+        [
+          "Shadow Jab",
+          1,
+          "Active",
+          "Double strike",
+          1.1,
+          3,
+          15,
+          "2m target",
+          "2 hits",
+          "90 threat"
+        ],
+        [
+          "Vanish",
+          4,
+          "Active",
+          "Stealth reset",
+          0,
+          22,
+          30,
+          "Self",
+          "Stealth 4s",
+          "Threat -100%"
+        ],
+        [
+          "Backstab",
+          6,
+          "Active",
+          "Rear burst",
+          1.9,
+          6,
+          20,
+          "2m rear",
+          "Guaranteed crit from rear",
+          "100 threat"
+        ],
+        [
+          "Poison Edge",
+          9,
+          "Active",
+          "Weapon poison",
+          0.8,
+          10,
+          18,
+          "2m",
+          "Poison 8s",
+          "90 threat"
+        ],
+        [
+          "Shadowstep",
+          12,
+          "Active",
+          "Teleport behind",
+          1.0,
+          12,
+          22,
+          "8m target",
+          "Position behind",
+          "80 threat"
+        ],
+        [
+          "Fan of Knives",
+          16,
+          "Active",
+          "Cone AoE",
+          1.65,
+          14,
+          25,
+          "140° cone 4m",
+          "Bleed 5s",
+          "100 threat"
+        ],
+        [
+          "Smoke Veil",
+          20,
+          "Active",
+          "Defensive field",
+          0,
+          24,
+          35,
+          "5m circle",
+          "Dodge +20%",
+          "0 threat"
+        ],
+        [
+          "Crimson Mark",
+          26,
+          "Active",
+          "Vulnerability mark",
+          0.7,
+          18,
+          20,
+          "Single target",
+          "Damage taken +8%",
+          "90 threat"
+        ],
+        [
+          "Eviscerate",
+          32,
+          "Active",
+          "Combo finisher",
+          2.6,
+          16,
+          35,
+          "2m",
+          "Consumes combo",
+          "110 threat"
+        ],
+        [
+          "Night Parade",
+          40,
+          "Active",
+          "Shadow clones",
+          2.8,
+          36,
+          45,
+          "5m chain",
+          "6 shadow hits",
+          "100 threat"
+        ],
+        [
+          "Death Lotus",
+          54,
+          "Active",
+          "AoE spin",
+          3.1,
+          45,
+          60,
+          "5m circle",
+          "Dodge during cast",
+          "120 threat"
+        ],
+        [
+          "Kingkiller Art",
+          72,
+          "Ultimate",
+          "Single target burst",
+          4.0,
+          90,
+          80,
+          "3m",
+          "Execute scaling",
+          "130 threat"
+        ]
+      ],
+      "passives": [
+        [
+          "Fleet Soles",
+          5,
+          "Move speed +5%, dodge +3%"
+        ],
+        [
+          "Keen Blades",
+          11,
+          "Crit damage +10%"
+        ],
+        [
+          "Venom Lore",
+          19,
+          "Poison duration +25%"
+        ],
+        [
+          "Umbra Training",
+          28,
+          "Stealth exit damage +12% for 3s"
+        ],
+        [
+          "Murderous Intent",
+          42,
+          "Boss single target damage +6%"
+        ],
+        [
+          "Phantom Body",
+          58,
+          "Once/120s lethal hit leaves 1 HP and Vanish"
+        ],
+        [
+          "Silent Step",
+          74,
+          "Shadowstep grants dodge 1.5s"
+        ],
+        [
+          "Perfect Kill",
+          90,
+          "Marked target crit rate +8%"
+        ]
+      ]
+    },
+    "Ranger": {
+      "role": "Mobile Ranged DPS / AoE",
+      "resource": "Focus",
+      "weapon": "Longbow / Recurve Bow / Light Crossbow",
+      "armor": "Medium Leather",
+      "primary": "DEX",
+      "secondary": "AGI",
+      "color": "Emerald/Brown",
+      "identity": "Kiting, mark, traps, volley, line damage",
+      "skills": [
+        [
+          "Quick Shot",
+          1,
+          "Active",
+          "Fast shot",
+          1.05,
+          2,
+          12,
+          "12m projectile",
+          "None",
+          "70 threat"
+        ],
+        [
+          "Rolling Escape",
+          4,
+          "Active",
+          "Mobility dodge",
+          0,
+          10,
+          18,
+          "4m roll",
+          "I-frame 0.25s",
+          "0 threat"
+        ],
+        [
+          "Marked Prey",
+          6,
+          "Active",
+          "Target mark",
+          0.6,
+          14,
+          15,
+          "14m target",
+          "Crit taken +6%",
+          "60 threat"
+        ],
+        [
+          "Piercing Arrow",
+          9,
+          "Active",
+          "Line shot",
+          1.75,
+          8,
+          20,
+          "14x1m line",
+          "Pierces 5 targets",
+          "80 threat"
+        ],
+        [
+          "Volley",
+          13,
+          "Active",
+          "Ground AoE",
+          1.85,
+          12,
+          25,
+          "5m circle at 12m",
+          "6 ticks",
+          "90 threat"
+        ],
+        [
+          "Snare Trap",
+          17,
+          "Active",
+          "Root trap",
+          0.4,
+          18,
+          18,
+          "3m trap",
+          "Root 2.5s",
+          "50 threat"
+        ],
+        [
+          "Falcon Scout",
+          22,
+          "Active",
+          "Reveal utility",
+          0.5,
+          30,
+          20,
+          "10m scout zone",
+          "Reveal stealth",
+          "40 threat"
+        ],
+        [
+          "Storm Arrows",
+          28,
+          "Active",
+          "Rapid fire",
+          2.2,
+          24,
+          35,
+          "12m cone",
+          "8 arrows",
+          "90 threat"
+        ],
+        [
+          "Ricochet Bolt",
+          35,
+          "Active",
+          "Chain shot",
+          1.95,
+          16,
+          30,
+          "4 targets",
+          "-15% each bounce",
+          "80 threat"
+        ],
+        [
+          "Emerald Canopy",
+          42,
+          "Active",
+          "Party mobility field",
+          0,
+          35,
+          40,
+          "6m circle",
+          "Dodge +10%, MS +12%",
+          "0 threat"
+        ],
+        [
+          "Meteor Volley",
+          56,
+          "Active",
+          "Large AoE",
+          3.0,
+          40,
+          55,
+          "7m circle",
+          "Knockback minor",
+          "100 threat"
+        ],
+        [
+          "Kings Hunt",
+          74,
+          "Ultimate",
+          "Marked burst",
+          3.8,
+          95,
+          75,
+          "14m target",
+          "12 arrows on marked target",
+          "110 threat"
+        ]
+      ],
+      "passives": [
+        [
+          "Trailrunner",
+          5,
+          "Move while attacking penalty -50%"
+        ],
+        [
+          "Steady Aim",
+          10,
+          "Damage +6% beyond 8m"
+        ],
+        [
+          "Wildcraft",
+          18,
+          "Trap duration +20%"
+        ],
+        [
+          "Arrow Tempest",
+          30,
+          "AoE radius +10%"
+        ],
+        [
+          "Predators Calm",
+          44,
+          "Boss crit +5%"
+        ],
+        [
+          "Skyeye Doctrine",
+          60,
+          "Falcon active grants CDR +8%"
+        ],
+        [
+          "Windstep",
+          75,
+          "Roll gains 1 charge every 20s"
+        ],
+        [
+          "Perfect Trajectory",
+          90,
+          "Piercing attacks ignore 8% armor"
+        ]
+      ]
+    },
+    "Mage": {
+      "role": "Ranged AoE DPS",
+      "resource": "Mana",
+      "weapon": "Arcane Staff / Orb / Grimoire",
+      "armor": "Cloth",
+      "primary": "INT",
+      "secondary": "SPI",
+      "color": "Cobalt/Silver",
+      "identity": "Element combos, burst AoE, gravity control",
+      "skills": [
+        [
+          "Arc Bolt",
+          1,
+          "Active",
+          "Basic spell",
+          1.15,
+          2,
+          18,
+          "13m projectile",
+          "Arcane tag",
+          "60 threat"
+        ],
+        [
+          "Flame Sigil",
+          4,
+          "Active",
+          "Ground burn",
+          1.45,
+          8,
+          26,
+          "4m circle",
+          "Burn 6s",
+          "70 threat"
+        ],
+        [
+          "Frost Needle",
+          7,
+          "Active",
+          "Single target slow",
+          1.4,
+          6,
+          20,
+          "13m projectile",
+          "Slow 35% 3s",
+          "60 threat"
+        ],
+        [
+          "Mana Shield",
+          10,
+          "Active",
+          "Barrier",
+          0,
+          24,
+          30,
+          "Self",
+          "Absorb via mana",
+          "0 threat"
+        ],
+        [
+          "Chain Lightning",
+          14,
+          "Active",
+          "Chain AoE",
+          1.85,
+          12,
+          32,
+          "5 targets",
+          "Shock 4s",
+          "70 threat"
+        ],
+        [
+          "Arcane Pulse",
+          18,
+          "Active",
+          "Point blank AoE",
+          1.7,
+          10,
+          28,
+          "4m circle",
+          "Push 0.6m",
+          "70 threat"
+        ],
+        [
+          "Gravity Well",
+          24,
+          "Active",
+          "Pull field",
+          0.9,
+          18,
+          40,
+          "5m circle",
+          "Pull + slow",
+          "80 threat"
+        ],
+        [
+          "Meteor Shard",
+          30,
+          "Active",
+          "Large AoE",
+          2.35,
+          16,
+          45,
+          "6m circle",
+          "Burn 8s",
+          "90 threat"
+        ],
+        [
+          "Mirror Rune",
+          38,
+          "Active",
+          "Spell echo",
+          0,
+          28,
+          22,
+          "Self rune",
+          "Next spell repeats 45%",
+          "0 threat"
+        ],
+        [
+          "Frozen Domain",
+          46,
+          "Active",
+          "Control field",
+          1.2,
+          32,
+          55,
+          "7m circle",
+          "Slow 45%, brittle",
+          "90 threat"
+        ],
+        [
+          "Astral Cataclysm",
+          60,
+          "Active",
+          "Burst nuke",
+          3.4,
+          70,
+          80,
+          "7m circle",
+          "Knockdown minor mobs",
+          "100 threat"
+        ],
+        [
+          "Eclipse Orbit",
+          78,
+          "Ultimate",
+          "Overdrive",
+          0,
+          110,
+          100,
+          "Self",
+          "Spell power +25% 12s",
+          "0 threat"
+        ]
+      ],
+      "passives": [
+        [
+          "Expanded Mind",
+          5,
+          "Max mana +10%"
+        ],
+        [
+          "Elemental Study",
+          12,
+          "Element damage +6%"
+        ],
+        [
+          "Quick Casting",
+          20,
+          "Cast time -8%"
+        ],
+        [
+          "Arcane Resonance",
+          32,
+          "Different element casts stack +2% dmg x5"
+        ],
+        [
+          "Overchannel",
+          48,
+          "High-cost spells crit +6%"
+        ],
+        [
+          "Astral Genius",
+          64,
+          "AoE radius +8%"
+        ],
+        [
+          "Leywalker",
+          78,
+          "Moving for 3s restores mana"
+        ],
+        [
+          "Grand Theorem",
+          92,
+          "Rune cooldown -15%"
+        ]
+      ]
+    },
+    "Priest": {
+      "role": "AoE Support + Buff + Attack",
+      "resource": "Faith",
+      "weapon": "Holy Mace / Censer / Sacred Tome",
+      "armor": "Cloth / Light Robe",
+      "primary": "SPI",
+      "secondary": "INT",
+      "color": "Ivory/Gold/Red",
+      "identity": "AoE healing, buffs, cleanse, holy utility",
+      "skills": [
+        [
+          "Sacred Spark",
+          1,
+          "Active",
+          "Holy projectile",
+          1.0,
+          2,
+          16,
+          "12m projectile",
+          "Holy tag",
+          "50 threat"
+        ],
+        [
+          "Minor Mend",
+          3,
+          "Active",
+          "Single heal",
+          1.2,
+          4,
+          20,
+          "12m ally",
+          "Instant heal",
+          "-80 threat"
+        ],
+        [
+          "Blessing of Grace",
+          6,
+          "Active",
+          "Party buff",
+          0,
+          18,
+          24,
+          "6m allies",
+          "AS/MS +8%",
+          "0 threat"
+        ],
+        [
+          "Halo Pulse",
+          9,
+          "Active",
+          "AoE holy damage",
+          1.45,
+          10,
+          26,
+          "4m circle",
+          "Weak blind 1s",
+          "60 threat"
+        ],
+        [
+          "Sanctuary Field",
+          13,
+          "Active",
+          "AoE HoT",
+          0,
+          20,
+          30,
+          "6m circle",
+          "Heal over time",
+          "-120 threat"
+        ],
+        [
+          "Purify",
+          17,
+          "Active",
+          "Cleanse",
+          0,
+          14,
+          22,
+          "12m ally",
+          "Removes 2 debuffs",
+          "-40 threat"
+        ],
+        [
+          "Guardian Hymn",
+          22,
+          "Active",
+          "Defense aura",
+          0,
+          24,
+          28,
+          "7m circle",
+          "DEF/MDEF +10%",
+          "0 threat"
+        ],
+        [
+          "Luminous Chains",
+          28,
+          "Active",
+          "Damage/support chain",
+          1.7,
+          18,
+          35,
+          "4 targets",
+          "Heals ally if bounced",
+          "50 threat"
+        ],
+        [
+          "Resurrection",
+          36,
+          "Active",
+          "Revive ally",
+          0,
+          120,
+          50,
+          "10m ally",
+          "Revive 35% HP",
+          "0 threat"
+        ],
+        [
+          "Judgment Ray",
+          44,
+          "Active",
+          "Line holy attack",
+          1.85,
+          16,
+          40,
+          "12x1.5m line",
+          "Holy vulnerability",
+          "60 threat"
+        ],
+        [
+          "Choir of Dawn",
+          58,
+          "Active",
+          "Major group heal",
+          0,
+          50,
+          65,
+          "8m party",
+          "Heal + renew buffs",
+          "-180 threat"
+        ],
+        [
+          "Apotheosis",
+          76,
+          "Ultimate",
+          "Support overdrive",
+          0,
+          120,
+          90,
+          "Self",
+          "Heal/buff power +30%",
+          "0 threat"
+        ]
+      ],
+      "passives": [
+        [
+          "Serene Mind",
+          4,
+          "Faith regen +10%"
+        ],
+        [
+          "Kindled Prayer",
+          10,
+          "Heal power +8%"
+        ],
+        [
+          "Graceful Steps",
+          18,
+          "Support cast grants MS +5%"
+        ],
+        [
+          "Sacred Chorus",
+          28,
+          "Aura duration +20%"
+        ],
+        [
+          "Mercy Beyond",
+          42,
+          "Targets below 35% HP heal +15%"
+        ],
+        [
+          "Saints Authority",
+          62,
+          "Buff potency +8%"
+        ],
+        [
+          "Radiant Memory",
+          78,
+          "First revive each dungeon costs no resource"
+        ],
+        [
+          "Beacon of Dawn",
+          92,
+          "Sanctuary grants 5% damage reduction"
+        ]
+      ]
+    }
+  },
+  "levels": [
+    {
+      "level": 1,
+      "xp_to_next": 120,
+      "cumulative": 120,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Starter",
+      "unlock": ""
+    },
+    {
+      "level": 2,
+      "xp_to_next": 320,
+      "cumulative": 440,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Starter",
+      "unlock": ""
+    },
+    {
+      "level": 3,
+      "xp_to_next": 570,
+      "cumulative": 1010,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Starter",
+      "unlock": ""
+    },
+    {
+      "level": 4,
+      "xp_to_next": 850,
+      "cumulative": 1860,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Starter",
+      "unlock": ""
+    },
+    {
+      "level": 5,
+      "xp_to_next": 1160,
+      "cumulative": 3020,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Starter",
+      "unlock": "First passive"
+    },
+    {
+      "level": 6,
+      "xp_to_next": 1490,
+      "cumulative": 4510,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Starter",
+      "unlock": ""
+    },
+    {
+      "level": 7,
+      "xp_to_next": 1860,
+      "cumulative": 6370,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Starter",
+      "unlock": ""
+    },
+    {
+      "level": 8,
+      "xp_to_next": 2240,
+      "cumulative": 8610,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Starter",
+      "unlock": ""
+    },
+    {
+      "level": 9,
+      "xp_to_next": 2640,
+      "cumulative": 11250,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Starter",
+      "unlock": ""
+    },
+    {
+      "level": 10,
+      "xp_to_next": 3070,
+      "cumulative": 14320,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Starter",
+      "unlock": "Class stance"
+    },
+    {
+      "level": 11,
+      "xp_to_next": 3510,
+      "cumulative": 17830,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Uncommon",
+      "unlock": ""
+    },
+    {
+      "level": 12,
+      "xp_to_next": 3970,
+      "cumulative": 21800,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Uncommon",
+      "unlock": ""
+    },
+    {
+      "level": 13,
+      "xp_to_next": 4450,
+      "cumulative": 26250,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Uncommon",
+      "unlock": ""
+    },
+    {
+      "level": 14,
+      "xp_to_next": 4940,
+      "cumulative": 31190,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Uncommon",
+      "unlock": ""
+    },
+    {
+      "level": 15,
+      "xp_to_next": 5450,
+      "cumulative": 36640,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Uncommon",
+      "unlock": "First group dungeon"
+    },
+    {
+      "level": 16,
+      "xp_to_next": 5970,
+      "cumulative": 42610,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Uncommon",
+      "unlock": ""
+    },
+    {
+      "level": 17,
+      "xp_to_next": 6510,
+      "cumulative": 49120,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Uncommon",
+      "unlock": ""
+    },
+    {
+      "level": 18,
+      "xp_to_next": 7060,
+      "cumulative": 56180,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Uncommon",
+      "unlock": ""
+    },
+    {
+      "level": 19,
+      "xp_to_next": 7620,
+      "cumulative": 63800,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Uncommon",
+      "unlock": ""
+    },
+    {
+      "level": 20,
+      "xp_to_next": 8200,
+      "cumulative": 72000,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Uncommon",
+      "unlock": "Mount quest"
+    },
+    {
+      "level": 21,
+      "xp_to_next": 8790,
+      "cumulative": 80790,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 22,
+      "xp_to_next": 9390,
+      "cumulative": 90180,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 23,
+      "xp_to_next": 10000,
+      "cumulative": 100180,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 24,
+      "xp_to_next": 10630,
+      "cumulative": 110810,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 25,
+      "xp_to_next": 11270,
+      "cumulative": 122080,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": "Talent row 2"
+    },
+    {
+      "level": 26,
+      "xp_to_next": 11910,
+      "cumulative": 133990,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 27,
+      "xp_to_next": 12570,
+      "cumulative": 146560,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 28,
+      "xp_to_next": 13240,
+      "cumulative": 159800,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 29,
+      "xp_to_next": 13920,
+      "cumulative": 173720,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 30,
+      "xp_to_next": 14610,
+      "cumulative": 188330,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": "PvP arena"
+    },
+    {
+      "level": 31,
+      "xp_to_next": 15310,
+      "cumulative": 203640,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 32,
+      "xp_to_next": 16020,
+      "cumulative": 219660,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 33,
+      "xp_to_next": 16740,
+      "cumulative": 236400,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 34,
+      "xp_to_next": 17470,
+      "cumulative": 253870,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 35,
+      "xp_to_next": 18210,
+      "cumulative": 272080,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": "Craft specialization"
+    },
+    {
+      "level": 36,
+      "xp_to_next": 18960,
+      "cumulative": 291040,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 37,
+      "xp_to_next": 19710,
+      "cumulative": 310750,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 38,
+      "xp_to_next": 20480,
+      "cumulative": 331230,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 39,
+      "xp_to_next": 21250,
+      "cumulative": 352480,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": ""
+    },
+    {
+      "level": 40,
+      "xp_to_next": 22040,
+      "cumulative": 374520,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Rare",
+      "unlock": "Talent row 3"
+    },
+    {
+      "level": 41,
+      "xp_to_next": 22830,
+      "cumulative": 397350,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 42,
+      "xp_to_next": 23630,
+      "cumulative": 420980,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 43,
+      "xp_to_next": 24440,
+      "cumulative": 445420,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 44,
+      "xp_to_next": 25250,
+      "cumulative": 470670,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 45,
+      "xp_to_next": 26080,
+      "cumulative": 496750,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": "World boss contracts"
+    },
+    {
+      "level": 46,
+      "xp_to_next": 26910,
+      "cumulative": 523660,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 47,
+      "xp_to_next": 27750,
+      "cumulative": 551410,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 48,
+      "xp_to_next": 28600,
+      "cumulative": 580010,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 49,
+      "xp_to_next": 29460,
+      "cumulative": 609470,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 50,
+      "xp_to_next": 30320,
+      "cumulative": 639790,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": "Epic set bonuses"
+    },
+    {
+      "level": 51,
+      "xp_to_next": 31200,
+      "cumulative": 670990,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 52,
+      "xp_to_next": 32080,
+      "cumulative": 703070,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 53,
+      "xp_to_next": 32960,
+      "cumulative": 736030,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 54,
+      "xp_to_next": 33860,
+      "cumulative": 769890,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 55,
+      "xp_to_next": 34760,
+      "cumulative": 804650,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": "Raid attunement begins"
+    },
+    {
+      "level": 56,
+      "xp_to_next": 35670,
+      "cumulative": 840320,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 57,
+      "xp_to_next": 36580,
+      "cumulative": 876900,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 58,
+      "xp_to_next": 37510,
+      "cumulative": 914410,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 59,
+      "xp_to_next": 38440,
+      "cumulative": 952850,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": ""
+    },
+    {
+      "level": 60,
+      "xp_to_next": 39370,
+      "cumulative": 992220,
+      "stat_points": 5,
+      "skill_points": 1,
+      "mastery_points": 0,
+      "gear_tier": "Epic",
+      "unlock": "Mastery system"
+    },
+    {
+      "level": 61,
+      "xp_to_next": 40320,
+      "cumulative": 1032540,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 62,
+      "xp_to_next": 41270,
+      "cumulative": 1073810,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 63,
+      "xp_to_next": 42220,
+      "cumulative": 1116030,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 64,
+      "xp_to_next": 43190,
+      "cumulative": 1159220,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 65,
+      "xp_to_next": 44160,
+      "cumulative": 1203380,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": "Abyss Gate access"
+    },
+    {
+      "level": 66,
+      "xp_to_next": 45130,
+      "cumulative": 1248510,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 67,
+      "xp_to_next": 46120,
+      "cumulative": 1294630,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 68,
+      "xp_to_next": 47110,
+      "cumulative": 1341740,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 69,
+      "xp_to_next": 48110,
+      "cumulative": 1389850,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 70,
+      "xp_to_next": 49110,
+      "cumulative": 1438960,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": "Mythic dungeon"
+    },
+    {
+      "level": 71,
+      "xp_to_next": 50120,
+      "cumulative": 1489080,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 72,
+      "xp_to_next": 51130,
+      "cumulative": 1540210,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 73,
+      "xp_to_next": 52150,
+      "cumulative": 1592360,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 74,
+      "xp_to_next": 53180,
+      "cumulative": 1645540,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 75,
+      "xp_to_next": 54220,
+      "cumulative": 1699760,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": "Talent row 5"
+    },
+    {
+      "level": 76,
+      "xp_to_next": 55260,
+      "cumulative": 1755020,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 77,
+      "xp_to_next": 56300,
+      "cumulative": 1811320,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 78,
+      "xp_to_next": 57350,
+      "cumulative": 1868670,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 79,
+      "xp_to_next": 58410,
+      "cumulative": 1927080,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 80,
+      "xp_to_next": 59480,
+      "cumulative": 1986560,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": "Eclipse Cathedral access"
+    },
+    {
+      "level": 81,
+      "xp_to_next": 60540,
+      "cumulative": 2047100,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 82,
+      "xp_to_next": 61620,
+      "cumulative": 2108720,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 83,
+      "xp_to_next": 62700,
+      "cumulative": 2171420,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 84,
+      "xp_to_next": 63790,
+      "cumulative": 2235210,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": ""
+    },
+    {
+      "level": 85,
+      "xp_to_next": 64880,
+      "cumulative": 2300090,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Legendary",
+      "unlock": "Legendary awakening"
+    },
+    {
+      "level": 86,
+      "xp_to_next": 65980,
+      "cumulative": 2366070,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 87,
+      "xp_to_next": 67080,
+      "cumulative": 2433150,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 88,
+      "xp_to_next": 68190,
+      "cumulative": 2501340,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 89,
+      "xp_to_next": 69310,
+      "cumulative": 2570650,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 90,
+      "xp_to_next": 70430,
+      "cumulative": 2641080,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": "Seasonal endgame"
+    },
+    {
+      "level": 91,
+      "xp_to_next": 71560,
+      "cumulative": 2712640,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 92,
+      "xp_to_next": 72690,
+      "cumulative": 2785330,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 93,
+      "xp_to_next": 73820,
+      "cumulative": 2859150,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 94,
+      "xp_to_next": 74970,
+      "cumulative": 2934120,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 95,
+      "xp_to_next": 76110,
+      "cumulative": 3010230,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": "Mythic weapon quest"
+    },
+    {
+      "level": 96,
+      "xp_to_next": 77270,
+      "cumulative": 3087500,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 97,
+      "xp_to_next": 78430,
+      "cumulative": 3165930,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 98,
+      "xp_to_next": 79590,
+      "cumulative": 3245520,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 99,
+      "xp_to_next": 80760,
+      "cumulative": 3326280,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": ""
+    },
+    {
+      "level": 100,
+      "xp_to_next": 0,
+      "cumulative": 3326280,
+      "stat_points": 4,
+      "skill_points": 0,
+      "mastery_points": 1,
+      "gear_tier": "Mythic",
+      "unlock": "Paragon cap + endgame mastery"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+﻿class,role,resource,weapons,armor,primary,secondary,identity
+Knight,Tank,Valor,Longsword + Tower Shield / Mace + Shield,Heavy Plate,VIT,STR,"Threat, block, guard links, party mitigation"
+Berserker,Tank / DPS,Rage,Greataxe / Greatsword,Heavy Hybrid,STR,VIT,"Rage, cleave, lifesteal, stance swap"
+Assassin,Mobility + DPS,Focus,Dual Daggers / Short Swords,Light Leather,AGI,DEX,"Stealth, poison, backstab, combo burst"
+Ranger,Mobile Ranged DPS / AoE,Focus,Longbow / Recurve Bow / Light Crossbow,Medium Leather,DEX,AGI,"Kiting, mark, traps, volley, line damage"
+Mage,Ranged AoE DPS,Mana,Arcane Staff / Orb / Grimoire,Cloth,INT,SPI,"Element combos, burst AoE, gravity control"
+Priest,AoE Support + Buff + Attack,Faith,Holy Mace / Censer / Sacred Tome,Cloth / Light Robe,SPI,INT,"AoE healing, buffs, cleanse, holy utility"

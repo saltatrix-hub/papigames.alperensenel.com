@@ -1,0 +1,15 @@
+# Dependencies / OS
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+
+# Local complete pack with huge PDF (design/ is the published subset)
+ASTRAYA_2D_MMO_COMPLETE_PROJECT/
+**/*.pdf
+
+# Editor
+.vscode/
+.idea/

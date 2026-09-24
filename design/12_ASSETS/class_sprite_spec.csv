@@ -1,0 +1,7 @@
+﻿class,asset_type,frame_canvas,direction,animation_frames,concept_views,layering
+Knight,Playable Character,96x96 per frame,8-direction preferred / min 4-direction,"Idle 8, Run 8, Basic 8, Skill 10-16, Hit 6, Death 12",Front/back/left/right turnaround,Equipment overlay separated by slot
+Berserker,Playable Character,96x96 per frame,8-direction preferred / min 4-direction,"Idle 8, Run 8, Basic 8, Skill 10-16, Hit 6, Death 12",Front/back/left/right turnaround,Equipment overlay separated by slot
+Assassin,Playable Character,96x96 per frame,8-direction preferred / min 4-direction,"Idle 8, Run 8, Basic 8, Skill 10-16, Hit 6, Death 12",Front/back/left/right turnaround,Equipment overlay separated by slot
+Ranger,Playable Character,96x96 per frame,8-direction preferred / min 4-direction,"Idle 8, Run 8, Basic 8, Skill 10-16, Hit 6, Death 12",Front/back/left/right turnaround,Equipment overlay separated by slot
+Mage,Playable Character,96x96 per frame,8-direction preferred / min 4-direction,"Idle 8, Run 8, Basic 8, Skill 10-16, Hit 6, Death 12",Front/back/left/right turnaround,Equipment overlay separated by slot
+Priest,Playable Character,96x96 per frame,8-direction preferred / min 4-direction,"Idle 8, Run 8, Basic 8, Skill 10-16, Hit 6, Death 12",Front/back/left/right turnaround,Equipment overlay separated by slot

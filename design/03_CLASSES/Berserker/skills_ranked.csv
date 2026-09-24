@@ -1,0 +1,61 @@
+﻿skill_id,name,unlock_level,type,rank,description,power_coefficient,cooldown_s,resource_cost,hitbox,cc_status,threat,pvp_rule,implementation_note
+SKL_BER_001,Savage Cleave,1,Active,1,Frontal AoE,1.35,4.0,10,120° cone,Bleed 4s,120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_001,Savage Cleave,1,Active,2,Frontal AoE,1.5,3.9,10,120° cone,Bleed 4s,120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_001,Savage Cleave,1,Active,3,Frontal AoE,1.65,3.8,11,120° cone,Bleed 4s,120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_001,Savage Cleave,1,Active,4,Frontal AoE,1.8,3.7,11,120° cone,Bleed 4s,120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_001,Savage Cleave,1,Active,5,Frontal AoE,1.94,3.6,11,120° cone,Bleed 4s,120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_002,War Roar,4,Active,1,AoE challenge,0.0,18.0,0,5m circle,Fear immunity 3s,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_002,War Roar,4,Active,2,AoE challenge,0.0,17.6,0,5m circle,Fear immunity 3s,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_002,War Roar,4,Active,3,AoE challenge,0.0,17.1,0,5m circle,Fear immunity 3s,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_002,War Roar,4,Active,4,AoE challenge,0.0,16.7,0,5m circle,Fear immunity 3s,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_002,War Roar,4,Active,5,AoE challenge,0.0,16.2,0,5m circle,Fear immunity 3s,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_003,Blood Crash,7,Active,1,Heavy strike,1.7,8.0,20,2.5m target,Bleed 8s,130 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_003,Blood Crash,7,Active,2,Heavy strike,1.89,7.8,21,2.5m target,Bleed 8s,130 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_003,Blood Crash,7,Active,3,Heavy strike,2.07,7.6,21,2.5m target,Bleed 8s,130 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_003,Blood Crash,7,Active,4,Heavy strike,2.26,7.4,22,2.5m target,Bleed 8s,130 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_003,Blood Crash,7,Active,5,Heavy strike,2.45,7.2,22,2.5m target,Bleed 8s,130 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_004,Ravager Stance,10,Stance,1,DPS stance,0.0,20.0,0,Self,"Damage +15%, DEF -10%",-20% threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_004,Ravager Stance,10,Stance,2,DPS stance,0.0,19.5,0,Self,"Damage +15%, DEF -10%",-20% threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_004,Ravager Stance,10,Stance,3,DPS stance,0.0,19.0,0,Self,"Damage +15%, DEF -10%",-20% threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_004,Ravager Stance,10,Stance,4,DPS stance,0.0,18.5,0,Self,"Damage +15%, DEF -10%",-20% threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_004,Ravager Stance,10,Stance,5,DPS stance,0.0,18.0,0,Self,"Damage +15%, DEF -10%",-20% threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_005,Defender Stance,10,Stance,1,Tank stance,0.0,20.0,0,Self,Damage taken -12%,+45% threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_005,Defender Stance,10,Stance,2,Tank stance,0.0,19.5,0,Self,Damage taken -12%,+45% threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_005,Defender Stance,10,Stance,3,Tank stance,0.0,19.0,0,Self,Damage taken -12%,+45% threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_005,Defender Stance,10,Stance,4,Tank stance,0.0,18.5,0,Self,Damage taken -12%,+45% threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_005,Defender Stance,10,Stance,5,Tank stance,0.0,18.0,0,Self,Damage taken -12%,+45% threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_006,Whirlwind Carve,14,Active,1,Spin AoE,2.2,14.0,30,4m circle,Pull micro 0.4m,140 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_006,Whirlwind Carve,14,Active,2,Spin AoE,2.44,13.7,31,4m circle,Pull micro 0.4m,140 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_006,Whirlwind Carve,14,Active,3,Spin AoE,2.68,13.3,32,4m circle,Pull micro 0.4m,140 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_006,Whirlwind Carve,14,Active,4,Spin AoE,2.93,13.0,33,4m circle,Pull micro 0.4m,140 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_006,Whirlwind Carve,14,Active,5,Spin AoE,3.17,12.6,34,4m circle,Pull micro 0.4m,140 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_007,Skullsplitter,18,Active,1,Armor break,1.8,12.0,25,2.5m,Armor -15% 8s,150 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_007,Skullsplitter,18,Active,2,Armor break,2.0,11.7,26,2.5m,Armor -15% 8s,150 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_007,Skullsplitter,18,Active,3,Armor break,2.2,11.4,26,2.5m,Armor -15% 8s,150 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_007,Skullsplitter,18,Active,4,Armor break,2.39,11.1,27,2.5m,Armor -15% 8s,150 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_007,Skullsplitter,18,Active,5,Armor break,2.59,10.8,28,2.5m,Armor -15% 8s,150 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_008,Blood Pact,24,Active,1,Self buff,0.0,40.0,0,Self,Lifesteal +12%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_008,Blood Pact,24,Active,2,Self buff,0.0,39.0,0,Self,Lifesteal +12%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_008,Blood Pact,24,Active,3,Self buff,0.0,38.0,0,Self,Lifesteal +12%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_008,Blood Pact,24,Active,4,Self buff,0.0,37.0,0,Self,Lifesteal +12%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_008,Blood Pact,24,Active,5,Self buff,0.0,36.0,0,Self,Lifesteal +12%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_009,Titanbreaker Leap,30,Active,1,Leap AoE,2.05,18.0,35,4m impact,Stun 1s,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_009,Titanbreaker Leap,30,Active,2,Leap AoE,2.28,17.6,36,4m impact,Stun 1s,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_009,Titanbreaker Leap,30,Active,3,Leap AoE,2.5,17.1,37,4m impact,Stun 1s,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_009,Titanbreaker Leap,30,Active,4,Leap AoE,2.73,16.7,38,4m impact,Stun 1s,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_009,Titanbreaker Leap,30,Active,5,Leap AoE,2.95,16.2,39,4m impact,Stun 1s,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_010,Chain of Carnage,38,Active,1,Multi-hit cleave,2.4,24.0,45,5m chain,Bleed refresh,150 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_010,Chain of Carnage,38,Active,2,Multi-hit cleave,2.66,23.4,46,5m chain,Bleed refresh,150 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_010,Chain of Carnage,38,Active,3,Multi-hit cleave,2.93,22.8,48,5m chain,Bleed refresh,150 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_010,Chain of Carnage,38,Active,4,Multi-hit cleave,3.19,22.2,49,5m chain,Bleed refresh,150 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_010,Chain of Carnage,38,Active,5,Multi-hit cleave,3.46,21.6,50,5m chain,Bleed refresh,150 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_011,Unyielding Frenzy,50,Active,1,Burst mode,0.0,60.0,50,Self,"AS +25%, Rage gain +35%",0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_011,Unyielding Frenzy,50,Active,2,Burst mode,0.0,58.5,52,Self,"AS +25%, Rage gain +35%",0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_011,Unyielding Frenzy,50,Active,3,Burst mode,0.0,57.0,53,Self,"AS +25%, Rage gain +35%",0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_011,Unyielding Frenzy,50,Active,4,Burst mode,0.0,55.5,55,Self,"AS +25%, Rage gain +35%",0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_011,Unyielding Frenzy,50,Active,5,Burst mode,0.0,54.0,56,Self,"AS +25%, Rage gain +35%",0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_012,Execution Storm,68,Ultimate,1,Execute AoE,3.2,28.0,60,5m circle,Bonus under 30% HP,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_012,Execution Storm,68,Ultimate,2,Execute AoE,3.55,27.3,62,5m circle,Bonus under 30% HP,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_012,Execution Storm,68,Ultimate,3,Execute AoE,3.9,26.6,64,5m circle,Bonus under 30% HP,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_012,Execution Storm,68,Ultimate,4,Execute AoE,4.26,25.9,65,5m circle,Bonus under 30% HP,180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_BER_012,Execution Storm,68,Ultimate,5,Execute AoE,4.61,25.2,67,5m circle,Bonus under 30% HP,180 threat,PvP coefficient 0.85,Server-authoritative hit validation

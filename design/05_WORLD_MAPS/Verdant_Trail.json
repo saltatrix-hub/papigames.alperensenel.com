@@ -1,0 +1,28 @@
+{
+  "map_id": "MAP_VER",
+  "name": "Verdant Trail",
+  "size_tiles": [
+    256,
+    192
+  ],
+  "tile_size_px": 48,
+  "layers": [
+    "ground",
+    "detail",
+    "collision",
+    "back_props",
+    "interactables",
+    "front_props",
+    "spawn_nodes",
+    "vfx",
+    "lighting",
+    "triggers"
+  ],
+  "safe_hubs": 0,
+  "farm_slots": 4,
+  "elite_zones": 2,
+  "gather_nodes": 18,
+  "quest_npcs": 6,
+  "dungeon_entries": 1,
+  "world_boss_arena": 1
+}

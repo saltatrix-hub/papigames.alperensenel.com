@@ -1,0 +1,61 @@
+﻿skill_id,name,unlock_level,type,rank,description,power_coefficient,cooldown_s,resource_cost,hitbox,cc_status,threat,pvp_rule,implementation_note
+SKL_ASS_001,Shadow Jab,1,Active,1,Double strike,1.1,3.0,15,2m target,2 hits,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_001,Shadow Jab,1,Active,2,Double strike,1.22,2.9,15,2m target,2 hits,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_001,Shadow Jab,1,Active,3,Double strike,1.34,2.8,16,2m target,2 hits,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_001,Shadow Jab,1,Active,4,Double strike,1.46,2.8,16,2m target,2 hits,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_001,Shadow Jab,1,Active,5,Double strike,1.58,2.7,17,2m target,2 hits,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_002,Vanish,4,Active,1,Stealth reset,0.0,22.0,30,Self,Stealth 4s,Threat -100%,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_002,Vanish,4,Active,2,Stealth reset,0.0,21.4,31,Self,Stealth 4s,Threat -100%,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_002,Vanish,4,Active,3,Stealth reset,0.0,20.9,32,Self,Stealth 4s,Threat -100%,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_002,Vanish,4,Active,4,Stealth reset,0.0,20.4,33,Self,Stealth 4s,Threat -100%,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_002,Vanish,4,Active,5,Stealth reset,0.0,19.8,34,Self,Stealth 4s,Threat -100%,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_003,Backstab,6,Active,1,Rear burst,1.9,6.0,20,2m rear,Guaranteed crit from rear,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_003,Backstab,6,Active,2,Rear burst,2.11,5.8,21,2m rear,Guaranteed crit from rear,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_003,Backstab,6,Active,3,Rear burst,2.32,5.7,21,2m rear,Guaranteed crit from rear,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_003,Backstab,6,Active,4,Rear burst,2.53,5.6,22,2m rear,Guaranteed crit from rear,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_003,Backstab,6,Active,5,Rear burst,2.74,5.4,22,2m rear,Guaranteed crit from rear,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_004,Poison Edge,9,Active,1,Weapon poison,0.8,10.0,18,2m,Poison 8s,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_004,Poison Edge,9,Active,2,Weapon poison,0.89,9.8,19,2m,Poison 8s,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_004,Poison Edge,9,Active,3,Weapon poison,0.98,9.5,19,2m,Poison 8s,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_004,Poison Edge,9,Active,4,Weapon poison,1.06,9.2,20,2m,Poison 8s,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_004,Poison Edge,9,Active,5,Weapon poison,1.15,9.0,20,2m,Poison 8s,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_005,Shadowstep,12,Active,1,Teleport behind,1.0,12.0,22,8m target,Position behind,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_005,Shadowstep,12,Active,2,Teleport behind,1.11,11.7,23,8m target,Position behind,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_005,Shadowstep,12,Active,3,Teleport behind,1.22,11.4,23,8m target,Position behind,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_005,Shadowstep,12,Active,4,Teleport behind,1.33,11.1,24,8m target,Position behind,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_005,Shadowstep,12,Active,5,Teleport behind,1.44,10.8,25,8m target,Position behind,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_006,Fan of Knives,16,Active,1,Cone AoE,1.65,14.0,25,140° cone 4m,Bleed 5s,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_006,Fan of Knives,16,Active,2,Cone AoE,1.83,13.7,26,140° cone 4m,Bleed 5s,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_006,Fan of Knives,16,Active,3,Cone AoE,2.01,13.3,26,140° cone 4m,Bleed 5s,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_006,Fan of Knives,16,Active,4,Cone AoE,2.19,13.0,27,140° cone 4m,Bleed 5s,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_006,Fan of Knives,16,Active,5,Cone AoE,2.38,12.6,28,140° cone 4m,Bleed 5s,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_007,Smoke Veil,20,Active,1,Defensive field,0.0,24.0,35,5m circle,Dodge +20%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_007,Smoke Veil,20,Active,2,Defensive field,0.0,23.4,36,5m circle,Dodge +20%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_007,Smoke Veil,20,Active,3,Defensive field,0.0,22.8,37,5m circle,Dodge +20%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_007,Smoke Veil,20,Active,4,Defensive field,0.0,22.2,38,5m circle,Dodge +20%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_007,Smoke Veil,20,Active,5,Defensive field,0.0,21.6,39,5m circle,Dodge +20%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_008,Crimson Mark,26,Active,1,Vulnerability mark,0.7,18.0,20,Single target,Damage taken +8%,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_008,Crimson Mark,26,Active,2,Vulnerability mark,0.78,17.6,21,Single target,Damage taken +8%,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_008,Crimson Mark,26,Active,3,Vulnerability mark,0.85,17.1,21,Single target,Damage taken +8%,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_008,Crimson Mark,26,Active,4,Vulnerability mark,0.93,16.7,22,Single target,Damage taken +8%,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_008,Crimson Mark,26,Active,5,Vulnerability mark,1.01,16.2,22,Single target,Damage taken +8%,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_009,Eviscerate,32,Active,1,Combo finisher,2.6,16.0,35,2m,Consumes combo,110 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_009,Eviscerate,32,Active,2,Combo finisher,2.89,15.6,36,2m,Consumes combo,110 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_009,Eviscerate,32,Active,3,Combo finisher,3.17,15.2,37,2m,Consumes combo,110 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_009,Eviscerate,32,Active,4,Combo finisher,3.46,14.8,38,2m,Consumes combo,110 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_009,Eviscerate,32,Active,5,Combo finisher,3.74,14.4,39,2m,Consumes combo,110 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_010,Night Parade,40,Active,1,Shadow clones,2.8,36.0,45,5m chain,6 shadow hits,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_010,Night Parade,40,Active,2,Shadow clones,3.11,35.1,46,5m chain,6 shadow hits,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_010,Night Parade,40,Active,3,Shadow clones,3.42,34.2,48,5m chain,6 shadow hits,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_010,Night Parade,40,Active,4,Shadow clones,3.72,33.3,49,5m chain,6 shadow hits,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_010,Night Parade,40,Active,5,Shadow clones,4.03,32.4,50,5m chain,6 shadow hits,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_011,Death Lotus,54,Active,1,AoE spin,3.1,45.0,60,5m circle,Dodge during cast,120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_011,Death Lotus,54,Active,2,AoE spin,3.44,43.9,62,5m circle,Dodge during cast,120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_011,Death Lotus,54,Active,3,AoE spin,3.78,42.8,64,5m circle,Dodge during cast,120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_011,Death Lotus,54,Active,4,AoE spin,4.12,41.6,65,5m circle,Dodge during cast,120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_011,Death Lotus,54,Active,5,AoE spin,4.46,40.5,67,5m circle,Dodge during cast,120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_012,Kingkiller Art,72,Ultimate,1,Single target burst,4.0,90.0,80,3m,Execute scaling,130 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_012,Kingkiller Art,72,Ultimate,2,Single target burst,4.44,87.8,82,3m,Execute scaling,130 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_012,Kingkiller Art,72,Ultimate,3,Single target burst,4.88,85.5,85,3m,Execute scaling,130 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_012,Kingkiller Art,72,Ultimate,4,Single target burst,5.32,83.2,87,3m,Execute scaling,130 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_ASS_012,Kingkiller Art,72,Ultimate,5,Single target burst,5.76,81.0,90,3m,Execute scaling,130 threat,PvP coefficient 0.85,Server-authoritative hit validation

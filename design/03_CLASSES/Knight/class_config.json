@@ -1,0 +1,198 @@
+{
+  "role": "Tank",
+  "resource": "Valor",
+  "weapon": "Longsword + Tower Shield / Mace + Shield",
+  "armor": "Heavy Plate",
+  "primary": "VIT",
+  "secondary": "STR",
+  "color": "Royal Blue/Gold",
+  "identity": "Threat, block, guard links, party mitigation",
+  "skills": [
+    [
+      "Shield Rush",
+      1,
+      "Active",
+      "Gap closer + stun",
+      1.2,
+      8,
+      20,
+      "2.2x1.0 rectangle",
+      "1.2s stun",
+      "220 threat"
+    ],
+    [
+      "Bulwark Stance",
+      3,
+      "Stance",
+      "Tank stance",
+      0,
+      20,
+      0,
+      "Self",
+      "-20% damage taken",
+      "+35% threat"
+    ],
+    [
+      "Taunting Cry",
+      5,
+      "Active",
+      "AoE taunt",
+      0,
+      18,
+      25,
+      "5m circle",
+      "3s taunt",
+      "Set top threat +10%"
+    ],
+    [
+      "Radiant Slash",
+      8,
+      "Active",
+      "Frontal cleave",
+      1.45,
+      6,
+      22,
+      "120° cone 3m",
+      "Holy mark 6s",
+      "150 threat"
+    ],
+    [
+      "Guardian Oath",
+      12,
+      "Active",
+      "Protect ally",
+      0,
+      22,
+      30,
+      "Target ally",
+      "30% damage redirect",
+      "100 threat"
+    ],
+    [
+      "Aegis Wall",
+      16,
+      "Active",
+      "Party barrier",
+      0,
+      24,
+      35,
+      "4x2.5m wall",
+      "Shield 12% max HP",
+      "80 threat"
+    ],
+    [
+      "Counter Bastion",
+      20,
+      "Active",
+      "Block counter",
+      1.8,
+      14,
+      18,
+      "2m frontal",
+      "Knockback 0.8m",
+      "170 threat"
+    ],
+    [
+      "Lionheart Banner",
+      26,
+      "Active",
+      "Defense aura",
+      0,
+      45,
+      40,
+      "6m circle",
+      "DEF +12%, Tenacity +15%",
+      "50 threat"
+    ],
+    [
+      "Hammer of Judgment",
+      32,
+      "Active",
+      "AoE slam",
+      2.0,
+      20,
+      45,
+      "4m circle",
+      "Slow 35% 4s",
+      "190 threat"
+    ],
+    [
+      "Sanctified Rampart",
+      40,
+      "Active",
+      "Mass barrier",
+      0,
+      55,
+      60,
+      "7m circle",
+      "Barrier + cleanse resist",
+      "120 threat"
+    ],
+    [
+      "Kings Challenge",
+      52,
+      "Active",
+      "Boss taunt tool",
+      0,
+      35,
+      50,
+      "Single target",
+      "Threat lock 5s",
+      "Top threat +25%"
+    ],
+    [
+      "Last Bastion",
+      70,
+      "Ultimate",
+      "Cheat death",
+      0,
+      180,
+      0,
+      "Self",
+      "Cannot die 5s",
+      "0 threat"
+    ]
+  ],
+  "passives": [
+    [
+      "Iron Discipline",
+      4,
+      "Block +4% and armor +6%"
+    ],
+    [
+      "Shield Mastery",
+      10,
+      "Shield block value +12%"
+    ],
+    [
+      "Unbroken Resolve",
+      18,
+      "Damage taken while CC -10%"
+    ],
+    [
+      "Royal Bearing",
+      28,
+      "Nearby allies DEF +4%"
+    ],
+    [
+      "Fortress Soul",
+      44,
+      "Max HP +12%"
+    ],
+    [
+      "Paragon of Duty",
+      60,
+      "Guard skills cooldown -10%"
+    ],
+    [
+      "Immovable",
+      75,
+      "Knockback resistance +50%"
+    ],
+    [
+      "Crown Defender",
+      90,
+      "Barrier power +15%"
+    ]
+  ]
+}

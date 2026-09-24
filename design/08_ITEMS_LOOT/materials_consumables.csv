@@ -1,0 +1,10 @@
+﻿id,name,type,source
+MAT_COPPER,Copper Ore,Material,Mining
+MAT_IRON,Iron Ore,Material,Mining
+MAT_SKYIRON,Sky Iron,Rare Material,Frostpeak
+MAT_HERB,Green Herb,Material,Herbalism
+MAT_VOID,Void Ember,Endgame Material,Abyss Gate
+POT_HP_S,Small HP Potion,Consumable,Alchemy
+POT_MP_S,Small Resource Potion,Consumable,Alchemy
+FLASK_POWER,Flask of Power,Consumable,Alchemy
+SCROLL_PROTECT,Enhancement Protection Scroll,Utility,Craft/Event

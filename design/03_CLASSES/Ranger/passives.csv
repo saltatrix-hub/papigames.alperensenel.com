@@ -1,0 +1,9 @@
+﻿passive_id,name,unlock_level,effect
+PAS_RAN_001,Trailrunner,5,Move while attacking penalty -50%
+PAS_RAN_002,Steady Aim,10,Damage +6% beyond 8m
+PAS_RAN_003,Wildcraft,18,Trap duration +20%
+PAS_RAN_004,Arrow Tempest,30,AoE radius +10%
+PAS_RAN_005,Predators Calm,44,Boss crit +5%
+PAS_RAN_006,Skyeye Doctrine,60,Falcon active grants CDR +8%
+PAS_RAN_007,Windstep,75,Roll gains 1 charge every 20s
+PAS_RAN_008,Perfect Trajectory,90,Piercing attacks ignore 8% armor

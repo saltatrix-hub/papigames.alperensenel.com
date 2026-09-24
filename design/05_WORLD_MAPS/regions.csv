@@ -1,0 +1,10 @@
+﻿region,min_level,max_level,theme,content,boss
+Dawnwatch Village,1,10,Safe Hub / pastoral coast,"Main village, class halls, auction, crafting, inn",Garrick the Red
+Verdant Trail,5,20,Forest / meadow,"open field, gathering, wolf dens, ancient roots",Thornmaw
+Moonfen Marsh,20,30,Swamp / undead,"curse zones, lantern paths, crypt entrances",Grave-Mother Nereza
+Ashen Wastes,25,38,Volcanic badlands,"elite camps, mining, forge ruins",Forge-Eater Golm
+Ironroot Depths,32,45,Underground root cavern,"crystal mines, spider hive, fungal forest",Hive Queen Velkra
+Sunscar Desert,38,50,Desert / ruins,"caravans, mirages, buried temples",Dune Tyrant Khar
+Celestine Ruins,45,58,Sky ruins / arcane,"runes, broken bridges, arcane sentinels",Arbiter of Halos
+Frostpeak Highlands,52,70,Snow / mountain,"mount routes, temple climb, blizzard events",Icefang Matriarch
+Abyss Gate,65,100,Void corruption / endgame,"rift events, raid entrances, mythic farm",Eclipse Seraph Malzor

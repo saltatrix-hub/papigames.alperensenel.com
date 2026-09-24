@@ -1,0 +1,61 @@
+﻿npc_id,name,region,role,service_or_quest_tier,affinity,art_requirement
+NPC_01_01,Dawnwatch NPC 1,Dawnwatch Village,Blacksmith,Quest/Service tier 1,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_01_02,Dawnwatch NPC 2,Dawnwatch Village,Alchemist,Quest/Service tier 1,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_01_03,Dawnwatch NPC 3,Dawnwatch Village,General Merchant,Quest/Service tier 1,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_01_04,Dawnwatch NPC 4,Dawnwatch Village,Storage,Quest/Service tier 1,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_01_05,Dawnwatch NPC 5,Dawnwatch Village,Auctioneer,Quest/Service tier 1,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_01_06,Dawnwatch NPC 6,Dawnwatch Village,Guild Registrar,Quest/Service tier 1,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_02_01,Verdant NPC 1,Verdant Trail,General Merchant,Quest/Service tier 2,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_02_02,Verdant NPC 2,Verdant Trail,Storage,Quest/Service tier 2,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_02_03,Verdant NPC 3,Verdant Trail,Auctioneer,Quest/Service tier 2,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_02_04,Verdant NPC 4,Verdant Trail,Guild Registrar,Quest/Service tier 2,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_02_05,Verdant NPC 5,Verdant Trail,Class Trainer,Quest/Service tier 2,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_02_06,Verdant NPC 6,Verdant Trail,Stablemaster,Quest/Service tier 2,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_03_01,Moonfen NPC 1,Moonfen Marsh,Auctioneer,Quest/Service tier 3,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_03_02,Moonfen NPC 2,Moonfen Marsh,Guild Registrar,Quest/Service tier 3,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_03_03,Moonfen NPC 3,Moonfen Marsh,Class Trainer,Quest/Service tier 3,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_03_04,Moonfen NPC 4,Moonfen Marsh,Stablemaster,Quest/Service tier 3,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_03_05,Moonfen NPC 5,Moonfen Marsh,Stylist,Quest/Service tier 3,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_03_06,Moonfen NPC 6,Moonfen Marsh,Healer,Quest/Service tier 3,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_04_01,Ashen NPC 1,Ashen Wastes,Class Trainer,Quest/Service tier 4,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_04_02,Ashen NPC 2,Ashen Wastes,Stablemaster,Quest/Service tier 4,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_04_03,Ashen NPC 3,Ashen Wastes,Stylist,Quest/Service tier 4,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_04_04,Ashen NPC 4,Ashen Wastes,Healer,Quest/Service tier 4,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_04_05,Ashen NPC 5,Ashen Wastes,Event Manager,Quest/Service tier 4,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_04_06,Ashen NPC 6,Ashen Wastes,Faction Officer,Quest/Service tier 4,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_05_01,Ironroot NPC 1,Ironroot Depths,Stylist,Quest/Service tier 5,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_05_02,Ironroot NPC 2,Ironroot Depths,Healer,Quest/Service tier 5,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_05_03,Ironroot NPC 3,Ironroot Depths,Event Manager,Quest/Service tier 5,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_05_04,Ironroot NPC 4,Ironroot Depths,Faction Officer,Quest/Service tier 5,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_05_05,Ironroot NPC 5,Ironroot Depths,Bounty Board Keeper,Quest/Service tier 5,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_05_06,Ironroot NPC 6,Ironroot Depths,Dungeon Guide,Quest/Service tier 5,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_06_01,Sunscar NPC 1,Sunscar Desert,Event Manager,Quest/Service tier 6,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_06_02,Sunscar NPC 2,Sunscar Desert,Faction Officer,Quest/Service tier 6,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_06_03,Sunscar NPC 3,Sunscar Desert,Bounty Board Keeper,Quest/Service tier 6,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_06_04,Sunscar NPC 4,Sunscar Desert,Dungeon Guide,Quest/Service tier 6,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_06_05,Sunscar NPC 5,Sunscar Desert,Craft Master,Quest/Service tier 6,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_06_06,Sunscar NPC 6,Sunscar Desert,Mayor/Story,Quest/Service tier 6,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_07_01,Celestine NPC 1,Celestine Ruins,Bounty Board Keeper,Quest/Service tier 7,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_07_02,Celestine NPC 2,Celestine Ruins,Dungeon Guide,Quest/Service tier 7,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_07_03,Celestine NPC 3,Celestine Ruins,Craft Master,Quest/Service tier 7,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_07_04,Celestine NPC 4,Celestine Ruins,Mayor/Story,Quest/Service tier 7,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_07_05,Celestine NPC 5,Celestine Ruins,Blacksmith,Quest/Service tier 7,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_07_06,Celestine NPC 6,Celestine Ruins,Alchemist,Quest/Service tier 7,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_08_01,Frostpeak NPC 1,Frostpeak Highlands,Craft Master,Quest/Service tier 8,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_08_02,Frostpeak NPC 2,Frostpeak Highlands,Mayor/Story,Quest/Service tier 8,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_08_03,Frostpeak NPC 3,Frostpeak Highlands,Blacksmith,Quest/Service tier 8,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_08_04,Frostpeak NPC 4,Frostpeak Highlands,Alchemist,Quest/Service tier 8,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_08_05,Frostpeak NPC 5,Frostpeak Highlands,General Merchant,Quest/Service tier 8,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_08_06,Frostpeak NPC 6,Frostpeak Highlands,Storage,Quest/Service tier 8,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_09_01,Abyss NPC 1,Abyss Gate,Blacksmith,Quest/Service tier 9,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_09_02,Abyss NPC 2,Abyss Gate,Alchemist,Quest/Service tier 9,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_09_03,Abyss NPC 3,Abyss Gate,General Merchant,Quest/Service tier 9,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_09_04,Abyss NPC 4,Abyss Gate,Storage,Quest/Service tier 9,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_09_05,Abyss NPC 5,Abyss Gate,Auctioneer,Quest/Service tier 9,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_09_06,Abyss NPC 6,Abyss Gate,Guild Registrar,Quest/Service tier 9,Affinity unlock at 20/50/80,Front/back/left/right turnaround required
+NPC_DW_ELRIC,Mayor Elric,Dawnwatch Village,Mayor/Story,Unique named NPC,Story/faction,4-way turnaround + portrait
+NPC_DW_ROWAN,Smith Rowan,Dawnwatch Village,Blacksmith,Unique named NPC,Story/faction,4-way turnaround + portrait
+NPC_DW_MINA,Priestess Mina,Dawnwatch Village,Healer,Unique named NPC,Story/faction,4-way turnaround + portrait
+NPC_DW_LYSA,Scout Lysa,Dawnwatch Village,Story/Scout,Unique named NPC,Story/faction,4-way turnaround + portrait
+NPC_AB_VEYA,Oracle Veya,Abyss Gate,Raid/Story,Unique named NPC,Story/faction,4-way turnaround + portrait
+NPC_AB_MIRR,Shade Broker Mirr,Abyss Gate,Endgame Vendor,Unique named NPC,Story/faction,4-way turnaround + portrait

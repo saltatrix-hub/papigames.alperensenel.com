@@ -1,0 +1,61 @@
+﻿skill_id,name,unlock_level,type,rank,description,power_coefficient,cooldown_s,resource_cost,hitbox,cc_status,threat,pvp_rule,implementation_note
+SKL_PRI_001,Sacred Spark,1,Active,1,Holy projectile,1.0,2.0,16,12m projectile,Holy tag,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_001,Sacred Spark,1,Active,2,Holy projectile,1.11,1.9,16,12m projectile,Holy tag,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_001,Sacred Spark,1,Active,3,Holy projectile,1.22,1.9,17,12m projectile,Holy tag,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_001,Sacred Spark,1,Active,4,Holy projectile,1.33,1.9,17,12m projectile,Holy tag,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_001,Sacred Spark,1,Active,5,Holy projectile,1.44,1.8,18,12m projectile,Holy tag,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_002,Minor Mend,3,Active,1,Single heal,1.2,4.0,20,12m ally,Instant heal,-80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_002,Minor Mend,3,Active,2,Single heal,1.33,3.9,21,12m ally,Instant heal,-80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_002,Minor Mend,3,Active,3,Single heal,1.46,3.8,21,12m ally,Instant heal,-80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_002,Minor Mend,3,Active,4,Single heal,1.6,3.7,22,12m ally,Instant heal,-80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_002,Minor Mend,3,Active,5,Single heal,1.73,3.6,22,12m ally,Instant heal,-80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_003,Blessing of Grace,6,Active,1,Party buff,0.0,18.0,24,6m allies,AS/MS +8%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_003,Blessing of Grace,6,Active,2,Party buff,0.0,17.6,25,6m allies,AS/MS +8%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_003,Blessing of Grace,6,Active,3,Party buff,0.0,17.1,25,6m allies,AS/MS +8%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_003,Blessing of Grace,6,Active,4,Party buff,0.0,16.7,26,6m allies,AS/MS +8%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_003,Blessing of Grace,6,Active,5,Party buff,0.0,16.2,27,6m allies,AS/MS +8%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_004,Halo Pulse,9,Active,1,AoE holy damage,1.45,10.0,26,4m circle,Weak blind 1s,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_004,Halo Pulse,9,Active,2,AoE holy damage,1.61,9.8,27,4m circle,Weak blind 1s,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_004,Halo Pulse,9,Active,3,AoE holy damage,1.77,9.5,28,4m circle,Weak blind 1s,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_004,Halo Pulse,9,Active,4,AoE holy damage,1.93,9.2,28,4m circle,Weak blind 1s,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_004,Halo Pulse,9,Active,5,AoE holy damage,2.09,9.0,29,4m circle,Weak blind 1s,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_005,Sanctuary Field,13,Active,1,AoE HoT,0.0,20.0,30,6m circle,Heal over time,-120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_005,Sanctuary Field,13,Active,2,AoE HoT,0.0,19.5,31,6m circle,Heal over time,-120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_005,Sanctuary Field,13,Active,3,AoE HoT,0.0,19.0,32,6m circle,Heal over time,-120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_005,Sanctuary Field,13,Active,4,AoE HoT,0.0,18.5,33,6m circle,Heal over time,-120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_005,Sanctuary Field,13,Active,5,AoE HoT,0.0,18.0,34,6m circle,Heal over time,-120 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_006,Purify,17,Active,1,Cleanse,0.0,14.0,22,12m ally,Removes 2 debuffs,-40 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_006,Purify,17,Active,2,Cleanse,0.0,13.7,23,12m ally,Removes 2 debuffs,-40 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_006,Purify,17,Active,3,Cleanse,0.0,13.3,23,12m ally,Removes 2 debuffs,-40 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_006,Purify,17,Active,4,Cleanse,0.0,13.0,24,12m ally,Removes 2 debuffs,-40 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_006,Purify,17,Active,5,Cleanse,0.0,12.6,25,12m ally,Removes 2 debuffs,-40 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_007,Guardian Hymn,22,Active,1,Defense aura,0.0,24.0,28,7m circle,DEF/MDEF +10%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_007,Guardian Hymn,22,Active,2,Defense aura,0.0,23.4,29,7m circle,DEF/MDEF +10%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_007,Guardian Hymn,22,Active,3,Defense aura,0.0,22.8,30,7m circle,DEF/MDEF +10%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_007,Guardian Hymn,22,Active,4,Defense aura,0.0,22.2,31,7m circle,DEF/MDEF +10%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_007,Guardian Hymn,22,Active,5,Defense aura,0.0,21.6,31,7m circle,DEF/MDEF +10%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_008,Luminous Chains,28,Active,1,Damage/support chain,1.7,18.0,35,4 targets,Heals ally if bounced,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_008,Luminous Chains,28,Active,2,Damage/support chain,1.89,17.6,36,4 targets,Heals ally if bounced,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_008,Luminous Chains,28,Active,3,Damage/support chain,2.07,17.1,37,4 targets,Heals ally if bounced,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_008,Luminous Chains,28,Active,4,Damage/support chain,2.26,16.7,38,4 targets,Heals ally if bounced,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_008,Luminous Chains,28,Active,5,Damage/support chain,2.45,16.2,39,4 targets,Heals ally if bounced,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_009,Resurrection,36,Active,1,Revive ally,0.0,120.0,50,10m ally,Revive 35% HP,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_009,Resurrection,36,Active,2,Revive ally,0.0,117.0,52,10m ally,Revive 35% HP,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_009,Resurrection,36,Active,3,Revive ally,0.0,114.0,53,10m ally,Revive 35% HP,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_009,Resurrection,36,Active,4,Revive ally,0.0,111.0,55,10m ally,Revive 35% HP,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_009,Resurrection,36,Active,5,Revive ally,0.0,108.0,56,10m ally,Revive 35% HP,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_010,Judgment Ray,44,Active,1,Line holy attack,1.85,16.0,40,12x1.5m line,Holy vulnerability,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_010,Judgment Ray,44,Active,2,Line holy attack,2.05,15.6,41,12x1.5m line,Holy vulnerability,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_010,Judgment Ray,44,Active,3,Line holy attack,2.26,15.2,42,12x1.5m line,Holy vulnerability,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_010,Judgment Ray,44,Active,4,Line holy attack,2.46,14.8,44,12x1.5m line,Holy vulnerability,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_010,Judgment Ray,44,Active,5,Line holy attack,2.66,14.4,45,12x1.5m line,Holy vulnerability,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_011,Choir of Dawn,58,Active,1,Major group heal,0.0,50.0,65,8m party,Heal + renew buffs,-180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_011,Choir of Dawn,58,Active,2,Major group heal,0.0,48.8,67,8m party,Heal + renew buffs,-180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_011,Choir of Dawn,58,Active,3,Major group heal,0.0,47.5,69,8m party,Heal + renew buffs,-180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_011,Choir of Dawn,58,Active,4,Major group heal,0.0,46.2,71,8m party,Heal + renew buffs,-180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_011,Choir of Dawn,58,Active,5,Major group heal,0.0,45.0,73,8m party,Heal + renew buffs,-180 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_012,Apotheosis,76,Ultimate,1,Support overdrive,0.0,120.0,90,Self,Heal/buff power +30%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_012,Apotheosis,76,Ultimate,2,Support overdrive,0.0,117.0,93,Self,Heal/buff power +30%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_012,Apotheosis,76,Ultimate,3,Support overdrive,0.0,114.0,95,Self,Heal/buff power +30%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_012,Apotheosis,76,Ultimate,4,Support overdrive,0.0,111.0,98,Self,Heal/buff power +30%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_PRI_012,Apotheosis,76,Ultimate,5,Support overdrive,0.0,108.0,101,Self,Heal/buff power +30%,0 threat,PvP coefficient 0.85,Server-authoritative hit validation

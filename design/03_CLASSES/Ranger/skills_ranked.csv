@@ -1,0 +1,61 @@
+﻿skill_id,name,unlock_level,type,rank,description,power_coefficient,cooldown_s,resource_cost,hitbox,cc_status,threat,pvp_rule,implementation_note
+SKL_RAN_001,Quick Shot,1,Active,1,Fast shot,1.05,2.0,12,12m projectile,None,70 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_001,Quick Shot,1,Active,2,Fast shot,1.17,1.9,12,12m projectile,None,70 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_001,Quick Shot,1,Active,3,Fast shot,1.28,1.9,13,12m projectile,None,70 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_001,Quick Shot,1,Active,4,Fast shot,1.4,1.9,13,12m projectile,None,70 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_001,Quick Shot,1,Active,5,Fast shot,1.51,1.8,13,12m projectile,None,70 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_002,Rolling Escape,4,Active,1,Mobility dodge,0.0,10.0,18,4m roll,I-frame 0.25s,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_002,Rolling Escape,4,Active,2,Mobility dodge,0.0,9.8,19,4m roll,I-frame 0.25s,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_002,Rolling Escape,4,Active,3,Mobility dodge,0.0,9.5,19,4m roll,I-frame 0.25s,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_002,Rolling Escape,4,Active,4,Mobility dodge,0.0,9.2,20,4m roll,I-frame 0.25s,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_002,Rolling Escape,4,Active,5,Mobility dodge,0.0,9.0,20,4m roll,I-frame 0.25s,0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_003,Marked Prey,6,Active,1,Target mark,0.6,14.0,15,14m target,Crit taken +6%,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_003,Marked Prey,6,Active,2,Target mark,0.67,13.7,15,14m target,Crit taken +6%,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_003,Marked Prey,6,Active,3,Target mark,0.73,13.3,16,14m target,Crit taken +6%,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_003,Marked Prey,6,Active,4,Target mark,0.8,13.0,16,14m target,Crit taken +6%,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_003,Marked Prey,6,Active,5,Target mark,0.86,12.6,17,14m target,Crit taken +6%,60 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_004,Piercing Arrow,9,Active,1,Line shot,1.75,8.0,20,14x1m line,Pierces 5 targets,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_004,Piercing Arrow,9,Active,2,Line shot,1.94,7.8,21,14x1m line,Pierces 5 targets,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_004,Piercing Arrow,9,Active,3,Line shot,2.13,7.6,21,14x1m line,Pierces 5 targets,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_004,Piercing Arrow,9,Active,4,Line shot,2.33,7.4,22,14x1m line,Pierces 5 targets,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_004,Piercing Arrow,9,Active,5,Line shot,2.52,7.2,22,14x1m line,Pierces 5 targets,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_005,Volley,13,Active,1,Ground AoE,1.85,12.0,25,5m circle at 12m,6 ticks,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_005,Volley,13,Active,2,Ground AoE,2.05,11.7,26,5m circle at 12m,6 ticks,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_005,Volley,13,Active,3,Ground AoE,2.26,11.4,26,5m circle at 12m,6 ticks,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_005,Volley,13,Active,4,Ground AoE,2.46,11.1,27,5m circle at 12m,6 ticks,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_005,Volley,13,Active,5,Ground AoE,2.66,10.8,28,5m circle at 12m,6 ticks,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_006,Snare Trap,17,Active,1,Root trap,0.4,18.0,18,3m trap,Root 2.5s,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_006,Snare Trap,17,Active,2,Root trap,0.44,17.6,19,3m trap,Root 2.5s,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_006,Snare Trap,17,Active,3,Root trap,0.49,17.1,19,3m trap,Root 2.5s,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_006,Snare Trap,17,Active,4,Root trap,0.53,16.7,20,3m trap,Root 2.5s,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_006,Snare Trap,17,Active,5,Root trap,0.58,16.2,20,3m trap,Root 2.5s,50 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_007,Falcon Scout,22,Active,1,Reveal utility,0.5,30.0,20,10m scout zone,Reveal stealth,40 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_007,Falcon Scout,22,Active,2,Reveal utility,0.56,29.2,21,10m scout zone,Reveal stealth,40 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_007,Falcon Scout,22,Active,3,Reveal utility,0.61,28.5,21,10m scout zone,Reveal stealth,40 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_007,Falcon Scout,22,Active,4,Reveal utility,0.67,27.8,22,10m scout zone,Reveal stealth,40 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_007,Falcon Scout,22,Active,5,Reveal utility,0.72,27.0,22,10m scout zone,Reveal stealth,40 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_008,Storm Arrows,28,Active,1,Rapid fire,2.2,24.0,35,12m cone,8 arrows,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_008,Storm Arrows,28,Active,2,Rapid fire,2.44,23.4,36,12m cone,8 arrows,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_008,Storm Arrows,28,Active,3,Rapid fire,2.68,22.8,37,12m cone,8 arrows,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_008,Storm Arrows,28,Active,4,Rapid fire,2.93,22.2,38,12m cone,8 arrows,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_008,Storm Arrows,28,Active,5,Rapid fire,3.17,21.6,39,12m cone,8 arrows,90 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_009,Ricochet Bolt,35,Active,1,Chain shot,1.95,16.0,30,4 targets,-15% each bounce,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_009,Ricochet Bolt,35,Active,2,Chain shot,2.16,15.6,31,4 targets,-15% each bounce,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_009,Ricochet Bolt,35,Active,3,Chain shot,2.38,15.2,32,4 targets,-15% each bounce,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_009,Ricochet Bolt,35,Active,4,Chain shot,2.59,14.8,33,4 targets,-15% each bounce,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_009,Ricochet Bolt,35,Active,5,Chain shot,2.81,14.4,34,4 targets,-15% each bounce,80 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_010,Emerald Canopy,42,Active,1,Party mobility field,0.0,35.0,40,6m circle,"Dodge +10%, MS +12%",0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_010,Emerald Canopy,42,Active,2,Party mobility field,0.0,34.1,41,6m circle,"Dodge +10%, MS +12%",0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_010,Emerald Canopy,42,Active,3,Party mobility field,0.0,33.2,42,6m circle,"Dodge +10%, MS +12%",0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_010,Emerald Canopy,42,Active,4,Party mobility field,0.0,32.4,44,6m circle,"Dodge +10%, MS +12%",0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_010,Emerald Canopy,42,Active,5,Party mobility field,0.0,31.5,45,6m circle,"Dodge +10%, MS +12%",0 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_011,Meteor Volley,56,Active,1,Large AoE,3.0,40.0,55,7m circle,Knockback minor,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_011,Meteor Volley,56,Active,2,Large AoE,3.33,39.0,57,7m circle,Knockback minor,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_011,Meteor Volley,56,Active,3,Large AoE,3.66,38.0,58,7m circle,Knockback minor,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_011,Meteor Volley,56,Active,4,Large AoE,3.99,37.0,60,7m circle,Knockback minor,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_011,Meteor Volley,56,Active,5,Large AoE,4.32,36.0,62,7m circle,Knockback minor,100 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_012,Kings Hunt,74,Ultimate,1,Marked burst,3.8,95.0,75,14m target,12 arrows on marked target,110 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_012,Kings Hunt,74,Ultimate,2,Marked burst,4.22,92.6,77,14m target,12 arrows on marked target,110 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_012,Kings Hunt,74,Ultimate,3,Marked burst,4.64,90.2,80,14m target,12 arrows on marked target,110 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_012,Kings Hunt,74,Ultimate,4,Marked burst,5.05,87.9,82,14m target,12 arrows on marked target,110 threat,PvP coefficient 0.85,Server-authoritative hit validation
+SKL_RAN_012,Kings Hunt,74,Ultimate,5,Marked burst,5.47,85.5,84,14m target,12 arrows on marked target,110 threat,PvP coefficient 0.85,Server-authoritative hit validation

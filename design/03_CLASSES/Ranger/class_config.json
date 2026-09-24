@@ -1,0 +1,198 @@
+{
+  "role": "Mobile Ranged DPS / AoE",
+  "resource": "Focus",
+  "weapon": "Longbow / Recurve Bow / Light Crossbow",
+  "armor": "Medium Leather",
+  "primary": "DEX",
+  "secondary": "AGI",
+  "color": "Emerald/Brown",
+  "identity": "Kiting, mark, traps, volley, line damage",
+  "skills": [
+    [
+      "Quick Shot",
+      1,
+      "Active",
+      "Fast shot",
+      1.05,
+      2,
+      12,
+      "12m projectile",
+      "None",
+      "70 threat"
+    ],
+    [
+      "Rolling Escape",
+      4,
+      "Active",
+      "Mobility dodge",
+      0,
+      10,
+      18,
+      "4m roll",
+      "I-frame 0.25s",
+      "0 threat"
+    ],
+    [
+      "Marked Prey",
+      6,
+      "Active",
+      "Target mark",
+      0.6,
+      14,
+      15,
+      "14m target",
+      "Crit taken +6%",
+      "60 threat"
+    ],
+    [
+      "Piercing Arrow",
+      9,
+      "Active",
+      "Line shot",
+      1.75,
+      8,
+      20,
+      "14x1m line",
+      "Pierces 5 targets",
+      "80 threat"
+    ],
+    [
+      "Volley",
+      13,
+      "Active",
+      "Ground AoE",
+      1.85,
+      12,
+      25,
+      "5m circle at 12m",
+      "6 ticks",
+      "90 threat"
+    ],
+    [
+      "Snare Trap",
+      17,
+      "Active",
+      "Root trap",
+      0.4,
+      18,
+      18,
+      "3m trap",
+      "Root 2.5s",
+      "50 threat"
+    ],
+    [
+      "Falcon Scout",
+      22,
+      "Active",
+      "Reveal utility",
+      0.5,
+      30,
+      20,
+      "10m scout zone",
+      "Reveal stealth",
+      "40 threat"
+    ],
+    [
+      "Storm Arrows",
+      28,
+      "Active",
+      "Rapid fire",
+      2.2,
+      24,
+      35,
+      "12m cone",
+      "8 arrows",
+      "90 threat"
+    ],
+    [
+      "Ricochet Bolt",
+      35,
+      "Active",
+      "Chain shot",
+      1.95,
+      16,
+      30,
+      "4 targets",
+      "-15% each bounce",
+      "80 threat"
+    ],
+    [
+      "Emerald Canopy",
+      42,
+      "Active",
+      "Party mobility field",
+      0,
+      35,
+      40,
+      "6m circle",
+      "Dodge +10%, MS +12%",
+      "0 threat"
+    ],
+    [
+      "Meteor Volley",
+      56,
+      "Active",
+      "Large AoE",
+      3.0,
+      40,
+      55,
+      "7m circle",
+      "Knockback minor",
+      "100 threat"
+    ],
+    [
+      "Kings Hunt",
+      74,
+      "Ultimate",
+      "Marked burst",
+      3.8,
+      95,
+      75,
+      "14m target",
+      "12 arrows on marked target",
+      "110 threat"
+    ]
+  ],
+  "passives": [
+    [
+      "Trailrunner",
+      5,
+      "Move while attacking penalty -50%"
+    ],
+    [
+      "Steady Aim",
+      10,
+      "Damage +6% beyond 8m"
+    ],
+    [
+      "Wildcraft",
+      18,
+      "Trap duration +20%"
+    ],
+    [
+      "Arrow Tempest",
+      30,
+      "AoE radius +10%"
+    ],
+    [
+      "Predators Calm",
+      44,
+      "Boss crit +5%"
+    ],
+    [
+      "Skyeye Doctrine",
+      60,
+      "Falcon active grants CDR +8%"
+    ],
+    [
+      "Windstep",
+      75,
+      "Roll gains 1 charge every 20s"
+    ],
+    [
+      "Perfect Trajectory",
+      90,
+      "Piercing attacks ignore 8% armor"
+    ]
+  ]
+}

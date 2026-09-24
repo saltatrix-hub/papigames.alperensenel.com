@@ -1,0 +1,9 @@
+﻿passive_id,name,unlock_level,effect
+PAS_ASS_001,Fleet Soles,5,"Move speed +5%, dodge +3%"
+PAS_ASS_002,Keen Blades,11,Crit damage +10%
+PAS_ASS_003,Venom Lore,19,Poison duration +25%
+PAS_ASS_004,Umbra Training,28,Stealth exit damage +12% for 3s
+PAS_ASS_005,Murderous Intent,42,Boss single target damage +6%
+PAS_ASS_006,Phantom Body,58,Once/120s lethal hit leaves 1 HP and Vanish
+PAS_ASS_007,Silent Step,74,Shadowstep grants dodge 1.5s
+PAS_ASS_008,Perfect Kill,90,Marked target crit rate +8%

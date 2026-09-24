@@ -1,0 +1,198 @@
+{
+  "role": "Tank / DPS",
+  "resource": "Rage",
+  "weapon": "Greataxe / Greatsword",
+  "armor": "Heavy Hybrid",
+  "primary": "STR",
+  "secondary": "VIT",
+  "color": "Crimson/Black",
+  "identity": "Rage, cleave, lifesteal, stance swap",
+  "skills": [
+    [
+      "Savage Cleave",
+      1,
+      "Active",
+      "Frontal AoE",
+      1.35,
+      4,
+      10,
+      "120° cone",
+      "Bleed 4s",
+      "120 threat"
+    ],
+    [
+      "War Roar",
+      4,
+      "Active",
+      "AoE challenge",
+      0,
+      18,
+      0,
+      "5m circle",
+      "Fear immunity 3s",
+      "180 threat"
+    ],
+    [
+      "Blood Crash",
+      7,
+      "Active",
+      "Heavy strike",
+      1.7,
+      8,
+      20,
+      "2.5m target",
+      "Bleed 8s",
+      "130 threat"
+    ],
+    [
+      "Ravager Stance",
+      10,
+      "Stance",
+      "DPS stance",
+      0,
+      20,
+      0,
+      "Self",
+      "Damage +15%, DEF -10%",
+      "-20% threat"
+    ],
+    [
+      "Defender Stance",
+      10,
+      "Stance",
+      "Tank stance",
+      0,
+      20,
+      0,
+      "Self",
+      "Damage taken -12%",
+      "+45% threat"
+    ],
+    [
+      "Whirlwind Carve",
+      14,
+      "Active",
+      "Spin AoE",
+      2.2,
+      14,
+      30,
+      "4m circle",
+      "Pull micro 0.4m",
+      "140 threat"
+    ],
+    [
+      "Skullsplitter",
+      18,
+      "Active",
+      "Armor break",
+      1.8,
+      12,
+      25,
+      "2.5m",
+      "Armor -15% 8s",
+      "150 threat"
+    ],
+    [
+      "Blood Pact",
+      24,
+      "Active",
+      "Self buff",
+      0,
+      40,
+      0,
+      "Self",
+      "Lifesteal +12%",
+      "0 threat"
+    ],
+    [
+      "Titanbreaker Leap",
+      30,
+      "Active",
+      "Leap AoE",
+      2.05,
+      18,
+      35,
+      "4m impact",
+      "Stun 1s",
+      "180 threat"
+    ],
+    [
+      "Chain of Carnage",
+      38,
+      "Active",
+      "Multi-hit cleave",
+      2.4,
+      24,
+      45,
+      "5m chain",
+      "Bleed refresh",
+      "150 threat"
+    ],
+    [
+      "Unyielding Frenzy",
+      50,
+      "Active",
+      "Burst mode",
+      0,
+      60,
+      50,
+      "Self",
+      "AS +25%, Rage gain +35%",
+      "0 threat"
+    ],
+    [
+      "Execution Storm",
+      68,
+      "Ultimate",
+      "Execute AoE",
+      3.2,
+      28,
+      60,
+      "5m circle",
+      "Bonus under 30% HP",
+      "180 threat"
+    ]
+  ],
+  "passives": [
+    [
+      "Rageheart",
+      5,
+      "Damage taken generates +20% Rage"
+    ],
+    [
+      "Battle Scarred",
+      12,
+      "Missing HP grants up to +12% DEF"
+    ],
+    [
+      "Cleaver Instinct",
+      20,
+      "Bleed damage +15%"
+    ],
+    [
+      "Butchers Rhythm",
+      34,
+      "Crit reduces Rage skill CD by 0.5s"
+    ],
+    [
+      "Titan Hide",
+      46,
+      "Armor +8%, stun resist +10%"
+    ],
+    [
+      "Lord of Slaughter",
+      62,
+      "Rage spend skills heal 2% dealt"
+    ],
+    [
+      "Red Mist",
+      76,
+      "Below 35% HP damage +10%"
+    ],
+    [
+      "Warborn",
+      90,
+      "Stance swap has no GCD"
+    ]
+  ]
+}

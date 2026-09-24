@@ -1,0 +1,73 @@
+﻿quest_id,chapter,region,level,title,objective_type,objective,reward,prerequisite
+MQ_01_01,Prologue,Dawnwatch Village,1,Prologue: Adım 1,Talk,Dawnwatch Village içindeki hikâye hedefi 1,"XP tier 1, Gold, story flag MQ_01_01",MQ_01_01
+MQ_01_02,Prologue,Dawnwatch Village,2,Prologue: Adım 2,Kill,Dawnwatch Village içindeki hikâye hedefi 2,"XP tier 1, Gold, story flag MQ_01_02",MQ_01_01
+MQ_01_03,Prologue,Dawnwatch Village,3,Prologue: Adım 3,Collect,Dawnwatch Village içindeki hikâye hedefi 3,"XP tier 1, Gold, story flag MQ_01_03",MQ_01_02
+MQ_01_04,Prologue,Dawnwatch Village,4,Prologue: Adım 4,Investigate,Dawnwatch Village içindeki hikâye hedefi 4,"XP tier 1, Gold, story flag MQ_01_04",MQ_01_03
+MQ_01_05,Prologue,Dawnwatch Village,5,Prologue: Adım 5,Defend,Dawnwatch Village içindeki hikâye hedefi 5,"XP tier 1, Gold, story flag MQ_01_05",MQ_01_04
+MQ_01_06,Prologue,Dawnwatch Village,6,Prologue: Adım 6,Escort,Dawnwatch Village içindeki hikâye hedefi 6,"XP tier 1, Gold, story flag MQ_01_06",MQ_01_05
+MQ_01_07,Prologue,Dawnwatch Village,7,Prologue: Adım 7,Activate,Dawnwatch Village içindeki hikâye hedefi 7,"XP tier 1, Gold, story flag MQ_01_07",MQ_01_06
+MQ_01_08,Prologue,Dawnwatch Village,8,Prologue: Adım 8,Boss,Dawnwatch Village içindeki hikâye hedefi 8,"XP tier 1, Gold, story flag MQ_01_08",MQ_01_07
+MQ_02_01,The Briar Wakes,Verdant Trail,5,The Briar Wakes: Adım 1,Talk,Verdant Trail içindeki hikâye hedefi 1,"XP tier 2, Gold, story flag MQ_02_01",MQ_02_01
+MQ_02_02,The Briar Wakes,Verdant Trail,6,The Briar Wakes: Adım 2,Kill,Verdant Trail içindeki hikâye hedefi 2,"XP tier 2, Gold, story flag MQ_02_02",MQ_02_01
+MQ_02_03,The Briar Wakes,Verdant Trail,7,The Briar Wakes: Adım 3,Collect,Verdant Trail içindeki hikâye hedefi 3,"XP tier 2, Gold, story flag MQ_02_03",MQ_02_02
+MQ_02_04,The Briar Wakes,Verdant Trail,8,The Briar Wakes: Adım 4,Investigate,Verdant Trail içindeki hikâye hedefi 4,"XP tier 2, Gold, story flag MQ_02_04",MQ_02_03
+MQ_02_05,The Briar Wakes,Verdant Trail,9,The Briar Wakes: Adım 5,Defend,Verdant Trail içindeki hikâye hedefi 5,"XP tier 2, Gold, story flag MQ_02_05",MQ_02_04
+MQ_02_06,The Briar Wakes,Verdant Trail,10,The Briar Wakes: Adım 6,Escort,Verdant Trail içindeki hikâye hedefi 6,"XP tier 2, Gold, story flag MQ_02_06",MQ_02_05
+MQ_02_07,The Briar Wakes,Verdant Trail,11,The Briar Wakes: Adım 7,Activate,Verdant Trail içindeki hikâye hedefi 7,"XP tier 2, Gold, story flag MQ_02_07",MQ_02_06
+MQ_02_08,The Briar Wakes,Verdant Trail,12,The Briar Wakes: Adım 8,Boss,Verdant Trail içindeki hikâye hedefi 8,"XP tier 2, Gold, story flag MQ_02_08",MQ_02_07
+MQ_03_01,Lanterns in the Mire,Moonfen Marsh,20,Lanterns in the Mire: Adım 1,Talk,Moonfen Marsh içindeki hikâye hedefi 1,"XP tier 3, Gold, story flag MQ_03_01",MQ_03_01
+MQ_03_02,Lanterns in the Mire,Moonfen Marsh,21,Lanterns in the Mire: Adım 2,Kill,Moonfen Marsh içindeki hikâye hedefi 2,"XP tier 3, Gold, story flag MQ_03_02",MQ_03_01
+MQ_03_03,Lanterns in the Mire,Moonfen Marsh,22,Lanterns in the Mire: Adım 3,Collect,Moonfen Marsh içindeki hikâye hedefi 3,"XP tier 3, Gold, story flag MQ_03_03",MQ_03_02
+MQ_03_04,Lanterns in the Mire,Moonfen Marsh,23,Lanterns in the Mire: Adım 4,Investigate,Moonfen Marsh içindeki hikâye hedefi 4,"XP tier 3, Gold, story flag MQ_03_04",MQ_03_03
+MQ_03_05,Lanterns in the Mire,Moonfen Marsh,24,Lanterns in the Mire: Adım 5,Defend,Moonfen Marsh içindeki hikâye hedefi 5,"XP tier 3, Gold, story flag MQ_03_05",MQ_03_04
+MQ_03_06,Lanterns in the Mire,Moonfen Marsh,25,Lanterns in the Mire: Adım 6,Escort,Moonfen Marsh içindeki hikâye hedefi 6,"XP tier 3, Gold, story flag MQ_03_06",MQ_03_05
+MQ_03_07,Lanterns in the Mire,Moonfen Marsh,26,Lanterns in the Mire: Adım 7,Activate,Moonfen Marsh içindeki hikâye hedefi 7,"XP tier 3, Gold, story flag MQ_03_07",MQ_03_06
+MQ_03_08,Lanterns in the Mire,Moonfen Marsh,27,Lanterns in the Mire: Adım 8,Boss,Moonfen Marsh içindeki hikâye hedefi 8,"XP tier 3, Gold, story flag MQ_03_08",MQ_03_07
+MQ_04_01,Ashes of the Legion,Ashen Wastes,25,Ashes of the Legion: Adım 1,Talk,Ashen Wastes içindeki hikâye hedefi 1,"XP tier 4, Gold, story flag MQ_04_01",MQ_04_01
+MQ_04_02,Ashes of the Legion,Ashen Wastes,26,Ashes of the Legion: Adım 2,Kill,Ashen Wastes içindeki hikâye hedefi 2,"XP tier 4, Gold, story flag MQ_04_02",MQ_04_01
+MQ_04_03,Ashes of the Legion,Ashen Wastes,27,Ashes of the Legion: Adım 3,Collect,Ashen Wastes içindeki hikâye hedefi 3,"XP tier 4, Gold, story flag MQ_04_03",MQ_04_02
+MQ_04_04,Ashes of the Legion,Ashen Wastes,28,Ashes of the Legion: Adım 4,Investigate,Ashen Wastes içindeki hikâye hedefi 4,"XP tier 4, Gold, story flag MQ_04_04",MQ_04_03
+MQ_04_05,Ashes of the Legion,Ashen Wastes,29,Ashes of the Legion: Adım 5,Defend,Ashen Wastes içindeki hikâye hedefi 5,"XP tier 4, Gold, story flag MQ_04_05",MQ_04_04
+MQ_04_06,Ashes of the Legion,Ashen Wastes,30,Ashes of the Legion: Adım 6,Escort,Ashen Wastes içindeki hikâye hedefi 6,"XP tier 4, Gold, story flag MQ_04_06",MQ_04_05
+MQ_04_07,Ashes of the Legion,Ashen Wastes,31,Ashes of the Legion: Adım 7,Activate,Ashen Wastes içindeki hikâye hedefi 7,"XP tier 4, Gold, story flag MQ_04_07",MQ_04_06
+MQ_04_08,Ashes of the Legion,Ashen Wastes,32,Ashes of the Legion: Adım 8,Boss,Ashen Wastes içindeki hikâye hedefi 8,"XP tier 4, Gold, story flag MQ_04_08",MQ_04_07
+MQ_05_01,Beneath Root and Stone,Ironroot Depths,32,Beneath Root and Stone: Adım 1,Talk,Ironroot Depths içindeki hikâye hedefi 1,"XP tier 5, Gold, story flag MQ_05_01",MQ_05_01
+MQ_05_02,Beneath Root and Stone,Ironroot Depths,33,Beneath Root and Stone: Adım 2,Kill,Ironroot Depths içindeki hikâye hedefi 2,"XP tier 5, Gold, story flag MQ_05_02",MQ_05_01
+MQ_05_03,Beneath Root and Stone,Ironroot Depths,34,Beneath Root and Stone: Adım 3,Collect,Ironroot Depths içindeki hikâye hedefi 3,"XP tier 5, Gold, story flag MQ_05_03",MQ_05_02
+MQ_05_04,Beneath Root and Stone,Ironroot Depths,35,Beneath Root and Stone: Adım 4,Investigate,Ironroot Depths içindeki hikâye hedefi 4,"XP tier 5, Gold, story flag MQ_05_04",MQ_05_03
+MQ_05_05,Beneath Root and Stone,Ironroot Depths,36,Beneath Root and Stone: Adım 5,Defend,Ironroot Depths içindeki hikâye hedefi 5,"XP tier 5, Gold, story flag MQ_05_05",MQ_05_04
+MQ_05_06,Beneath Root and Stone,Ironroot Depths,37,Beneath Root and Stone: Adım 6,Escort,Ironroot Depths içindeki hikâye hedefi 6,"XP tier 5, Gold, story flag MQ_05_06",MQ_05_05
+MQ_05_07,Beneath Root and Stone,Ironroot Depths,38,Beneath Root and Stone: Adım 7,Activate,Ironroot Depths içindeki hikâye hedefi 7,"XP tier 5, Gold, story flag MQ_05_07",MQ_05_06
+MQ_05_08,Beneath Root and Stone,Ironroot Depths,39,Beneath Root and Stone: Adım 8,Boss,Ironroot Depths içindeki hikâye hedefi 8,"XP tier 5, Gold, story flag MQ_05_08",MQ_05_07
+MQ_06_01,Kingdom of Sand,Sunscar Desert,38,Kingdom of Sand: Adım 1,Talk,Sunscar Desert içindeki hikâye hedefi 1,"XP tier 6, Gold, story flag MQ_06_01",MQ_06_01
+MQ_06_02,Kingdom of Sand,Sunscar Desert,39,Kingdom of Sand: Adım 2,Kill,Sunscar Desert içindeki hikâye hedefi 2,"XP tier 6, Gold, story flag MQ_06_02",MQ_06_01
+MQ_06_03,Kingdom of Sand,Sunscar Desert,40,Kingdom of Sand: Adım 3,Collect,Sunscar Desert içindeki hikâye hedefi 3,"XP tier 6, Gold, story flag MQ_06_03",MQ_06_02
+MQ_06_04,Kingdom of Sand,Sunscar Desert,41,Kingdom of Sand: Adım 4,Investigate,Sunscar Desert içindeki hikâye hedefi 4,"XP tier 6, Gold, story flag MQ_06_04",MQ_06_03
+MQ_06_05,Kingdom of Sand,Sunscar Desert,42,Kingdom of Sand: Adım 5,Defend,Sunscar Desert içindeki hikâye hedefi 5,"XP tier 6, Gold, story flag MQ_06_05",MQ_06_04
+MQ_06_06,Kingdom of Sand,Sunscar Desert,43,Kingdom of Sand: Adım 6,Escort,Sunscar Desert içindeki hikâye hedefi 6,"XP tier 6, Gold, story flag MQ_06_06",MQ_06_05
+MQ_06_07,Kingdom of Sand,Sunscar Desert,44,Kingdom of Sand: Adım 7,Activate,Sunscar Desert içindeki hikâye hedefi 7,"XP tier 6, Gold, story flag MQ_06_07",MQ_06_06
+MQ_06_08,Kingdom of Sand,Sunscar Desert,45,Kingdom of Sand: Adım 8,Boss,Sunscar Desert içindeki hikâye hedefi 8,"XP tier 6, Gold, story flag MQ_06_08",MQ_06_07
+MQ_07_01,Songs of the Celestine,Celestine Ruins,45,Songs of the Celestine: Adım 1,Talk,Celestine Ruins içindeki hikâye hedefi 1,"XP tier 7, Gold, story flag MQ_07_01",MQ_07_01
+MQ_07_02,Songs of the Celestine,Celestine Ruins,46,Songs of the Celestine: Adım 2,Kill,Celestine Ruins içindeki hikâye hedefi 2,"XP tier 7, Gold, story flag MQ_07_02",MQ_07_01
+MQ_07_03,Songs of the Celestine,Celestine Ruins,47,Songs of the Celestine: Adım 3,Collect,Celestine Ruins içindeki hikâye hedefi 3,"XP tier 7, Gold, story flag MQ_07_03",MQ_07_02
+MQ_07_04,Songs of the Celestine,Celestine Ruins,48,Songs of the Celestine: Adım 4,Investigate,Celestine Ruins içindeki hikâye hedefi 4,"XP tier 7, Gold, story flag MQ_07_04",MQ_07_03
+MQ_07_05,Songs of the Celestine,Celestine Ruins,49,Songs of the Celestine: Adım 5,Defend,Celestine Ruins içindeki hikâye hedefi 5,"XP tier 7, Gold, story flag MQ_07_05",MQ_07_04
+MQ_07_06,Songs of the Celestine,Celestine Ruins,50,Songs of the Celestine: Adım 6,Escort,Celestine Ruins içindeki hikâye hedefi 6,"XP tier 7, Gold, story flag MQ_07_06",MQ_07_05
+MQ_07_07,Songs of the Celestine,Celestine Ruins,51,Songs of the Celestine: Adım 7,Activate,Celestine Ruins içindeki hikâye hedefi 7,"XP tier 7, Gold, story flag MQ_07_07",MQ_07_06
+MQ_07_08,Songs of the Celestine,Celestine Ruins,52,Songs of the Celestine: Adım 8,Boss,Celestine Ruins içindeki hikâye hedefi 8,"XP tier 7, Gold, story flag MQ_07_08",MQ_07_07
+MQ_08_01,Crown of Winter,Frostpeak Highlands,52,Crown of Winter: Adım 1,Talk,Frostpeak Highlands içindeki hikâye hedefi 1,"XP tier 8, Gold, story flag MQ_08_01",MQ_08_01
+MQ_08_02,Crown of Winter,Frostpeak Highlands,53,Crown of Winter: Adım 2,Kill,Frostpeak Highlands içindeki hikâye hedefi 2,"XP tier 8, Gold, story flag MQ_08_02",MQ_08_01
+MQ_08_03,Crown of Winter,Frostpeak Highlands,54,Crown of Winter: Adım 3,Collect,Frostpeak Highlands içindeki hikâye hedefi 3,"XP tier 8, Gold, story flag MQ_08_03",MQ_08_02
+MQ_08_04,Crown of Winter,Frostpeak Highlands,55,Crown of Winter: Adım 4,Investigate,Frostpeak Highlands içindeki hikâye hedefi 4,"XP tier 8, Gold, story flag MQ_08_04",MQ_08_03
+MQ_08_05,Crown of Winter,Frostpeak Highlands,56,Crown of Winter: Adım 5,Defend,Frostpeak Highlands içindeki hikâye hedefi 5,"XP tier 8, Gold, story flag MQ_08_05",MQ_08_04
+MQ_08_06,Crown of Winter,Frostpeak Highlands,57,Crown of Winter: Adım 6,Escort,Frostpeak Highlands içindeki hikâye hedefi 6,"XP tier 8, Gold, story flag MQ_08_06",MQ_08_05
+MQ_08_07,Crown of Winter,Frostpeak Highlands,58,Crown of Winter: Adım 7,Activate,Frostpeak Highlands içindeki hikâye hedefi 7,"XP tier 8, Gold, story flag MQ_08_07",MQ_08_06
+MQ_08_08,Crown of Winter,Frostpeak Highlands,59,Crown of Winter: Adım 8,Boss,Frostpeak Highlands içindeki hikâye hedefi 8,"XP tier 8, Gold, story flag MQ_08_08",MQ_08_07
+MQ_09_01,Eclipse of Astraya,Abyss Gate,65,Eclipse of Astraya: Adım 1,Talk,Abyss Gate içindeki hikâye hedefi 1,"XP tier 9, Gold, story flag MQ_09_01",MQ_09_01
+MQ_09_02,Eclipse of Astraya,Abyss Gate,66,Eclipse of Astraya: Adım 2,Kill,Abyss Gate içindeki hikâye hedefi 2,"XP tier 9, Gold, story flag MQ_09_02",MQ_09_01
+MQ_09_03,Eclipse of Astraya,Abyss Gate,67,Eclipse of Astraya: Adım 3,Collect,Abyss Gate içindeki hikâye hedefi 3,"XP tier 9, Gold, story flag MQ_09_03",MQ_09_02
+MQ_09_04,Eclipse of Astraya,Abyss Gate,68,Eclipse of Astraya: Adım 4,Investigate,Abyss Gate içindeki hikâye hedefi 4,"XP tier 9, Gold, story flag MQ_09_04",MQ_09_03
+MQ_09_05,Eclipse of Astraya,Abyss Gate,69,Eclipse of Astraya: Adım 5,Defend,Abyss Gate içindeki hikâye hedefi 5,"XP tier 9, Gold, story flag MQ_09_05",MQ_09_04
+MQ_09_06,Eclipse of Astraya,Abyss Gate,70,Eclipse of Astraya: Adım 6,Escort,Abyss Gate içindeki hikâye hedefi 6,"XP tier 9, Gold, story flag MQ_09_06",MQ_09_05
+MQ_09_07,Eclipse of Astraya,Abyss Gate,71,Eclipse of Astraya: Adım 7,Activate,Abyss Gate içindeki hikâye hedefi 7,"XP tier 9, Gold, story flag MQ_09_07",MQ_09_06
+MQ_09_08,Eclipse of Astraya,Abyss Gate,72,Eclipse of Astraya: Adım 8,Boss,Abyss Gate içindeki hikâye hedefi 8,"XP tier 9, Gold, story flag MQ_09_08",MQ_09_07
