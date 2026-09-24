@@ -30,10 +30,116 @@ body {
     linear-gradient(180deg, #050814 0%, #0b1224 45%, #0a1210 100%);
 }
 
+/* Full-viewport game stage */
+.game-stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  background: #050814;
+  overflow: hidden;
+}
+
+.game-stage:fullscreen,
+.game-stage:-webkit-full-screen {
+  width: 100vw;
+  height: 100vh;
+}
+
+.game-chrome {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 18px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(5, 8, 20, 0.75), transparent);
+}
+
+.game-chrome .brand,
+.game-chrome .game-actions,
+.game-chrome a,
+.game-chrome button {
+  pointer-events: auto;
+}
+
+.brand.compact {
+  gap: 8px;
+}
+
+.brand.compact strong {
+  font-size: 16px;
+  letter-spacing: 0.12em;
+}
+
+.game-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chrome-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+.chrome-link:hover {
+  color: var(--gold);
+}
+
+.btn-fs {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  background: rgba(30, 41, 59, 0.9);
+  color: #f5e6c8;
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.btn-fs:hover {
+  filter: brightness(1.12);
+}
+
+#game-root {
+  width: 100%;
+  height: 100%;
+  background: #070b16;
+}
+
+#game-root canvas {
+  display: block;
+  margin: 0 auto;
+}
+
 .shell {
   width: min(1240px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 20px 0 48px;
+  padding: 36px 0 48px;
+}
+
+.intro-band {
+  margin-bottom: 48px;
+}
+
+.intro-band h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(48px, 7vw, 84px);
+  line-height: 0.95;
+  color: #f5e6c8;
+  text-shadow: 0 8px 40px rgba(124, 58, 237, 0.35);
 }
 
 .topbar {
@@ -89,11 +195,7 @@ nav a:hover {
 }
 
 .hero {
-  display: grid;
-  grid-template-columns: 0.9fr 1.4fr;
-  gap: 28px;
-  align-items: start;
-  margin-bottom: 56px;
+  display: none;
 }
 
 .eyebrow {
@@ -115,7 +217,7 @@ nav a:hover {
 
 .lede {
   margin: 18px 0 24px;
-  max-width: 38ch;
+  max-width: 42ch;
   color: var(--muted);
   font-size: 17px;
   line-height: 1.55;
@@ -159,28 +261,6 @@ nav a:hover {
 .btn.ghost:hover {
   color: var(--ink);
   border-color: rgba(255, 255, 255, 0.25);
-}
-
-.hero-frame {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  overflow: hidden;
-  background: #050814;
-  box-shadow:
-    0 0 0 1px rgba(124, 58, 237, 0.15),
-    0 30px 80px rgba(0, 0, 0, 0.45);
-}
-
-#game-root {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #070b16;
-}
-
-#game-root canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
 }
 
 .strip {

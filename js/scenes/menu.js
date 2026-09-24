@@ -177,7 +177,7 @@ class TitleScene extends Phaser.Scene {
     });
 
     this.add
-      .text(width / 2, height - 28, 'WASD move · Left click attack · 1–4 skills · E interact · I inventory · H heal · M map', {
+      .text(width / 2, height - 28, 'WASD move · Click attack · 1–4 skills · E interact · I inventory · H heal · M map · F fullscreen', {
         fontFamily: 'Source Sans 3, sans-serif',
         fontSize: '13px',
         color: '#94a3b8'
