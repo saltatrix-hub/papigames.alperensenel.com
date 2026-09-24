@@ -160,7 +160,8 @@ class WorldScene extends Phaser.Scene {
     if (Phaser.Math.Distance.Between(px, py, this.region.spawn.x, this.region.spawn.y) < 140) {
       return this.spawnMob(def);
     }
-    const mob = this.physics.add.image(px, py, `mob_${def.id}`);
+    const tex = this.textures.exists(`sprite_mob_${def.id}`) ? `sprite_mob_${def.id}` : `mob_${def.id}`;
+    const mob = this.physics.add.image(px, py, tex);
     mob.setCollideWorldBounds(true);
     mob.setDepth(py);
     mob.setData('def', def);
@@ -169,7 +170,8 @@ class WorldScene extends Phaser.Scene {
     mob.setData('id', def.id);
     mob.setData('home', { x: px, y: py });
     mob.setData('atkCd', 0);
-    if (def.elite) mob.setScale(1.15);
+    const targetH = def.elite ? 70 : 58;
+    mob.setScale(targetH / Math.max(1, mob.height));
     this.mobs.add(mob);
     return mob;
   }
@@ -177,7 +179,12 @@ class WorldScene extends Phaser.Scene {
   spawnBoss(b) {
     const existing = this.mobs.getChildren().find((m) => m.getData('id') === b.id);
     if (existing) return;
-    const mob = this.physics.add.image(b.x, b.y, `mob_${b.id}`);
+    const tex = this.textures.exists(`sprite_boss_${b.id}`)
+      ? `sprite_boss_${b.id}`
+      : this.textures.exists(`mob_${b.id}`)
+        ? `mob_${b.id}`
+        : `sprite_mob_${b.id}`;
+    const mob = this.physics.add.image(b.x, b.y, tex);
     mob.setCollideWorldBounds(true);
     mob.setDepth(b.y);
     mob.setData('def', { ...b, boss: true });
@@ -187,6 +194,7 @@ class WorldScene extends Phaser.Scene {
     mob.setData('home', { x: b.x, y: b.y });
     mob.setData('atkCd', 0);
     mob.setData('boss', true);
+    mob.setScale(110 / Math.max(1, mob.height));
     this.mobs.add(mob);
   }
 
@@ -194,10 +202,16 @@ class WorldScene extends Phaser.Scene {
     const stats = AstrayaSave.stats(this.state);
     const x = this.state.x ?? this.region.spawn.x;
     const y = this.state.y ?? this.region.spawn.y;
-    this.player = this.physics.add.image(x, y, `player_${this.state.className}`);
+    const key = this.textures.exists(`sprite_${this.state.className}`)
+      ? `sprite_${this.state.className}`
+      : `player_${this.state.className}`;
+    this.player = this.physics.add.image(x, y, key);
     this.player.setCollideWorldBounds(true);
     this.player.setDepth(y);
-    this.playerShadow = this.add.image(x, y + 16, 'shadow').setDepth(1);
+    const targetH = 56;
+    const scale = targetH / Math.max(1, this.player.height);
+    this.player.setScale(scale);
+    this.playerShadow = this.add.image(x, y + 18, 'shadow').setDepth(1);
     this.facing = new Phaser.Math.Vector2(1, 0);
     this.attackCd = 0;
     this.invuln = 0;
