@@ -16,7 +16,7 @@ export class Renderer {
     this.resize();
   }
   resize() {
-    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    const dpr = 1;
     const w = window.innerWidth, h = window.innerHeight;
     this.cv.width = Math.round(w * dpr); this.cv.height = Math.round(h * dpr);
     this.cv.style.width = w + 'px'; this.cv.style.height = h + 'px';
@@ -54,7 +54,7 @@ export class Renderer {
     ctx.setTransform(z, 0, 0, z, 0, 0);
     ctx.imageSmoothingEnabled = false;
     map.drawGround(ctx, cam, this.vw, this.vh, 3);
-    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingEnabled = false;
     ctx.translate(-cam.x, -cam.y);
     const T = w.time;
     const view = { x0: cam.x - 120, y0: cam.y - 60, x1: cam.x + this.vw + 120, y1: cam.y + this.vh + 260 };
@@ -565,11 +565,10 @@ export class Renderer {
       ctx.globalAlpha = clamp(a, 0, 1);
       ctx.fillStyle = pk.color;
       const sz = (kind === 'snow' ? 2 + p.s * 2.5 : kind === 'leaf' || kind === 'petal' ? 3 + p.s * 2 : kind === 'sand' ? 1.5 : 1.5 + p.s * 2) * this.dpr;
-      if (kind === 'firefly' || kind === 'mote' || kind === 'wisp' || kind === 'ember') { ctx.shadowColor = pk.color; ctx.shadowBlur = 8; }
+      if (kind === 'firefly' || kind === 'mote' || kind === 'wisp' || kind === 'ember') { ctx.globalAlpha = clamp(a * 1.15, 0, 1); }
       if (kind === 'leaf' || kind === 'petal') { ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(w.time * 2 + p.p); ctx.fillRect(-sz, -sz / 2, sz * 2, sz); ctx.restore(); }
       else if (kind === 'sand') ctx.fillRect(p.x, p.y, sz * 8, sz * 0.7);
       else { ctx.beginPath(); ctx.arc(p.x, p.y, sz, 0, TAU); ctx.fill(); }
-      ctx.shadowBlur = 0;
     }
     ctx.restore();
   }

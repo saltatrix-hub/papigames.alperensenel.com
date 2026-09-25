@@ -8,6 +8,7 @@ const mobs = new Map();
 const people = new Map();
 let pathPx = null;
 let refresh = false;
+let propsBaked = false;
 
 const TREES = {
   oak: [5, 16],
@@ -34,10 +35,21 @@ const MOBS = {
   flower: { file: 'man_eater_flower.png', cols: 3, rows: 4, cw: 60, ch: 76 },
 };
 
+function propsReady() {
+  const ids = new Set();
+  for (const list of Object.values(TREES)) for (const id of list) ids.add(id);
+  for (const list of Object.values(HOUSES)) for (const id of list) ids.add(id);
+  for (const id of ids) if (!tiles.has(id)) return false;
+  return true;
+}
+
 function load(map, src, key) {
   if (typeof Image === 'undefined') return;
   const img = new Image();
-  img.onload = () => { map.set(key, img); refresh = true; };
+  img.onload = () => {
+    map.set(key, img);
+    if (!propsBaked && propsReady()) { propsBaked = true; refresh = true; }
+  };
   img.src = src;
 }
 

@@ -254,8 +254,9 @@ export class UI {
     this.updateTarget();
     this.updateBoss();
     this.updatePrompt();
-    this.updateMinimap();
-    this.drawPortrait($('#portrait'), p);
+    this._miniN = (this._miniN || 0) + 1;
+    if (this._miniN % 4 === 0) this.updateMinimap();
+    if (this._portraitCls !== p.cls) { this._portraitCls = p.cls; this.drawPortrait($('#portrait'), p); }
   }
 
   updateBars() {
@@ -279,6 +280,9 @@ export class UI {
   renderBuffs() {
     const box = $('#buffs');
     const p = this.game.player;
+    const sig = p.buffs.slice(0, 10).map((b) => `${b.name}:${Math.ceil(b.dur - b.t)}`).join('|');
+    if (box.dataset.sig === sig) return;
+    box.dataset.sig = sig;
     box.innerHTML = p.buffs.slice(0, 10).map((b) =>
       `<div class="buff" style="border-color:${b.color || '#ffd76a'}" title="${esc(b.name)}">${esc((b.name || '?').slice(0, 3))}<small>${Math.ceil(b.dur - b.t)}</small></div>`
     ).join('');
@@ -286,6 +290,9 @@ export class UI {
 
   renderParty() {
     const box = $('#party');
+    const sig = this.game.party.map((h) => `${h.name}:${Math.round(pct(h.hp, h.maxHp))}`).join('|');
+    if (box.dataset.sig === sig) return;
+    box.dataset.sig = sig;
     box.innerHTML = this.game.party.map((h) =>
       `<div class="mate"><b>${esc(h.name)}</b> <small>${CLASS_TR[h.cls].tr}</small><div class="bar hp slim"><i style="width:${pct(h.hp, h.maxHp)}%"></i></div></div>`
     ).join('');

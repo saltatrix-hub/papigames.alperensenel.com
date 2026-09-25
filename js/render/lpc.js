@@ -136,6 +136,52 @@ export function preloadLpc() {
 
 export function lpcReady() { return ready; }
 
+const baked = new Map();
+const BAKE_W = 96;
+const BAKE_H = 84;
+const BAKE_OX = 48;
+const BAKE_OY = 70;
+
+function bakeFrame(cls, act, keys, group, col, row) {
+  const key = `${cls}|${act}|${col}|${row}`;
+  const hit = baked.get(key);
+  if (hit) return hit;
+  if (!ready) return null;
+  const S = 64;
+  const c = document.createElement('canvas');
+  c.width = BAKE_W;
+  c.height = BAKE_H;
+  const b = c.getContext('2d');
+  b.imageSmoothingEnabled = false;
+  b.translate(BAKE_OX, BAKE_OY);
+  const cloth = CLOTH_FILTER[cls] || {};
+  for (const layer of keys) {
+    const path = group[layer];
+    const img = path && sheets.get(path);
+    if (!img) continue;
+    b.filter = cloth[layer] || 'none';
+    b.drawImage(img, col * S, row * S, S, S, -S / 2, -S + 10, S, S);
+  }
+  b.filter = 'none';
+  if (cls === 'Assassin') {
+    const dagger = sheets.get(group.dagger || LAYERS.slash.dagger);
+    if (dagger) {
+      b.drawImage(dagger, 0, row * S, S, S, -S / 2 - 10, -S + 14, S, S);
+      b.save();
+      b.scale(-1, 1);
+      b.drawImage(dagger, 0, row * S, S, S, -S / 2 - 10, -S + 14, S, S);
+      b.restore();
+    }
+    b.fillStyle = 'rgba(8, 6, 14, 0.92)';
+    b.fillRect(-9, -40, 18, 6);
+    b.fillStyle = '#c9a23a';
+    b.fillRect(-7, -39, 2, 2);
+    b.fillRect(5, -39, 2, 2);
+  }
+  baked.set(key, c);
+  return c;
+}
+
 function frameCol(anim, cols, attacking, act) {
   if (attacking) {
     const t = Math.max(0, Math.min(0.999, anim.attack));
@@ -166,29 +212,17 @@ export function drawLpcHero(ctx, x, y, cls, look, dir, anim, scale = 1, opts = {
     ctx.fillStyle = 'rgba(0,0,0,0.28)'; ctx.fill();
   }
   if (opts.mount) ctx.translate(0, -10);
-  const cloth = CLOTH_FILTER[cls] || {};
+  const frame = bakeFrame(cls, act, keys, group, col, row);
+  if (frame) {
+    ctx.drawImage(frame, -BAKE_OX, -BAKE_OY);
+    ctx.restore();
+    return;
+  }
   for (const key of keys) {
     const path = group[key];
     const img = path && sheets.get(path);
     if (!img) continue;
-    ctx.filter = cloth[key] || 'none';
     ctx.drawImage(img, col * S, row * S, S, S, -S / 2, -S + 10, S, S);
-  }
-  ctx.filter = 'none';
-  if (cls === 'Assassin') {
-    const dagger = sheets.get(group.dagger || LAYERS.slash.dagger);
-    if (dagger) {
-      ctx.drawImage(dagger, 0, row * S, S, S, -S / 2 - 10, -S + 14, S, S);
-      ctx.save();
-      ctx.scale(-1, 1);
-      ctx.drawImage(dagger, 0, row * S, S, S, -S / 2 - 10, -S + 14, S, S);
-      ctx.restore();
-    }
-    ctx.fillStyle = 'rgba(8, 6, 14, 0.92)';
-    ctx.fillRect(-9, -40, 18, 6);
-    ctx.fillStyle = '#c9a23a';
-    ctx.fillRect(-7, -39, 2, 2);
-    ctx.fillRect(5, -39, 2, 2);
   }
   ctx.restore();
 }
