@@ -1,6 +1,8 @@
 // Procedural character / monster / prop art. All art is drawn with canvas primitives
 // following the GDD identity colours (class_config.json "color").
 import { TAU, shade, rgba, makeCanvas, hashStr, rng, mix } from '../core/util.js';
+import { itemPng, skillPng, slotPng } from '../data/icons.js';
+import { drawLpcHero, lpcReady } from './lpc.js';
 
 // ------------------------------------------------------------------ helpers
 function rr(ctx, x, y, w, h, r) {
@@ -93,6 +95,17 @@ const CLASS_WEAPONS = {
  * look: colours; cls: class id (weapons/silhouette) or 'npc'.
  */
 export function drawHero(ctx, x, y, cls, look, dir, anim, scale = 1, opts = {}) {
+  if (lpcReady()) {
+    if (opts.mount) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+      drawMount(ctx, opts.mount, dir, anim.walk || 0, anim.moving);
+      ctx.restore();
+    }
+    drawLpcHero(ctx, x, y, cls, look, dir, anim, scale, opts);
+    return;
+  }
   const walk = anim.walk || 0;
   const moving = anim.moving;
   const atk = anim.attack >= 0 ? anim.attack : -1;
@@ -819,6 +832,8 @@ const SLOT_GLYPH = {
 const CLASS_WEAPON_ICON = { Knight: 'sword', Berserker: 'axe', Assassin: 'dagger', Ranger: 'bow', Mage: 'staff', Priest: 'mace' };
 
 export function itemIcon(item) {
+  const png = itemPng(item) || (item?.slot ? slotPng(item.slot) : null);
+  if (png) return png;
   const key = `${item.slot}|${item.cls}|${item.rarity}|${item.kind || ''}|${item.id || ''}`;
   return iconCanvas(key, (ctx, S) => {
     ctx.lineWidth = 1.5; ctx.strokeStyle = OUT;
@@ -872,6 +887,8 @@ const SKILL_GLYPHS = {
 };
 
 export function skillIcon(skill, classColor, element) {
+  const png = skillPng(skill);
+  if (png) return png;
   const key = `skill|${skill.id}`;
   return iconCanvas(key, (ctx, S) => {
     const g = ctx.createLinearGradient(0, 0, S, S);

@@ -1,0 +1,17 @@
+Item / weapon / armor icons
+  496 pixel art icons for medieval/fantasy RPG
+  Henrique Lazarini (7Soul1)
+  License: CC0
+  https://opengameart.org/content/496-pixel-art-icons-for-medievalfantasy-rpg
+
+Tiny Dungeon tiles (extra item / dungeon chips)
+  Kenney Vleugels (www.kenney.nl)
+  License: CC0
+  https://opengameart.org/content/tiny-dungeon
+
+In-world character sprites
+  [LPC] Medieval fantasy character sprites
+  Author: wulax
+  License: CC-BY-SA 3.0 / GPL 3.0 / OGA-BY 3.0
+  https://opengameart.org/content/lpc-medieval-fantasy-character-sprites
+  Credit “LPC (wulax)” as required by the license.
