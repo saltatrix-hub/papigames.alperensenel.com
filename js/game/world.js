@@ -730,22 +730,32 @@ export class World {
       h.animT += dt;
       h.dir = dirFromAngle(h.faceAngle ?? Math.PI / 2);
     }
-    for (const m of this.monsters) {
+    const px = this.player.x, py = this.player.y;
+    this._aiPhase = ((this._aiPhase || 0) + 1) % 3;
+    const FAR = 820 * 820;
+    for (let mi = 0; mi < this.monsters.length; mi++) {
+      const m = this.monsters[mi];
       if (m.dead) continue;
+      const far = !m.boss && m.inCombat <= 0 && (m.x - px) * (m.x - px) + (m.y - py) * (m.y - py) > FAR;
+      if (far && (mi % 3) !== this._aiPhase) continue;
+      const step = far ? dt * 3 : dt;
       m.computeMods();
-      tickBuffs(this, m, dt);
+      tickBuffs(this, m, step);
       if (m.dead) continue;
-      m.flash = Math.max(0, m.flash - dt);
-      m.inCombat = Math.max(0, m.inCombat - dt);
-      if (m.atkAnim >= 0) { m.atkAnim += dt / 0.35; if (m.atkAnim > 1) m.atkAnim = -1; }
-      m.animT += dt;
-      if (this.motion(m, dt)) continue;
-      monsterAI(this, m, dt);
-      if (m.moving) m.walkT += dt * 8;
+      m.flash = Math.max(0, m.flash - step);
+      m.inCombat = Math.max(0, m.inCombat - step);
+      if (m.atkAnim >= 0) { m.atkAnim += step / 0.35; if (m.atkAnim > 1) m.atkAnim = -1; }
+      m.animT += step;
+      if (this.motion(m, step)) continue;
+      monsterAI(this, m, step);
+      if (m.moving) m.walkT += step * 8;
     }
     for (const e of this.extraAllies) if (e.kind === 'npc' && e.computeMods) { e.computeMods(); tickBuffs(this, e, dt); }
     // cull dead monsters (after fade)
-    this.monsters = this.monsters.filter((m) => !m.dead || this.time - m.deathT < 1.4);
+    for (let i = this.monsters.length - 1; i >= 0; i--) {
+      const m = this.monsters[i];
+      if (m.dead && this.time - m.deathT >= 1.4) this.monsters.splice(i, 1);
+    }
     // respawns
     for (let i = this.respawns.length - 1; i >= 0; i--) {
       const r = this.respawns[i];

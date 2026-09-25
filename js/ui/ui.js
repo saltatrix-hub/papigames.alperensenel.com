@@ -261,18 +261,18 @@ export class UI {
 
   updateBars() {
     const p = this.game.player;
-    $('#hud-name').textContent = p.name;
-    $('#hud-title').textContent = p.title || '';
-    $('#hud-class').textContent = CLASS_TR[p.cls].tr;
-    $('#hud-level').textContent = p.level;
+    setText($('#hud-name'), p.name);
+    setText($('#hud-title'), p.title || '');
+    setText($('#hud-class'), CLASS_TR[p.cls].tr);
+    setText($('#hud-level'), String(p.level));
     setBar($('#bar-hp'), $('#txt-hp'), p.hp, p.maxHp);
     setBar($('#bar-res'), $('#txt-res'), p.resource, p.maxRes, `${RES_TR[p.resourceName]} ${fmt(p.resource)}/${fmt(p.maxRes)}`);
     const need = xpToNext(p.level);
     setBar($('#bar-xp'), null, p.xp, need || 1);
-    $('#txt-xp').textContent = p.level >= 100 ? 'Seviye 100' : `${fmt(p.xp)} / ${fmt(need)} XP`;
-    $('#hud-gold').textContent = fmt(this.game.gold);
-    $('#hud-crystals').textContent = fmt(this.game.crystals);
-    $('#bar-res').style.background = `linear-gradient(90deg, ${p.res.color}, #fff)`;
+    setText($('#txt-xp'), p.level >= 100 ? 'Seviye 100' : `${fmt(p.xp)} / ${fmt(need)} XP`);
+    setText($('#hud-gold'), fmt(this.game.gold));
+    setText($('#hud-crystals'), fmt(this.game.crystals));
+    if (this._resCol !== p.res.color) { this._resCol = p.res.color; $('#bar-res').style.background = `linear-gradient(90deg, ${p.res.color}, #fff)`; }
     this.renderBuffs();
     this.renderParty();
   }
@@ -337,8 +337,9 @@ export class UI {
       }
     });
     const hpCd = p.cooldowns.potHp || 0, mpCd = p.cooldowns.potRes || 0;
-    $('#util-hp').querySelector('span').textContent = `Can ×${this.game.inv.count('POT_HP_S')}`;
-    $('#util-mp').querySelector('span').textContent = `Kaynak ×${this.game.inv.count('POT_MP_S')}`;
+    const hpN = this.game.inv.count('POT_HP_S'), mpN = this.game.inv.count('POT_MP_S');
+    if (this._hpN !== hpN) { this._hpN = hpN; $('#util-hp').querySelector('span').textContent = `Can ×${hpN}`; }
+    if (this._mpN !== mpN) { this._mpN = mpN; $('#util-mp').querySelector('span').textContent = `Kaynak ×${mpN}`; }
     paintCd($('#util-hp'), hpCd, 8);
     paintCd($('#util-mp'), mpCd, 12);
     paintCd($('#util-dodge'), p.dodgeCd, 2.6);
@@ -906,9 +907,18 @@ export class UI {
   }
 }
 
+function setText(node, value) {
+  const s = String(value);
+  if (!node || node._v === s) return;
+  node._v = s;
+  node.textContent = s;
+}
 function setBar(i, txt, cur, max, label) {
-  if (i) i.style.width = pct(cur, max) + '%';
-  if (txt) txt.textContent = label || `${fmt(cur)} / ${fmt(max)}`;
+  if (i) {
+    const w = pct(cur, max) + '%';
+    if (i._w !== w) { i._w = w; i.style.width = w; }
+  }
+  if (txt) setText(txt, label || `${fmt(cur)} / ${fmt(max)}`);
 }
 function pct(a, b) { return b ? Math.max(0, Math.min(100, (a / b) * 100)) : 0; }
 function paintCd(btn, left, max) {

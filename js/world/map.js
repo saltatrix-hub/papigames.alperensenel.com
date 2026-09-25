@@ -7,7 +7,7 @@ export const TILE = 48;
 export const CELL = 24;   // collision cell
 const F = 12;             // field resolution
 const CHUNK = 768;        // px
-const HALF = 2;           // pixel size of terrain texture
+const HALF = 4;           // pixel size of terrain texture
 
 export class GameMap {
   constructor({ id, kind, W, H, theme, seed, name }) {
@@ -344,16 +344,12 @@ export class GameMap {
       }
     }
     ctx.putImageData(img, 0, 0);
-    // decals baked at full resolution
-    const out = makeCanvas(CHUNK, CHUNK);
-    const o = out.getContext('2d');
-    o.imageSmoothingEnabled = false;
-    o.drawImage(cnv, 0, 0, CHUNK, CHUNK);
+    ctx.imageSmoothingEnabled = false;
     for (const dc of this.decals) {
       if (dc.x < ox - 80 || dc.x > ox + CHUNK + 80 || dc.y < oy - 80 || dc.y > oy + CHUNK + 80) continue;
-      o.drawImage(dc.sp.c, dc.x - dc.sp.ax - ox, dc.y - dc.sp.ay - oy);
+      ctx.drawImage(dc.sp.c, (dc.x - dc.sp.ax - ox) / HALF, (dc.y - dc.sp.ay - oy) / HALF, dc.sp.c.width / HALF, dc.sp.c.height / HALF);
     }
-    return out;
+    return cnv;
   }
 
   /** Draws ground chunks covering the view. budget: max new chunks rendered this frame. */
@@ -365,7 +361,7 @@ export class GameMap {
     for (let cy = y0; cy <= y1; cy++) for (let cx = x0; cx <= x1; cx++) {
       if (cx < 0 || cy < 0 || cx * CHUNK >= this.pw || cy * CHUNK >= this.ph) continue;
       if (!this.hasChunk(cx, cy)) { if (made >= budget) { ctx.fillStyle = this.theme.ground[0]; ctx.fillRect(cx * CHUNK - cam.x, cy * CHUNK - cam.y, CHUNK, CHUNK); continue; } made++; }
-      ctx.drawImage(this.getChunk(cx, cy), cx * CHUNK - cam.x, cy * CHUNK - cam.y);
+      ctx.drawImage(this.getChunk(cx, cy), cx * CHUNK - cam.x, cy * CHUNK - cam.y, CHUNK, CHUNK);
     }
   }
 

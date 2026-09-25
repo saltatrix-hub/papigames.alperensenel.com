@@ -13,6 +13,7 @@ export class Renderer {
     this.cam = { x: 0, y: 0, zoom: 1 };
     this.light = makeCanvas(4, 4);
     this.weather = [];
+    this.drawList = [];
     this.resize();
   }
   resize() {
@@ -24,7 +25,7 @@ export class Renderer {
     // world zoom: keep ~ 30 metres visible horizontally on wide screens
     this.cam.zoom = clamp(Math.min(w / 1280, h / 760), 0.72, 1.35) * dpr;
     this.vw = this.cv.width / this.cam.zoom; this.vh = this.cv.height / this.cam.zoom;
-    const lw = Math.ceil(this.vw / 4), lh = Math.ceil(this.vh / 4);
+    const lw = Math.ceil(this.vw / 8), lh = Math.ceil(this.vh / 8);
     this.light.width = lw; this.light.height = lh;
   }
   screenToWorld(sx, sy) { return { x: this.cam.x + (sx * this.dpr) / this.cam.zoom, y: this.cam.y + (sy * this.dpr) / this.cam.zoom }; }
@@ -74,15 +75,21 @@ export class Renderer {
     if (qt && inView(qt.x, qt.y)) { const p = 0.5 + Math.sin(T * 4) * 0.5; ctx.strokeStyle = `rgba(255,215,106,${0.4 + p * 0.4})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(qt.x, qt.y, 40 + p * 8, 16 + p * 3, 0, 0, TAU); ctx.stroke(); }
 
     // y-sorted scene
-    const list = [];
-    for (const p of map.props) if (inView(p.x, p.y)) list.push({ y: p.y, k: 0, o: p });
-    for (const b of map.buildings) if (b.x + b.w > view.x0 && b.x < view.x1 && b.y > view.y0 && b.y - b.h - 100 < view.y1) list.push({ y: b.y, k: 1, o: b });
-    for (const o of w.objects) if (!o.hidden && inView(o.x, o.y)) list.push({ y: o.y, k: 2, o });
-    for (const n of w.npcs) if (inView(n.x, n.y)) list.push({ y: n.y, k: 3, o: n });
-    for (const h of w.ghosts) if (inView(h.x, h.y)) list.push({ y: h.y, k: 4, o: h });
-    for (const h of w.heroes) if (inView(h.x, h.y)) list.push({ y: h.y, k: 4, o: h });
-    for (const m of w.monsters) if (inView(m.x, m.y)) list.push({ y: m.y, k: 5, o: m });
-    for (const e of w.extraAllies) if (e.kind === 'objective' && inView(e.x, e.y)) list.push({ y: e.y, k: 6, o: e });
+    const list = this.drawList;
+    let n = 0;
+    const push = (y, k, o) => {
+      const it = list[n] || (list[n] = { y: 0, k: 0, o: null });
+      it.y = y; it.k = k; it.o = o; n++;
+    };
+    for (const p of map.props) if (inView(p.x, p.y)) push(p.y, 0, p);
+    for (const b of map.buildings) if (b.x + b.w > view.x0 && b.x < view.x1 && b.y > view.y0 && b.y - b.h - 100 < view.y1) push(b.y, 1, b);
+    for (const o of w.objects) if (!o.hidden && inView(o.x, o.y)) push(o.y, 2, o);
+    for (const npc of w.npcs) if (inView(npc.x, npc.y)) push(npc.y, 3, npc);
+    for (const h of w.ghosts) if (inView(h.x, h.y)) push(h.y, 4, h);
+    for (const h of w.heroes) if (inView(h.x, h.y)) push(h.y, 4, h);
+    for (const m of w.monsters) if (inView(m.x, m.y)) push(m.y, 5, m);
+    for (const e of w.extraAllies) if (e.kind === 'objective' && inView(e.x, e.y)) push(e.y, 6, e);
+    list.length = n;
     list.sort((a, b) => a.y - b.y);
     const P = game.player;
     for (const it of list) {
@@ -113,7 +120,7 @@ export class Renderer {
     for (const m of w.meteors) {
       const k = m.t / m.dur;
       const x = m.x + (1 - k) * 160, y = m.y - (1 - k) * 420;
-      ctx.save(); ctx.shadowColor = m.color; ctx.shadowBlur = 24;
+      ctx.save();
       ctx.fillStyle = m.color; ctx.beginPath(); ctx.arc(x, y, 14 * m.scale, 0, TAU); ctx.fill();
       ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(x, y, 6 * m.scale, 0, TAU); ctx.fill();
       ctx.strokeStyle = rgba(m.color, 0.5); ctx.lineWidth = 10 * m.scale; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 60, y - 150); ctx.stroke();
@@ -179,7 +186,7 @@ export class Renderer {
   drawLiquidGlints(ctx, map, view, T) {
     if (map.floor || !map.theme.liq) return;
     ctx.fillStyle = 'rgba(255,255,255,0.22)';
-    const step = 64;
+    const step = 128;
     const x0 = Math.floor(view.x0 / step) * step, y0 = Math.floor(view.y0 / step) * step;
     for (let y = y0; y < view.y1; y += step) for (let x = x0; x < view.x1; x += step) {
       const h = ((x * 73856093) ^ (y * 19349663)) >>> 0;
@@ -433,7 +440,8 @@ export class Renderer {
 
   // ---------------------------------------------------------------- overhead
   label(ctx, x, y, text, color = '#fff', size = 12, weight = 700) {
-    ctx.font = `${weight} ${size}px Inter, system-ui, sans-serif`;
+    const font = `${weight} ${size}px Inter, system-ui, sans-serif`;
+    if (this._font !== font) { this._font = font; ctx.font = font; }
     ctx.textAlign = 'center';
     ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(10,6,14,.8)'; ctx.strokeText(text, x, y);
     ctx.fillStyle = color; ctx.fillText(text, x, y);
@@ -474,7 +482,10 @@ export class Renderer {
   monsterOverhead(ctx, m) {
     if (m.dead) return;
     const top = m.y - (m.arch === 'golem' || m.arch === 'seraph' ? 68 : 50) * m.size - (m.z || 0);
-    const show = m.boss || m.inCombat > 0 || m.hp < m.maxHp || this.game.player.target === m || m.elite;
+    const pl = this.game.player;
+    const near = Math.abs(m.x - pl.x) < 360 && Math.abs(m.y - pl.y) < 280;
+    const show = m.boss || m.inCombat > 0 || m.hp < m.maxHp || pl.target === m || m.elite;
+    if (!show && !near) return;
     const lvlCol = levelColor(m.level, this.game.player.level);
     if (show) {
       const w = m.boss ? 90 : m.elite ? 64 : 48;
