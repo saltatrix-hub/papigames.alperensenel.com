@@ -11,19 +11,19 @@ let refresh = false;
 let propsBaked = false;
 
 const TREES = {
-  oak: [5, 16],
-  bigtree: [5, 16],
-  pine: [4, 6],
-  snowpine: [8, 10],
-  bush: [7, 18],
-  palm: [8],
+  oak: { tiles: [[5], [16]], s: 5 },
+  bigtree: { tiles: [[5], [16]], s: 6.5 },
+  pine: { tiles: [[16]], s: 5.5 },
+  snowpine: { tiles: [[4], [15]], s: 5 },
+  bush: { tiles: [[6]], s: 4 },
+  palm: { tiles: [[4], [15]], s: 5 },
 };
 const HOUSES = {
-  house: [48, 49, 50, 51, 60, 61, 62, 63],
-  hall: [52, 53, 54, 55, 64, 65, 66, 67],
-  chapel: [48, 49, 50, 51, 60, 61, 62, 63],
-  smith: [52, 53, 54, 55, 64, 65, 66, 67],
-  tent: [8, 9, 10, 11],
+  house: [[52, 53, 54, 55], [84, 86, 85, 87]],
+  hall: [[48, 49, 50, 51], [88, 90, 89, 91]],
+  chapel: [[48, 49, 50, 51], [88, 89, 90, 91]],
+  smith: [[52, 53, 54, 55], [84, 85, 87, 86]],
+  tent: [[52, 53, 55], [84, 86, 87]],
 };
 
 const MOBS = {
@@ -37,8 +37,8 @@ const MOBS = {
 
 function propsReady() {
   const ids = new Set();
-  for (const list of Object.values(TREES)) for (const id of list) ids.add(id);
-  for (const list of Object.values(HOUSES)) for (const id of list) ids.add(id);
+  for (const spec of Object.values(TREES)) for (const row of spec.tiles) for (const id of row) ids.add(id);
+  for (const rows of Object.values(HOUSES)) for (const row of rows) for (const id of row) ids.add(id);
   for (const id of ids) if (!tiles.has(id)) return false;
   return true;
 }
@@ -87,31 +87,38 @@ export function pathTint(wx, wy) {
 function tile(i) { return tiles.get(i); }
 
 export function drawKenneyProp(ctx, type) {
-  const ids = TREES[type];
-  if (!ids || !ids.every((id) => tile(id))) return false;
-  const s = 5;
-  const tw = 16 * s;
-  ids.forEach((id, n) => {
-    const img = tile(id);
-    ctx.drawImage(img, -tw / 2 + (n % 2) * (tw * 0.15), -tw * (ids.length - n) * 0.72, tw, tw);
+  const spec = TREES[type];
+  if (!spec) return false;
+  const rows = spec.tiles;
+  if (!rows.every((row) => row.every((id) => tile(id)))) return false;
+  const tw = 16 * spec.s;
+  const totalH = rows.length * tw;
+  ctx.imageSmoothingEnabled = false;
+  rows.forEach((row, r) => {
+    const x0 = -(row.length * tw) / 2;
+    const y = -totalH + r * tw + 4;
+    row.forEach((id, c) => ctx.drawImage(tile(id), x0 + c * tw, y, tw + 0.5, tw + 0.5));
   });
   return true;
 }
 
 export function drawKenneyHouse(ctx, kind, w, h) {
-  const ids = HOUSES[kind] || HOUSES.house;
-  if (!ids.every((id) => tile(id))) return false;
-  const cols = ids.length > 4 ? 4 : ids.length;
-  const rows = Math.ceil(ids.length / cols);
-  const cw = w / cols;
-  const ch = Math.min(h, w * 0.7) / rows;
-  const top = -h * 0.15 - rows * ch;
-  ids.forEach((id, n) => {
-    const img = tile(id);
-    const c = n % cols;
-    const r = (n / cols) | 0;
-    ctx.drawImage(img, c * cw, top + r * ch, cw + 1, ch + 1);
-  });
+  const rows = HOUSES[kind] || HOUSES.house;
+  if (!rows.every((row) => row.every((id) => tile(id)))) return false;
+  const cols = rows[0].length;
+  let tileW = Math.floor(w / cols);
+  tileW -= tileW % 2;
+  if (tileW < 18) tileW = 18;
+  const tileH = tileW;
+  const facadeW = tileW * cols;
+  const x0 = Math.floor((w - facadeW) / 2);
+  const baseY = h + 84;
+  let y = baseY - rows.length * tileH;
+  ctx.imageSmoothingEnabled = false;
+  for (const row of rows) {
+    row.forEach((id, c) => ctx.drawImage(tile(id), x0 + c * tileW, y, tileW + 1, tileH + 1));
+    y += tileH;
+  }
   return true;
 }
 

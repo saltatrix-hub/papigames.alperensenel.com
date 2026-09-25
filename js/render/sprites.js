@@ -507,7 +507,8 @@ export function getProp(type, theme, variant = 0) {
   const key = `${type}|${theme.liq}|${variant}`;
   if (propCache.has(key)) return propCache.get(key);
   const R = rng(hashStr(key));
-  let w = 96, h = 128;
+  const veg = type === 'oak' || type === 'bigtree' || type === 'pine' || type === 'snowpine' || type === 'palm' || type === 'bush';
+  let w = veg ? 160 : 96, h = veg ? 230 : 128;
   const c = makeCanvas(w, h);
   const ctx = c.getContext('2d');
   const ax = w / 2, ay = h - 12;
