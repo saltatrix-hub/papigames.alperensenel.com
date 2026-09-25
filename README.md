@@ -27,7 +27,7 @@ The client simulates the production design pack as a single-player MMO:
 - Dungeons, raid wing (Eclipse Cathedral), 3v3 arena from level 30
 - Companion hire (4-player party fantasy)
 
-Design tables live in `design/`. Concept art is in `assets/art/`.
+Design tables live in `design/`. Concept art is in `assets/art/`. HUD / inventory / storage frames are Kenney’s UI Pack RPG Expansion (CC0, [kenney.nl](https://kenney.nl)).
 
 ## Stack
 

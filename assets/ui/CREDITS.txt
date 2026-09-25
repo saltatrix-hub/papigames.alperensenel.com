@@ -1,0 +1,5 @@
+Kenney UI Pack — RPG Expansion
+Author: Kenney Vleugels (www.kenney.nl)
+License: CC0 1.0 — https://creativecommons.org/publicdomain/zero/1.0/
+Source: https://opengameart.org/content/ui-pack-rpg-extension
+Credit is appreciated but not required.

@@ -2,11 +2,21 @@ import { GDD } from '../data/gdd.js';
 import { CLASS_TR, REGION_META, REGION_ORDER, TIPS, RARITY, SLOT_TR } from '../data/content.js';
 import { listSaves, SAVE_PREFIX, COSTUMES, loadSettings, saveSettings, REGION_DUNGEONS } from '../game/game.js';
 import { CLASS_KIT, STATS, STAT_TR, xpToNext } from '../game/stats.js';
-import { GEAR_SLOTS, RECIPES, recipeNeeds, merchantStock, affixText, gearStats, MATERIAL_TR, PROF_TR, makeStack } from '../game/items.js';
+import { RECIPES, recipeNeeds, merchantStock, affixText, gearStats, MATERIAL_TR, PROF_TR } from '../game/items.js';
 import { dungeonDef, RES_TR } from '../game/world.js';
-import { drawHero } from '../render/sprites.js';
+import { drawHero, itemIcon, skillIcon } from '../render/sprites.js';
+import { ELEMENT } from '../game/skills.js';
 import { $, $$, el, esc, fmt, fmtFull } from '../core/util.js';
 import { audio } from '../core/audio.js';
+
+const UI_PNG = 'assets/ui/kenney-rpg/PNG';
+const DOLL_ROWS = [
+  ['', 'Head', ''],
+  ['MainHand', 'HERO', 'Cape'],
+  ['Gloves', 'Chest', 'Necklace'],
+  ['', 'Legs', 'Ring'],
+  ['', 'Boots', ''],
+];
 
 const HAIR = ['#8a5a2e', '#1a1a24', '#e8c070', '#dcdce6', '#f0d8a0', '#3a2414', '#d8d8d8', '#c05a2a', '#6a3a1a'];
 const SKIN = ['#f2d0b0', '#e6b894', '#e8c8a8', '#f0d4b8', '#f6dcc4', '#c89060', '#8d5a3a', '#f8e0c8'];
@@ -158,6 +168,11 @@ export class UI {
   bindHud() {
     $$('.dock [data-panel]').forEach((b) => b.onclick = () => this.open(b.dataset.panel));
     const on = (id, fn) => { const n = $(id); if (n) n.onclick = fn; };
+    const hpIco = itemIcon({ id: 'POT_HP_S', kind: 'potion', color: '#e03a3a' });
+    const mpIco = itemIcon({ id: 'POT_MP_S', kind: 'potion', color: '#3c7cf0' });
+    const hpBtn = $('#util-hp'), mpBtn = $('#util-mp');
+    if (hpBtn && !hpBtn.querySelector('img')) hpBtn.insertAdjacentHTML('afterbegin', `<img src="${hpIco}" alt="">`);
+    if (mpBtn && !mpBtn.querySelector('img')) mpBtn.insertAdjacentHTML('afterbegin', `<img src="${mpIco}" alt="">`);
     on('#util-hp', () => this.game.usePotion('POT_HP_S'));
     on('#util-mp', () => this.game.usePotion('POT_MP_S'));
     on('#util-dodge', () => this.input.pressed.add('ShiftLeft'));
@@ -241,7 +256,6 @@ export class UI {
     this.updatePrompt();
     this.updateMinimap();
     this.drawPortrait($('#portrait'), p);
-    if (this.panels.char) this.fillChar(this.panels.char);
   }
 
   updateBars() {
@@ -291,13 +305,29 @@ export class UI {
     [...box.children].forEach((b, i) => {
       const id = p.hotbar[i];
       const s = id && p.def.skills.find((x) => x.id === id);
-      if (!s) { b.className = 'slot-key empty'; b.innerHTML = `<span class="key">${i + 1}</span>`; return; }
+      if (!s) {
+        if (b.dataset.sid !== '') {
+          b.dataset.sid = '';
+          b.className = 'slot-key empty';
+          b.innerHTML = `<span class="key">${i + 1}</span>`;
+        }
+        return;
+      }
       const r = p.rankOf(s);
       const cd = p.cooldowns[s.id] || 0;
+      if (b.dataset.sid !== s.id) {
+        b.dataset.sid = s.id;
+        const ico = skillIcon(s, CLASS_KIT[p.cls].look.body, ELEMENT[p.cls]);
+        b.innerHTML = `<span class="key">${i + 1}</span><img class="sk-ico" src="${ico}" alt=""><div class="cd hidden"></div>`;
+        b.onmouseenter = (e) => this.tip(e, `<b>${esc(s.name)}</b><br>${esc(s.desc)}<br><small>Sv ${s.unlock} · Rank ${r}/5 · ${s.type}</small>`);
+        b.onmouseleave = () => this.tip();
+      }
       b.className = 'slot-key' + (r <= 0 ? ' locked' : '');
-      b.innerHTML = `<span class="key">${i + 1}</span><div class="nm">${esc(s.name)}</div>${cd > 0 ? `<div class="cd">${cd.toFixed(1)}</div>` : ''}`;
-      b.onmouseenter = (e) => this.tip(e, `<b>${esc(s.name)}</b><br>${esc(s.desc)}<br><small>Sv ${s.unlock} · Rank ${r}/5 · ${s.type}</small>`);
-      b.onmouseleave = () => this.tip();
+      const cdEl = b.querySelector('.cd');
+      if (cdEl) {
+        cdEl.classList.toggle('hidden', cd <= 0);
+        if (cd > 0) cdEl.textContent = cd.toFixed(1);
+      }
     });
     const hpCd = p.cooldowns.potHp || 0, mpCd = p.cooldowns.potRes || 0;
     $('#util-hp').querySelector('span').textContent = `Can ×${this.game.inv.count('POT_HP_S')}`;
@@ -409,7 +439,7 @@ export class UI {
   }
   lootToast(it) {
     const c = it.color || RARITY[it.rarity]?.color || '#fff';
-    const n = el('div', 'loot', `${esc(it.name)}${it.qty > 1 ? ' ×' + it.qty : ''}${it.plus ? ' +' + it.plus : ''}`);
+    const n = el('div', 'loot', `<img src="${itemIcon(it)}" alt=""> ${esc(it.name)}${it.qty > 1 ? ' ×' + it.qty : ''}${it.plus ? ' +' + it.plus : ''}`);
     n.style.color = c;
     $('#loots').appendChild(n);
     this.chatLine('Ganimet', `${it.name}${it.qty > 1 ? ' ×' + it.qty : ''}`, 'loot');
@@ -531,16 +561,16 @@ export class UI {
   open(id) {
     if (this.panels[id]) { this.panels[id].remove(); delete this.panels[id]; audio.play('close'); return; }
     audio.play('open');
-    const panel = el('div', 'panel');
+    const panel = el('div', `panel rpg panel-${id}`);
     panel.dataset.ui = '1';
-    panel.style.left = (120 + Object.keys(this.panels).length * 28) + 'px';
-    panel.style.top = (80 + Object.keys(this.panels).length * 20) + 'px';
+    panel.style.left = (100 + Object.keys(this.panels).length * 28) + 'px';
+    panel.style.top = (64 + Object.keys(this.panels).length * 20) + 'px';
     const titles = {
       char: 'Karakter', inv: 'Envanter', skills: 'Yetenekler', quests: 'Görevler', map: 'Dünya Haritası',
       social: 'Parti & Yoldaşlar', shop: 'Kristal Mağaza', settings: 'Ayarlar', dungeons: 'Zindanlar',
       craft: 'Zanaat', auction: 'Mezat', enhance: 'Güçlendirme', storage: 'Depo', merchant: 'Tüccar',
     };
-    panel.innerHTML = `<header><h2>${titles[id] || id}</h2><button class="x" type="button">×</button></header><div class="body"></div>`;
+    panel.innerHTML = `<header><h2>${titles[id] || id}</h2><button class="x" type="button"><img src="${UI_PNG}/iconCross_brown.png" alt="×"></button></header><div class="body"></div>`;
     panel.querySelector('.x').onclick = () => this.open(id);
     this.makeDrag(panel);
     $('#panels').appendChild(panel);
@@ -576,13 +606,12 @@ export class UI {
   fillChar(panel) {
     const p = this.game.player, d = p.derived;
     panel.querySelector('.body').innerHTML = `
-      <div class="two">
-        <div>
+      <div class="sheet">
+        <div class="doll" id="doll"></div>
+        <div class="sheet-meta">
           <p><b>${esc(p.name)}</b><br>${CLASS_TR[p.cls].tr} · Sv ${p.level}<br>${esc(p.def.identity)}</p>
           <div class="stats-list" id="stat-box"></div>
           <p class="hint">Kalan stat puanı: <b>${p.statPts}</b></p>
-        </div>
-        <div>
           <p>Saldırı ${fmt(d.atk)} · Zırh ${fmt(d.def)} · Büyü Def ${fmt(d.mdef)}</p>
           <p>Kritik %${d.crit.toFixed(1)} · Kaçınma %${d.dodge.toFixed(1)}</p>
           <p>Can ${fmt(p.maxHp)} · ${RES_TR[p.resourceName]} ${fmt(p.maxRes)}</p>
@@ -590,6 +619,7 @@ export class UI {
           <p class="hint">${TIPS[(p.level + this.game.stats.kills) % TIPS.length]}</p>
         </div>
       </div>`;
+    this.paintDoll(panel.querySelector('#doll'), (s) => this.game.unequip(s));
     const box = panel.querySelector('#stat-box');
     for (const s of STATS) {
       const row = el('div', 'stat-row', `<span>${STAT_TR[s]}</span><b>${p.stats[s]} ${p.statPts > 0 ? '<button data-s="' + s + '">+</button>' : ''}</b>`);
@@ -600,53 +630,128 @@ export class UI {
 
   fillInv(panel) {
     const g = this.game;
+    const filter = panel.dataset.filter || 'all';
     const body = panel.querySelector('.body');
-    body.innerHTML = `<div class="two"><div class="eq-col" id="eq"></div><div><div class="grid-inv" id="invg"></div><p class="hint">${g.inv.items.length}/${g.inv.size} yuva · sağ tık kullan/kuşan</p></div></div>`;
-    const eq = body.querySelector('#eq');
-    for (const s of GEAR_SLOTS) {
-      const it = g.eq[s];
-      const cell = el('div', 'eq-slot');
-      cell.innerHTML = `<small>${SLOT_TR[s]}</small><div>${it ? this.itemLabel(it) : '—'}</div>`;
-      if (it) {
-        cell.onmouseenter = (e) => this.tip(e, this.itemTip(it));
-        cell.onmouseleave = () => this.tip();
-        cell.onclick = () => { g.unequip(s); };
-      }
-      eq.appendChild(cell);
-    }
-    this.drawBag(body.querySelector('#invg'), g.inv, (it) => g.useItem(it));
+    body.innerHTML = `
+      <div class="inv-layout">
+        <div>
+          <div class="doll" id="doll"></div>
+          <div class="inv-wallet">
+            <span>🪙 <b>${fmt(g.gold)}</b></span>
+            <span>✦ <b>${fmt(g.crystals)}</b></span>
+            <span>${g.inv.items.length}/${g.inv.size}</span>
+          </div>
+        </div>
+        <div>
+          <div class="tabs" id="inv-tabs">
+            <button type="button" data-f="all" class="${filter === 'all' ? 'on' : ''}">Tümü</button>
+            <button type="button" data-f="gear" class="${filter === 'gear' ? 'on' : ''}">Ekipman</button>
+            <button type="button" data-f="use" class="${filter === 'use' ? 'on' : ''}">Tüketim</button>
+            <button type="button" data-f="mat" class="${filter === 'mat' ? 'on' : ''}">Malzeme</button>
+          </div>
+          <div class="grid-inv" id="invg"></div>
+          <p class="hint">Sol tık kullan / kuşan · sağ tık sat</p>
+        </div>
+      </div>`;
+    this.paintDoll(body.querySelector('#doll'), (s) => g.unequip(s));
+    body.querySelectorAll('#inv-tabs button').forEach((b) => {
+      b.onclick = () => { panel.dataset.filter = b.dataset.f; this.fillInv(panel); };
+    });
+    this.drawBag(body.querySelector('#invg'), g.inv, (it) => g.useItem(it), filter);
   }
 
   fillStorage(panel) {
     const g = this.game;
     const body = panel.querySelector('.body');
-    body.innerHTML = `<p class="hint">Tıkla: envanter ↔ depo</p><div class="two"><div><b>Çanta</b><div class="grid-inv" id="a"></div></div><div><b>Depo</b><div class="grid-inv" id="b"></div></div></div>`;
-    this.drawBag(body.querySelector('#a'), g.inv, (it) => { if (g.storage.add(it)) { g.inv.remove(it); this.fillStorage(panel); } });
-    this.drawBag(body.querySelector('#b'), g.storage, (it) => { if (g.inv.add(it)) { g.storage.remove(it); this.fillStorage(panel); } });
+    body.innerHTML = `
+      <p class="hint">Tıkla: çanta ↔ kasa. Sağ tık satmaz — eşya kasaya gider.</p>
+      <div class="vault">
+        <div class="vault-col bag"><h3>Çanta</h3><div class="grid-inv" id="a"></div><div class="vault-cap">${g.inv.items.length}/${g.inv.size}</div></div>
+        <img class="vault-xfer" src="${UI_PNG}/arrowBrown_right.png" alt="">
+        <div class="vault-col chest"><h3>Depo</h3><div class="grid-inv" id="b"></div><div class="vault-cap">${g.storage.items.length}/${g.storage.size}</div></div>
+      </div>`;
+    this.drawBag(body.querySelector('#a'), g.inv, (it) => { if (this.moveStack(g.inv, g.storage, it)) this.fillStorage(panel); }, 'all', false);
+    this.drawBag(body.querySelector('#b'), g.storage, (it) => { if (this.moveStack(g.storage, g.inv, it)) this.fillStorage(panel); }, 'all', false);
   }
 
-  drawBag(grid, inv, onUse) {
+  paintDoll(root, onUnequip) {
+    if (!root) return;
+    const g = this.game, p = g.player;
+    root.innerHTML = '';
+    for (const row of DOLL_ROWS) {
+      const line = el('div', 'doll-row');
+      for (const key of row) {
+        if (key === 'HERO') {
+          const hero = el('div', 'doll-hero');
+          hero.innerHTML = `<img src="${FACE[p.cls]}" alt="${CLASS_TR[p.cls].tr}"><div class="doll-tag">${esc(p.name)} · Sv ${p.level}</div>`;
+          line.appendChild(hero);
+        } else if (!key) {
+          line.appendChild(el('div', 'eq-gap'));
+        } else {
+          line.appendChild(this.eqSlot(key, g.eq[key], () => onUnequip(key)));
+        }
+      }
+      root.appendChild(line);
+    }
+  }
+
+  eqSlot(slot, it, onClick) {
+    const cell = el('button', `eq-slot r-${it?.rarity || 'empty'}${it ? '' : ' empty'}`);
+    cell.innerHTML = `<img src="${it ? itemIcon(it) : this.slotGlyph(slot)}" alt=""><small>${SLOT_TR[slot]}</small>${it?.plus ? `<em>+${it.plus}</em>` : ''}`;
+    if (it) {
+      cell.onmouseenter = (e) => this.tip(e, this.itemTip(it));
+      cell.onmouseleave = () => this.tip();
+      cell.onclick = onClick;
+    }
+    return cell;
+  }
+
+  slotGlyph(slot) {
+    return itemIcon({ slot, kind: 'gear', rarity: 'Common', color: '#7a6a50', cls: this.game?.player?.cls || 'Knight' });
+  }
+
+  drawBag(grid, inv, onUse, filter = 'all', sell = true) {
     grid.innerHTML = '';
+    const shown = inv.items.filter((it) => this.matchFilter(it, filter));
     for (let i = 0; i < inv.size; i++) {
-      const it = inv.items[i];
-      const c = el('button', 'cell');
+      const it = shown[i];
+      const c = el('button', it ? `cell r-${it.rarity || 'Common'}` : 'cell empty');
       if (it) {
-        c.innerHTML = `${this.itemLabel(it)}${it.qty > 1 ? `<span class="qty">${it.qty}</span>` : ''}`;
-        c.style.color = it.color || RARITY[it.rarity]?.color || '#fff';
+        const badge = it.qty > 1 ? it.qty : (it.plus ? '+' + it.plus : '');
+        c.innerHTML = `<img src="${itemIcon(it)}" alt="">${badge ? `<span class="qty">${badge}</span>` : ''}`;
         c.onmouseenter = (e) => this.tip(e, this.itemTip(it));
         c.onmouseleave = () => this.tip();
         c.onclick = () => onUse(it);
-        c.oncontextmenu = (ev) => { ev.preventDefault(); this.game.sell(it); };
+        c.oncontextmenu = (ev) => { ev.preventDefault(); if (sell) this.game.sell(it); else onUse(it); };
       }
       grid.appendChild(c);
     }
   }
 
+  moveStack(from, to, it) {
+    const n = it.qty || 1;
+    const canMerge = !!(it.stack && to.items.some((i) => i.stack && i.id === it.id));
+    if (!canMerge && to.free <= 0) { this.toast('Yer yok', '#ff9090'); return false; }
+    from.remove(it, n);
+    if (!to.add(it)) { from.add(it); return false; }
+    return true;
+  }
+
+  matchFilter(it, filter) {
+    if (filter === 'gear') return it.kind === 'gear';
+    if (filter === 'use') return it.kind === 'potion' || it.kind === 'flask' || it.kind === 'scroll';
+    if (filter === 'mat') return it.kind === 'material' || it.kind === 'quest';
+    return true;
+  }
+
   itemLabel(it) { return `${esc(it.name)}${it.plus ? ' +' + it.plus : ''}`; }
+  itemChip(it) {
+    return `<span class="it-chip"><img src="${itemIcon(it)}" alt=""><span><b style="color:${it.color || RARITY[it.rarity]?.color || '#fff'}">${this.itemLabel(it)}</b><small>${RARITY[it.rarity]?.tr || ''} ${it.slot ? SLOT_TR[it.slot] : (it.kind || '')}</small></span></span>`;
+  }
   itemTip(it) {
     const s = it.kind === 'gear' ? gearStats(it) : null;
-    return `<b style="color:${it.color || RARITY[it.rarity]?.color}">${esc(it.name)}${it.plus ? ' +' + it.plus : ''}</b><br>` +
-      `${RARITY[it.rarity]?.tr || ''} ${it.slot ? SLOT_TR[it.slot] : it.kind}<br>` +
+    return `<div class="tip-top"><img src="${itemIcon(it)}" alt=""><div><b style="color:${it.color || RARITY[it.rarity]?.color}">${esc(it.name)}${it.plus ? ' +' + it.plus : ''}</b><br>` +
+      `${RARITY[it.rarity]?.tr || ''} ${it.slot ? SLOT_TR[it.slot] : it.kind}</div></div>` +
       (s ? `Atk ${s.atk} · Def ${s.def} · HP ${s.hp}<br>${it.affixes.map(affixText).join('<br>')}` : esc(it.desc || '')) +
       `<br><small>Değer ${it.value || 0} · sağ tık sat</small>`;
   }
@@ -655,7 +760,8 @@ export class UI {
     const p = this.game.player;
     panel.querySelector('.body').innerHTML = p.def.skills.map((s) => {
       const r = p.rankOf(s);
-      return `<div class="skill-row"><div><b>${esc(s.name)}</b> <small>Sv ${s.unlock} · ${s.type}</small><br>${esc(s.desc)} · Rank ${r}/5</div>
+      const ico = skillIcon(s, CLASS_KIT[p.cls].look.body, ELEMENT[p.cls]);
+      return `<div class="skill-row"><img class="sk-ico" src="${ico}" alt=""><div><b>${esc(s.name)}</b> <small>Sv ${s.unlock} · ${s.type}</small><br>${esc(s.desc)} · Rank ${r}/5</div>
         <button class="btn" data-id="${s.id}" ${p.skillPts <= 0 || r >= 5 || p.level < s.unlock ? 'disabled' : ''}>Yükselt</button></div>`;
     }).join('') + `<p class="hint">Yetenek puanı: ${p.skillPts}</p>` +
       p.def.passives.map((x) => `<div class="skill-row"><div><b>${esc(x.name)}</b> <small>Sv ${x.unlock}</small><br>${esc(x.effect || x.desc || '')}</div><span>${p.level >= x.unlock ? 'Açık' : 'Kilitli'}</span></div>`).join('');
@@ -705,7 +811,7 @@ export class UI {
       <p>Parti ${g.party.length}/3 · Arena ${g.arena.rating} (${g.arena.wins}G/${g.arena.losses}M)</p>
       ${g.party.map((h) => `<div class="shop-row"><div><b>${esc(h.name)}</b> ${CLASS_TR[h.cls].tr}</div><button data-d="${h.id}">Çıkar</button></div>`).join('')}
       <h3>Kirala</h3>
-      <div class="class-grid">${Object.keys(CLASS_TR).map((c) => `<button class="class-card" data-c="${c}"><span>${CLASS_TR[c].tr}</span></button>`).join('')}</div>
+      <div class="class-grid">${Object.keys(CLASS_TR).map((c) => `<button class="class-card" data-c="${c}"><img src="${FACE[c]}" alt=""><span>${CLASS_TR[c].tr}</span></button>`).join('')}</div>
       <p class="hint">Lonca kâtibi / eğitmenin kiralık yoldaşı. Seviyenle ölçeklenir.</p>
       ${g.player.level >= 30 ? '<button class="btn gold" id="go-arena">Astral Arena (3v3)</button>' : '<p class="hint">Arena seviye 30’da açılır.</p>'}`;
     panel.querySelectorAll('[data-c]').forEach((b) => b.onclick = () => { g.hire(b.dataset.c); this.fillSocial(panel); });
@@ -726,7 +832,7 @@ export class UI {
     const panel = this.panels.merchant;
     const stock = merchantStock(this.game.player.level, kind);
     panel.querySelector('.body').innerHTML = stock.map((it, i) =>
-      `<div class="shop-row"><div>${this.itemLabel(it)}</div><button class="btn gold" data-i="${i}">${fmt(it.value * 2.5 | 0)} 🪙</button></div>`
+      `<div class="shop-row">${this.itemChip(it)}<button class="btn gold" data-i="${i}">${fmt(it.value * 2.5 | 0)} 🪙</button></div>`
     ).join('');
     panel.querySelectorAll('[data-i]').forEach((b) => b.onclick = () => { this.game.buy(stock[+b.dataset.i]); });
   }
@@ -746,7 +852,7 @@ export class UI {
     const g = this.game;
     const gear = [...Object.values(g.eq).filter(Boolean), ...g.inv.items.filter((i) => i.kind === 'gear')];
     panel.querySelector('.body').innerHTML = gear.map((it) =>
-      `<div class="shop-row"><div>${this.itemLabel(it)} <small>+${it.plus}/10</small></div><button class="btn gold" data-u="${it.uid}">+1</button></div>`
+      `<div class="shop-row">${this.itemChip(it)}<button class="btn gold" data-u="${it.uid}">+${it.plus}/10</button></div>`
     ).join('') || '<p>Güçlendirilecek eşya yok.</p>';
     panel.querySelectorAll('[data-u]').forEach((b) => b.onclick = () => {
       const it = gear.find((x) => String(x.uid) === b.dataset.u);
@@ -759,7 +865,7 @@ export class UI {
     const g = this.game;
     const list = g.auction();
     panel.querySelector('.body').innerHTML = `<p class="hint">%5 komisyon. Envanterdeki eşyaya sağ tık satmak yerine buradan da koyabilirsin.</p>` +
-      list.map((l, i) => `<div class="auc-row"><div>${this.itemLabel(l.item)} <small>${esc(l.seller)}</small></div><button class="btn gold" data-i="${i}">${fmt(l.price)}</button></div>`).join('');
+      list.map((l, i) => `<div class="auc-row">${this.itemChip(l.item)}<div><small>${esc(l.seller)}</small> <button class="btn gold" data-i="${i}">${fmt(l.price)}</button></div></div>`).join('');
     panel.querySelectorAll('[data-i]').forEach((b) => b.onclick = () => { g.auctionBuy(list[+b.dataset.i]); this.fillAuction(panel); });
   }
 
