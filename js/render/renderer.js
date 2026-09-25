@@ -1,5 +1,6 @@
 // World renderer: ground chunks, y-sorted scene, telegraphs, FX, overhead UI, lighting, weather.
 import { drawHero, drawMonster, shadow } from './sprites.js';
+import { drawCastSprite } from './worldart.js';
 import { THEMES } from '../data/content.js';
 import { makeCanvas, rgba, clamp, TAU, shade } from '../core/util.js';
 import { RARITY } from '../data/content.js';
@@ -362,7 +363,11 @@ export class Renderer {
     this.label(ctx, c.x, c.y - 80, c.name, '#ffe8a0', 11);
   }
   drawNPC(ctx, n, T) {
-    drawHero(ctx, n.x, n.y, 'npc', n.look, n.moving ? n.dir : 0, { walk: n.walkT, moving: n.moving, attack: -1, time: n.animT }, 1.15, {});
+    const who = /guard|captain|soldier|watch|knight|marshal/i.test(`${n.title} ${n.name}`) ? 'soldier'
+      : /lady|maiden|princess|sister|priestess/i.test(`${n.title} ${n.name}`) ? 'princess' : null;
+    const anim = { walk: n.walkT, moving: n.moving, attack: -1, time: n.animT };
+    if (who && drawCastSprite(ctx, who, n.x, n.y, n.moving ? n.dir : 0, anim, 1.15)) return;
+    drawHero(ctx, n.x, n.y, 'npc', n.look, n.moving ? n.dir : 0, anim, 1.15, {});
   }
   drawHeroEnt(ctx, h, T) {
     if (h.dead) {

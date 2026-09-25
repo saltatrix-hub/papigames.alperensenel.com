@@ -3,6 +3,7 @@
 import { TAU, shade, rgba, makeCanvas, hashStr, rng, mix } from '../core/util.js';
 import { itemPng, skillPng, slotPng } from '../data/icons.js';
 import { drawLpcHero, lpcReady } from './lpc.js';
+import { drawKenneyProp, drawKenneyHouse, drawSheetMob, mobKey } from './worldart.js';
 
 // ------------------------------------------------------------------ helpers
 function rr(ctx, x, y, w, h, r) {
@@ -327,6 +328,8 @@ export function drawMonster(ctx, x, y, m) {
   ctx.save();
   ctx.translate(x, y);
   shadow(ctx, 0, 0, 14 * s, m.arch === 'ghost' || m.arch === 'flyer' ? 0.18 : 0.3);
+  const sheet = mobKey(m.name, m.arch);
+  if (sheet && !m.boss && drawSheetMob(ctx, sheet, t, m.dir || 1, s)) { ctx.restore(); return; }
   ctx.scale(s * (m.dir || 1), s);
   if (m.flash) ctx.filter = 'brightness(2.6)';
   ctx.lineWidth = 1.6 / s + 0.4; ctx.strokeStyle = OUT;
@@ -497,6 +500,7 @@ export function drawMonster(ctx, x, y, m) {
 
 // ------------------------------------------------------------------ props (cached sprites)
 const propCache = new Map();
+export function clearSpriteCaches() { propCache.clear(); buildingCache.clear(); }
 
 /** Returns { c: canvas, ax, ay, r (collision radius px), light?: {r, color} } */
 export function getProp(type, theme, variant = 0) {
@@ -511,6 +515,11 @@ export function getProp(type, theme, variant = 0) {
   ctx.lineWidth = 1.5; ctx.strokeStyle = OUT;
   let r = 0, light = null, flat = false;
   const g0 = theme.ground[0];
+  if (drawKenneyProp(ctx, type)) {
+    const out = { c, ax, ay, r: type === 'bush' ? 0 : 10, light, flat, w: c.width, h: c.height };
+    propCache.set(key, out);
+    return out;
+  }
   switch (type) {
     case 'oak': case 'bigtree': {
       const big = type === 'bigtree' ? 1.35 : 1;
@@ -764,6 +773,11 @@ export function getBuilding(kind, w, h, roof, label) {
   const c = makeCanvas(w + 20, H);
   const ctx = c.getContext('2d');
   ctx.translate(10, 0);
+  if (drawKenneyHouse(ctx, kind, w, h)) {
+    const out = { c, ox: 10, oy: H - 6, w, h, H };
+    buildingCache.set(key, out);
+    return out;
+  }
   const wallH = Math.min(70, h * 0.55);
   const baseY = H - 6;
   ctx.lineWidth = 2; ctx.strokeStyle = OUT;

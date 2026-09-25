@@ -1,6 +1,7 @@
 // Field-based terrain: coarse float fields (12px) → per-pixel pixel-art chunks + 24px collision grid.
 import { clamp, fbm, hash2, hexToRgb, makeCanvas, pointSegDist, lerp } from '../core/util.js';
-import { getProp, getBuilding } from '../render/sprites.js';
+import { getProp, getBuilding, clearSpriteCaches } from '../render/sprites.js';
+import { pathTint, takeArtRefresh } from '../render/worldart.js';
 
 export const TILE = 48;
 export const CELL = 24;   // collision cell
@@ -305,8 +306,15 @@ export class GameMap {
           if (rd < 0 && pz >= 0) {
             const e = rd > -7 + h * 4;
             const C = e ? PE : P;
+            const tex = pathTint(wx, wy);
             const k = 0.92 + h * 0.14;
-            r = C[0] * k; g = C[1] * k; b = C[2] * k;
+            if (tex && !e) {
+              r = tex[0] * 0.65 + C[0] * 0.35;
+              g = tex[1] * 0.65 + C[1] * 0.35;
+              b = tex[2] * 0.65 + C[2] * 0.35;
+            } else {
+              r = C[0] * k; g = C[1] * k; b = C[2] * k;
+            }
             if (h > 0.97) { r *= 0.8; g *= 0.8; b *= 0.8; }
           }
           // liquid
@@ -350,6 +358,7 @@ export class GameMap {
 
   /** Draws ground chunks covering the view. budget: max new chunks rendered this frame. */
   drawGround(ctx, cam, vw, vh, budget = 2) {
+    if (takeArtRefresh()) { this.chunks.clear(); clearSpriteCaches(); }
     const x0 = Math.floor(cam.x / CHUNK), y0 = Math.floor(cam.y / CHUNK);
     const x1 = Math.floor((cam.x + vw) / CHUNK), y1 = Math.floor((cam.y + vh) / CHUNK);
     let made = 0;

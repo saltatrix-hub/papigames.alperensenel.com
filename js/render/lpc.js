@@ -95,8 +95,8 @@ const KITS = {
     act: 'slash', actKeys: ['body', 'shoes', 'pants', 'leather', 'leatherShoulders', 'hair', 'dagger'],
   },
   Assassin: {
-    walk: ['body', 'shoes', 'pants', 'leather', 'chainHood'],
-    act: 'slash', actKeys: ['body', 'shoes', 'pants', 'leather', 'chainHood', 'dagger'],
+    walk: ['body', 'shoes', 'pants', 'leather', 'chainHood', 'belt'],
+    act: 'slash', actKeys: ['body', 'shoes', 'pants', 'leather', 'chainHood', 'belt', 'dagger'],
   },
   Ranger: {
     walk: ['quiver', 'body', 'shoes', 'pants', 'leather', 'leatherShoulders', 'hat'],
@@ -166,13 +166,64 @@ export function drawLpcHero(ctx, x, y, cls, look, dir, anim, scale = 1, opts = {
     ctx.fillStyle = 'rgba(0,0,0,0.28)'; ctx.fill();
   }
   if (opts.mount) ctx.translate(0, -10);
+  const cloth = CLOTH_FILTER[cls] || {};
   for (const key of keys) {
     const path = group[key];
     const img = path && sheets.get(path);
     if (!img) continue;
+    ctx.filter = cloth[key] || 'none';
     ctx.drawImage(img, col * S, row * S, S, S, -S / 2, -S + 10, S, S);
+  }
+  ctx.filter = 'none';
+  if (cls === 'Assassin') {
+    const dagger = sheets.get(group.dagger || LAYERS.slash.dagger);
+    if (dagger) {
+      ctx.drawImage(dagger, 0, row * S, S, S, -S / 2 - 10, -S + 14, S, S);
+      ctx.save();
+      ctx.scale(-1, 1);
+      ctx.drawImage(dagger, 0, row * S, S, S, -S / 2 - 10, -S + 14, S, S);
+      ctx.restore();
+    }
+    ctx.fillStyle = 'rgba(8, 6, 14, 0.92)';
+    ctx.fillRect(-9, -40, 18, 6);
+    ctx.fillStyle = '#c9a23a';
+    ctx.fillRect(-7, -39, 2, 2);
+    ctx.fillRect(5, -39, 2, 2);
   }
   ctx.restore();
 }
+
+const CLOTH_FILTER = {
+  Assassin: {
+    shoes: 'brightness(0.25)',
+    pants: 'brightness(0.18) saturate(0.2)',
+    leather: 'brightness(0.16) saturate(0.15) hue-rotate(250deg)',
+    chainHood: 'brightness(0.14) saturate(0.2) hue-rotate(260deg)',
+    belt: 'brightness(0.3) sepia(1)',
+    dagger: 'brightness(0.85)',
+  },
+  Berserker: {
+    leather: 'sepia(0.8) saturate(1.6) brightness(0.8)',
+    leatherShoulders: 'sepia(0.5) saturate(0.6) brightness(1.15)',
+    pants: 'sepia(0.4) brightness(0.7)',
+    shoes: 'brightness(0.55)',
+  },
+  Mage: {
+    robe: 'hue-rotate(210deg) saturate(1.35) brightness(0.85)',
+    robeLegs: 'hue-rotate(210deg) saturate(1.2) brightness(0.8)',
+    hood: 'hue-rotate(220deg) saturate(1.1) brightness(0.7)',
+  },
+  Priest: {
+    robe: 'sepia(0.35) brightness(1.35) saturate(0.7)',
+    robeLegs: 'sepia(0.2) brightness(1.25)',
+    belt: 'sepia(1) saturate(2)',
+  },
+  Ranger: {
+    leather: 'hue-rotate(70deg) saturate(1.15)',
+    leatherShoulders: 'hue-rotate(40deg) saturate(0.8)',
+    hat: 'hue-rotate(50deg) saturate(0.9) brightness(0.85)',
+    pants: 'hue-rotate(70deg) saturate(0.8) brightness(0.85)',
+  },
+};
 
 if (typeof window !== 'undefined') preloadLpc();
