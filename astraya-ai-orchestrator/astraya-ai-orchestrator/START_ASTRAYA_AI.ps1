@@ -8,12 +8,6 @@ $codexCommand = Get-ChildItem -LiteralPath (Join-Path $env:LOCALAPPDATA 'OpenAI\
     Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } |
     Select-Object -Last 1
 
-if (-not (Test-Path -LiteralPath $cursorCommand -PathType Leaf)) {
-    Write-Host "Cursor Agent CLI bulunamadi: $cursorCommand" -ForegroundColor Red
-    Write-Host 'Cursor CLI kurulumunu tekrar calistir veya agent.cmd yolunu kontrol et.'
-    exit 1
-}
-
 if (-not $codexCommand) {
     Write-Host 'Codex CLI bulunamadi. Codex masaustu uygulamasini acip tekrar dene.' -ForegroundColor Red
     exit 1
@@ -31,6 +25,16 @@ if (-not $pythonCommand) {
 $env:CURSOR_AGENT_COMMAND = $cursorCommand
 $env:CODEX_COMMAND = $codexCommand
 $env:PIP_DISABLE_PIP_VERSION_CHECK = '1'
+
+& $cursorCommand status
+if ($LASTEXITCODE -ne 0) {
+    throw "Cursor Agent CLI calismadi: $cursorCommand"
+}
+
+& $codexCommand login status
+if ($LASTEXITCODE -ne 0) {
+    throw "Codex CLI girisi dogrulanamadi: $codexCommand"
+}
 
 if (-not (Test-Path -LiteralPath 'config.env' -PathType Leaf)) {
     Copy-Item -LiteralPath 'config.env.example' -Destination 'config.env'
@@ -53,4 +57,3 @@ if ($env:ASTRAYA_PREFLIGHT_ONLY -eq '1') {
 
 & $pythonCommand.Source orchestrator.py
 exit $LASTEXITCODE
-
