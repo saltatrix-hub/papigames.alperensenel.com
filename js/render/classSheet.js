@@ -7,8 +7,8 @@ const PACKS = {
     src: 'assets/knight/sheet.png',
     neck: 0.4,
     grip: 0.96,
-    wscale: 0.7,
-    hand: 0.22,
+    wscale: 0.62,
+    hand: 0.26,
     cuts: [[29, 25, 163, 285], [194, 25, 155, 285], [518, 24, 157, 286], [356, 24, 161, 285]],
     helm: [[23, 334, 117, 144], [147, 340, 111, 136], [257, 337, 111, 138], [367, 336, 122, 139]],
     chest: [[16, 496, 128, 168], [155, 498, 88, 158], [252, 496, 124, 162], [381, 498, 93, 158]],
@@ -122,8 +122,9 @@ export function drawClassSheet(ctx, x, y, cls, dir, anim, scale = 1, opts = {}) 
   const ly = dir === 0 ? punch * 7 * scale : dir === 3 ? -punch * 9 * scale : 0;
   const neckY = -h * (1 - spec.neck);
   const handSign = dir === 1 ? -1 : 1;
-  const handX = handSign * spec.hand * h;
-  const handY = -0.24 * h;
+  const side = dir === 1 || dir === 2;
+  const handX = handSign * spec.hand * (side ? 0.46 : 1) * h;
+  const handY = (side ? -0.38 : -0.3) * h;
 
   ctx.save();
   ctx.translate(x + lx, y + ly - bob);
@@ -137,14 +138,14 @@ export function drawClassSheet(ctx, x, y, cls, dir, anim, scale = 1, opts = {}) 
   }
   ctx.drawImage(img, -img.width * k / 2, -h, img.width * k, h);
   blit(ctx, pack.chest[g], k, 0, neckY, 'top');
-  if (pack.offhand) blit(ctx, pack.offhand[g], k * 0.85, -handSign * 0.22 * h, -0.36 * h, 'mid');
+  if (pack.offhand) blit(ctx, pack.offhand[g], k * (side ? 0.7 : 0.82), -handSign * (side ? 0.05 : 0.22) * h, (side ? -0.44 : -0.38) * h, 'mid');
   blit(ctx, pack.helm[g], k, 0, neckY, 'bottom');
   const weapon = pack.weapon[g];
   if (weapon) {
-    const wk = k * spec.wscale;
+    const wk = k * spec.wscale * (side ? 0.8 : 1);
     ctx.save();
     ctx.translate(handX, handY);
-    if (attacking && spec.grip > 0.8) ctx.rotate(handSign * Math.sin(t * Math.PI) * 1.15);
+    if (attacking && spec.grip > 0.8) ctx.rotate(handSign * Math.sin(t * Math.PI) * (side ? 0.35 : 0.55));
     const ww = weapon.width * wk;
     const wh = weapon.height * wk;
     ctx.drawImage(weapon, -ww / 2, -spec.grip * wh, ww, wh);

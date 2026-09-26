@@ -150,9 +150,9 @@ export class UI {
     try {
       const sheet = cls === 'Assassin' || cls === 'Knight' || cls === 'Berserker' || cls === 'Ranger' || cls === 'Mage' || cls === 'Priest';
       const dir = sheet ? [0, 2, 3, 1][Math.floor(t / 2.2) % 4] : 0;
-      const y = sheet ? cv.height * 0.94 : cv.height * 0.82;
+      const y = sheet ? cv.height * 0.86 : cv.height * 0.82;
       const phase = t % 2.2;
-      const attack = sheet && phase > 0.45 ? Math.min(0.999, (phase - 0.45) / 0.55) : -1;
+      const attack = sheet && phase > 1.55 ? Math.min(0.999, (phase - 1.55) / 0.65) : -1;
       drawHero(ctx, cv.width / 2, y, cls, look, dir, { walk: t * 3, attack, time: t, moving: attack < 0 }, sheet ? 2.9 : 2.6);
     } catch (err) { console.warn('preview', err); }
   }
