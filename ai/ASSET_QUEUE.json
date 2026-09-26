@@ -10,7 +10,7 @@
   "jobs": [
     {
       "id": "JOB-KNIGHT-SWORD-T01-SHEETS",
-      "status": "pending",
+      "status": "candidate",
       "active": true,
       "class": "Knight",
       "visual_id": "knight_sword_t01",
@@ -21,6 +21,16 @@
         "assets/characters/knight/weapons/knight_sword_t01_walk.png",
         "assets/characters/knight/weapons/knight_sword_t01_slash.png"
       ],
+      "candidate_paths": {
+        "walk": "assets/generated_candidates/knight_sword_t01_walk__candidate_20260926.png",
+        "slash": "assets/generated_candidates/knight_sword_t01_slash__candidate_lpc-derived_20260926.png",
+        "rejected_slash": "assets/generated_candidates/rejected/knight_sword_t01_slash__rejected_glow_20260926.png"
+      },
+      "candidate_sources": {
+        "walk": "Generated with the built-in image generation tool using the LPC walk body and existing longsword as references, then nearest-neighbor normalized from a 209px cell grid to 64px cells.",
+        "slash": "Derived with nearest-neighbor scaling from the existing transparent LPC slash192/WEAPON_longsword.png source (192px cells to 64px cells).",
+        "rejected_slash": "Built-in image generation candidate rejected because it added a semi-transparent gray glow/background."
+      },
       "prompt": "ASTRAYA Knight tier-1 longsword weapon layers only (no body). Deliver two separate transparent PNG LPC sheets: (1) walkcycle 576x256 = 9 columns x 4 rows of 64x64 cells; (2) slash 384x256 = 6 columns x 4 rows of 64x64 cells. Row order must be up, left, down, right with no mirroring. Match existing LPC feet line and per-frame sword-grip/hand alignment. Candidate-only; not final until human visual review.",
       "current_stand_in": {
         "visual_id": "knight_sword_t01",
@@ -36,7 +46,16 @@
       "validation": {
         "generated_output_status": "unvalidated_candidate",
         "requires_human_visual_review": true,
-        "both_sheets_required": true
+        "both_sheets_required": true,
+        "machine_checks": {
+          "walk_size_px": [576, 256],
+          "slash_size_px": [384, 256],
+          "walk_rgba_alpha": true,
+          "slash_rgba_alpha": true,
+          "result": "pass_dimensions_and_alpha_only"
+        },
+        "human_review_state": "pending",
+        "note": "Do not promote or rewire. Grip alignment, frame motion, direction order, silhouette, and the slash motion arcs still require human inspection in an in-game overlay."
       }
     }
   ]

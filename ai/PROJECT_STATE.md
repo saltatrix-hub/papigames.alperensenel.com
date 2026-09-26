@@ -90,7 +90,9 @@ equipped item → `visualId` or ilvl tier → `js/data/characterVisuals.js` → 
 
 Stats stay in `sumEquipment`. Other classes still use the static LPC class kits. Assassin also has a separate static 4-direction pack that is not part of this pipeline.
 
-Production gaps (no fake art was added): Knight longsword sheets, slash shield, tier-10 armor/helmet, hit, death, and every skill-effect PNG. See `design/CHARACTER_ASSET_PRODUCTION_SPEC.md`.
+Production gaps: Knight longsword candidate sheets now exist but are not promoted;
+slash shield, tier-10 armor/helmet, hit, death, and every skill-effect PNG remain
+missing. See `design/CHARACTER_ASSET_PRODUCTION_SPEC.md`.
 
 ## Current priority
 

@@ -1,5 +1,25 @@
 # Latest AI Developer Handoff
 
+## 2026-09-26 — Knight longsword candidates generated
+
+Two non-production candidates now exist under `assets/generated_candidates/`:
+
+- Walk: built-in image generation with LPC references, normalized to 576×256
+  (9×4 cells at 64×64).
+- Slash: nearest-neighbor derivation from the existing transparent LPC
+  `slash192/WEAPON_longsword.png`, normalized to 384×256 (6×4 cells at 64×64).
+
+Both files are RGBA with transparent pixels and pass exact dimension checks. Two
+AI-generated slash attempts added a gray translucent backdrop; one rejected example
+is retained under `assets/generated_candidates/rejected/` for audit.
+
+The queue is `candidate`, not `promoted`. Human review is still required for grip
+alignment, row direction, frame timing, silhouette, and slash arcs. Production target
+paths and `CHARACTER_VISUALS.knight_sword_t01` remain unchanged; the dagger fallback
+is still active.
+
+---
+
 ## 2026-09-26 — VIS-KNIGHT-SWORD-001 requirement queue
 
 Task completed: created the production requirement and one active asset-queue job for missing `knight_sword_t01` walk-cycle and slash longsword PNG sheets. No artwork generated. No renderer, manifest, or gameplay files changed. The temporary dagger stand-in is still in use and is not marked resolved.

@@ -20,7 +20,8 @@ Knight validation is still waiting for review.
 
 ### VIS-KNIGHT-SWORD-001 — Replace the dagger stand-in
 - [x] Machine-readable production requirement + asset queue for `knight_sword_t01` walk/slash sheets (`design/character_asset_requirements.json`, `ai/ASSET_QUEUE.json`).
-- [ ] Draw/validate 64×64 walk and slash longsword candidate sheets (4 LPC rows). Dagger stand-in remains until both pass human review.
+- [x] Produce 64×64 walk and slash candidate sheets (4 LPC rows) under `assets/generated_candidates/`.
+- [ ] Human-review grip alignment, direction rows, walk motion, and slash arcs in an LPC overlay/in-game preview. Dagger stand-in remains until both pass.
 - [ ] Point `knight_sword_t01` at the validated sheets (manifest rewire blocked until then).
 
 ### VIS-EQUIP-002 — Visual equipment registry
