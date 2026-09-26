@@ -1,16 +1,14 @@
-/** User assassin pack: static 4-direction full character. Bottom-center anchor. */
+/** Assassin pack under assets/assassin/01_BASE/Full. Game dir 0=down … 3=up. */
 
-const BASE = 'assets/assassin/Base/FullCharacter/assassin_base_';
-const FILES = ['front', 'left', 'right', 'back']; // game dir 0=down 1=left 2=right 3=up
+const DIR_FILE = ['front', 'left', 'right', 'back'];
 const imgs = [null, null, null, null];
-let loaded = 0;
 
 export function preloadAssassin() {
   if (typeof Image === 'undefined') return;
-  FILES.forEach((name, i) => {
+  DIR_FILE.forEach((name, i) => {
     const img = new Image();
-    img.onload = () => { imgs[i] = img; loaded++; };
-    img.src = BASE + name + '.png';
+    img.onload = () => { imgs[i] = img; };
+    img.src = `assets/assassin/01_BASE/Full/${name}.png`;
   });
 }
 
