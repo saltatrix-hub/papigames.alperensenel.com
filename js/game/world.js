@@ -38,7 +38,11 @@ export class World {
     this.shakeT = 0; this.shakeA = 0;
     this.dayT = 0.3;
     this.fx = {
-      burst: (x, y, color, n = 10, spd = 1) => { for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, s = (40 + Math.random() * 140) * spd; this.parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 40, t: 0, dur: 0.4 + Math.random() * 0.4, color, size: 2 + Math.random() * 3, g: 220 }); } },
+      burst: (x, y, color, n = 10, spd = 1) => {
+        if (this.parts.length > 160) return;
+        const count = Math.min(n, 160 - this.parts.length);
+        for (let i = 0; i < count; i++) { const a = Math.random() * Math.PI * 2, s = (40 + Math.random() * 140) * spd; this.parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 40, t: 0, dur: 0.4 + Math.random() * 0.4, color, size: 2 + Math.random() * 3, g: 220 }); }
+      },
       ring: (x, y, r, color, dur = 0.4, fill = false) => this.rings.push({ x, y, r, color, dur, t: 0, fill }),
       slash: (x, y, ang, r, arc, color, dur = 0.22) => this.slashes.push({ x, y, ang, r, arc, color, dur, t: 0 }),
       beam: (x1, y1, x2, y2, color, dur = 0.3, w = 6) => this.beams.push({ x1, y1, x2, y2, color, dur, t: 0, w }),
@@ -47,11 +51,21 @@ export class World {
 
   // ================================================================ queries
   get player() { return this.game.player; }
+  livingMonsters() {
+    if (this._liveFrame === this.frame && this._live) return this._live;
+    const out = [];
+    for (const m of this.monsters) if (!m.dead) out.push(m);
+    this._live = out;
+    this._liveFrame = this.frame;
+    return out;
+  }
   enemiesOf(a) {
     if (a.team === 'ally') {
-      const out = this.monsters.filter((m) => !m.dead);
-      if (this.pvp) for (const h of this.heroes) if (!h.dead && h.team === 'enemy') out.push(h);
-      return out;
+      const out = this.livingMonsters();
+      if (!this.pvp) return out;
+      const copy = out.slice();
+      for (const h of this.heroes) if (!h.dead && h.team === 'enemy') copy.push(h);
+      return copy;
     }
     const out = this.heroes.filter((h) => !h.dead && h.team === 'ally');
     for (const e of this.extraAllies) if (!e.dead) out.push(e);
@@ -699,6 +713,7 @@ export class World {
 
   // ================================================================ update
   update(dt) {
+    this.frame = (this.frame || 0) + 1;
     this.time += dt;
     this.dayT = (this.dayT + dt / 600) % 1;
     const map = this.map;
@@ -877,7 +892,8 @@ export class World {
   }
   updateFx(dt) {
     for (let i = this.parts.length - 1; i >= 0; i--) { const p = this.parts[i]; p.t += dt; p.x += p.vx * dt; p.y += p.vy * dt; p.vy += (p.g || 0) * dt; p.vx *= 0.96; if (p.t >= p.dur) this.parts.splice(i, 1); }
-    if (this.parts.length > 700) this.parts.splice(0, this.parts.length - 700);
+    if (this.parts.length > 160) this.parts.splice(0, this.parts.length - 160);
+    if (this.floats.length > 28) this.floats.splice(0, this.floats.length - 28);
     for (const arr of [this.floats, this.rings, this.slashes, this.beams, this.meteors]) for (let i = arr.length - 1; i >= 0; i--) { arr[i].t += dt; if (arr[i].t >= arr[i].dur) arr.splice(i, 1); }
     for (const f of this.floats) { f.y -= 38 * dt; f.x += f.vx * dt; }
     if (this.shakeT > 0) { this.shakeT -= dt; if (this.shakeT <= 0) this.shakeA = 0; }

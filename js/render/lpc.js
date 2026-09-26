@@ -260,4 +260,23 @@ const CLOTH_FILTER = {
   },
 };
 
+export function prebakeKit(cls) {
+  const kit = KITS[cls];
+  if (!kit || !ready) return false;
+  const jobs = [['walk', kit.walk]];
+  if (kit.act && kit.act !== 'walk') jobs.push([kit.act, kit.actKeys]);
+  const queue = [];
+  for (const [act, keys] of jobs) {
+    const group = LAYERS[act];
+    const cols = COLS[act];
+    for (let row = 0; row < 4; row++) for (let col = 0; col < cols; col++) queue.push([cls, act, keys, group, col, row]);
+  }
+  const step = () => {
+    for (let i = 0; i < 8 && queue.length; i++) bakeFrame(...queue.pop());
+    if (queue.length) requestAnimationFrame(step);
+  };
+  step();
+  return true;
+}
+
 if (typeof window !== 'undefined') preloadLpc();

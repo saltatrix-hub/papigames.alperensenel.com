@@ -10,6 +10,7 @@ import { Inventory, makeStack, makeGear, baseFor, sumEquipment, starterGear, GEA
 import { dist, angleTo, clamp, uid } from '../core/util.js';
 import { audio } from '../core/audio.js';
 import { healActor } from './combat.js';
+import { prebakeKit } from '../render/lpc.js';
 
 const M = METER;
 export const SAVE_PREFIX = 'astraya_save_v1_';
@@ -35,7 +36,7 @@ export class Game {
   }
 
   // ================================================================ lifecycle
-  newGame(slot, cls, name, look) {
+  newGame(slot, cls, name, look, opts = {}) {
     this.slot = slot;
     const p = new Hero({ cls, name, level: 1, stats: { ...CLASS_KIT[cls].base }, look, isPlayer: true });
     this.player = p;
@@ -66,8 +67,38 @@ export class Game {
     this.running = true;
     this.ui.startHUD();
     this.quests.beginStep();
-    this.ui.chatSystem(`Astraya’ya hoş geldin, ${name}! Muhtar Elric seni bekliyor. (E: etkileşim)`);
+    if (opts.admin) this.makeAdmin();
+    this.ui.chatSystem(opts.admin
+      ? `${p.name} admin olarak girdi. Altın, kristal ve seviye sınırsız.`
+      : `Astraya’ya hoş geldin, ${name}! Muhtar Elric seni bekliyor. (E: etkileşim)`);
+    this.warmSheets();
     this.save();
+  }
+
+  makeAdmin() {
+    const p = this.player;
+    this.admin = true;
+    p.level = 100;
+    p.xp = 0;
+    p.title = 'Admin';
+    p.stats = autoStats(p.cls, 100);
+    p.statPts = 0;
+    p.skillPts = 99;
+    p.skillRanks = {};
+    for (const s of p.def.skills) p.skillRanks[s.id] = 5;
+    p.hotbar = p.def.skills.slice(0, 8).map((s) => s.id);
+    this.gold = 999999999;
+    this.crystals = 999999999;
+    this.unlocked = [...REGION_ORDER];
+    this.refreshPlayer(true);
+    p.resource = p.maxRes;
+  }
+
+  warmSheets() {
+    const cls = this.player?.cls;
+    if (!cls) return;
+    const run = () => { if (!prebakeKit(cls)) setTimeout(run, 250); };
+    setTimeout(run, 60);
   }
 
   load(slot) {
@@ -87,6 +118,7 @@ export class Game {
     this.unlocked = d.unlocked;
     this.arena = d.arena; this.stats = d.stats; this.achievements = d.ach || {}; this.playTime = d.playTime || 0;
     this.shopOwned = d.shopOwned || {}; this.auctionPending = [];
+    this.admin = !!d.admin;
     this.partyDefs = d.party || [];
     this.party = this.partyDefs.map((c) => this.makeCompanion(c.cls, p.level, c.name));
     this.refreshPlayer(true);
@@ -96,7 +128,9 @@ export class Game {
     this.renderer.snap(p);
     this.running = true;
     this.ui.startHUD();
+    if (this.admin) { this.gold = 999999999; this.crystals = 999999999; if (p.level < 100) this.makeAdmin(); }
     this.ui.chatSystem(`Tekrar hoş geldin, ${p.name}.`);
+    this.warmSheets();
     return true;
   }
 
@@ -112,7 +146,7 @@ export class Game {
       inv: this.inv.items.map(strip), invSize: this.inv.size, sto: this.storage.items.map(strip), stoSize: this.storage.size,
       eq: Object.fromEntries(Object.entries(this.eq).filter(([, v]) => v).map(([k, v]) => [k, strip(v)])),
       gold: this.gold, crystals: this.crystals, quests: this.quests.toJSON(), unlocked: this.unlocked, loc,
-      party: this.partyDefs, arena: this.arena, stats: this.stats, ach: this.achievements, playTime: Math.round(this.playTime), shopOwned: this.shopOwned,
+      party: this.partyDefs, arena: this.arena, stats: this.stats, ach: this.achievements, playTime: Math.round(this.playTime), shopOwned: this.shopOwned, admin: !!this.admin,
       chapter: this.quests.chapter.short,
     };
     try { localStorage.setItem(SAVE_PREFIX + this.slot, JSON.stringify(d)); } catch (e) { console.warn('save failed', e); }
@@ -351,6 +385,7 @@ export class Game {
     }
     // auction sales
     for (let i = this.auctionPending.length - 1; i >= 0; i--) { const a = this.auctionPending[i]; if (w.time >= a.at) { this.auctionPending.splice(i, 1); this.gold += a.gold; this.ui.toast(`Mezat: ${a.name} satıldı (+${a.gold} altın)`, '#ffd24a'); audio.play('coin'); } }
+    if (this.admin) { this.gold = 999999999; this.crystals = 999999999; }
     this.autosaveT = (this.autosaveT || 0) + dt;
     if (this.autosaveT > 45) { this.autosaveT = 0; this.save(); }
   }
@@ -452,7 +487,11 @@ export class Game {
         else if (!p.moving && !this.moveTo && p.kit.attack.kind === 'melee' && d < 12 * M) this.moveTo = { x: t.x, y: t.y, r: range * 0.8 };
       }
     }
-    if (p.target && p.target.dead) { if (p.target.kind === 'monster') this.autoAtk = false; setTimeout(() => { if (p.target && p.target.dead) { p.target = null; this.ui.targetChanged(); } }, 600); }
+    if (p.target && p.target.dead) {
+      if (p.target.kind === 'monster') this.autoAtk = false;
+      this._deadFor = (this._deadFor || 0) + dt;
+      if (this._deadFor > 0.6) { p.target = null; this._deadFor = 0; this.ui.targetChanged(); }
+    } else this._deadFor = 0;
     // skills 1..8
     for (let i = 0; i < 8; i++) if (I.hit('Digit' + (i + 1))) this.useSlot(i, aim);
   }

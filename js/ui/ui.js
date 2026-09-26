@@ -101,6 +101,7 @@ export class UI {
       ss.appendChild(b);
     }
     $('#btn-start').onclick = () => this.startNew();
+    $('#btn-admin').onclick = () => this.startAdmin();
     $('#hero-name').value = '';
     this.refreshSlots();
     this.refreshCreate();
@@ -155,6 +156,12 @@ export class UI {
     const name = ($('#hero-name').value || '').trim() || CLASS_TR[this.create.cls].tr;
     audio.init();
     this.boot(() => this.game.newGame(this.create.slot, this.create.cls, name.slice(0, 16), this.look()));
+  }
+
+  startAdmin() {
+    const name = ($('#hero-name').value || '').trim() || 'Admin';
+    audio.init();
+    this.boot(() => this.game.newGame(this.create.slot, this.create.cls, name.slice(0, 16), this.look(), { admin: true }));
   }
 
   boot(fn) {
@@ -329,11 +336,16 @@ export class UI {
         b.onmouseenter = (e) => this.tip(e, `<b>${esc(s.name)}</b><br>${esc(s.desc)}<br><small>Sv ${s.unlock} · Rank ${r}/5 · ${s.type}</small>`);
         b.onmouseleave = () => this.tip();
       }
-      b.className = 'slot-key' + (r <= 0 ? ' locked' : '');
-      const cdEl = b.querySelector('.cd');
+      const locked = r <= 0;
+      if (b._locked !== locked) { b._locked = locked; b.classList.toggle('locked', locked); }
+      const cdEl = b._cd || (b._cd = b.querySelector('.cd'));
       if (cdEl) {
-        cdEl.classList.toggle('hidden', cd <= 0);
-        if (cd > 0) cdEl.textContent = cd.toFixed(1);
+        const show = cd > 0;
+        if (cdEl._on !== show) { cdEl._on = show; cdEl.classList.toggle('hidden', !show); }
+        if (show) {
+          const label = cd.toFixed(1);
+          if (cdEl._v !== label) { cdEl._v = label; cdEl.textContent = label; }
+        }
       }
     });
     const hpCd = p.cooldowns.potHp || 0, mpCd = p.cooldowns.potRes || 0;
