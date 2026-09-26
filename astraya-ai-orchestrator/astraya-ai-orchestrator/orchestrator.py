@@ -34,7 +34,7 @@ def load_env(path: Path) -> None:
 
 load_env(HERE / "config.env")
 
-REPO = (HERE / os.getenv("REPO_PATH", "..")).resolve()
+REPO = (HERE / os.getenv("REPO_PATH", "../..")).resolve()
 LOG_DIR = HERE / "logs"
 LOG_DIR.mkdir(exist_ok=True)
 
@@ -48,6 +48,10 @@ AUTO_PROMOTE = os.getenv("AUTO_PROMOTE_ASSETS", "0") == "1"
 REQUIRE_CLEAN = os.getenv("REQUIRE_CLEAN_WORKTREE", "1") == "1"
 CURSOR_CMD = os.getenv("CURSOR_AGENT_COMMAND", "agent")
 CURSOR_MODEL = os.getenv("CURSOR_MODEL", "").strip()
+VALIDATION_COMMAND = os.getenv(
+    "VALIDATION_COMMAND",
+    "py tools/validate_static_client.py",
+).strip()
 
 RUN_ID = dt.datetime.now().strftime("%Y%m%d-%H%M%S")
 LOG_FILE = LOG_DIR / f"nightly-{RUN_ID}.log"
@@ -127,12 +131,15 @@ def install_cursor_permissions() -> None:
             "allow": [
                 "Read(**)",
                 "Write(js/**)",
+                "Write(css/**)",
                 "Write(assets/**)",
                 "Write(design/**)",
                 "Write(ai/**)",
                 "Write(tools/**)",
                 "Write(.cursor/**)",
                 "Write(AGENTS.md)",
+                "Write(README.md)",
+                "Write(index.html)",
                 "Shell(node)",
                 "Shell(python)",
                 "Shell(py)",
@@ -147,6 +154,8 @@ def install_cursor_permissions() -> None:
                 "Shell(rmdir)",
                 "Read(**/.env*)",
                 "Write(**/.env*)",
+                "Write(.git/**)",
+                "Write(astraya-ai-orchestrator/**)",
                 "Write(CNAME)"
             ]
         }
@@ -244,7 +253,7 @@ def run_cursor(task: dict[str, Any]) -> str:
         task=task["task"],
         criteria="\n".join(f"- {x}" for x in task.get("acceptance_criteria", [])),
     )
-    cmd = [CURSOR_CMD, "-p", prompt, "--output-format", "text"]
+    cmd = [CURSOR_CMD, "-p", "--force", prompt, "--output-format", "text"]
     if CURSOR_MODEL:
         cmd += ["--model", CURSOR_MODEL]
     env = os.environ.copy()
@@ -294,14 +303,38 @@ def commit_changes(title: str) -> str | None:
     return sha
 
 
-def review_task(task: dict[str, Any], cursor_summary: str) -> dict[str, Any]:
+def run_validation() -> str:
+    if not VALIDATION_COMMAND:
+        return "Validation disabled: VALIDATION_COMMAND is empty."
+    log(f"Validation: {VALIDATION_COMMAND}")
+    p = subprocess.run(
+        VALIDATION_COMMAND,
+        cwd=str(REPO),
+        shell=True,
+        text=True,
+        capture_output=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=180,
+    )
+    output = (p.stdout + ("\n[stderr]\n" + p.stderr if p.stderr else "")).strip()
+    result = f"exit_code={p.returncode}\n{output[-12000:]}"
+    log("Validation result:\n" + result)
+    return result
+
+
+def review_task(task: dict[str, Any], cursor_summary: str, validation: str) -> dict[str, Any]:
     review_prompt = (HERE / "prompts" / "reviewer.md").read_text(encoding="utf-8")
-    diff = run(["git", "diff", "HEAD~1", "--stat"], check=False).stdout if git_output("rev-list", "--count", "HEAD") != "0" else ""
+    diff = run(
+        ["git", "show", "--format=fuller", "--stat", "--patch", "HEAD"],
+        check=False,
+    ).stdout
     prompt = (
         review_prompt
         + "\n\nASSIGNED TASK:\n" + task["task"]
         + "\n\nCURSOR SUMMARY:\n" + cursor_summary[-10000:]
-        + "\n\nLATEST COMMIT STAT:\n" + diff[-6000:]
+        + "\n\nDETERMINISTIC VALIDATION:\n" + validation[-12000:]
+        + "\n\nLATEST COMMIT DIFF:\n" + diff[-50000:]
         + "\n\nUPDATED SHARED STATE:\n" + shared_context()
     )
     result = structured(prompt, REVIEW_SCHEMA, "astraya_review")
@@ -491,7 +524,8 @@ def main() -> int:
                 append_report(f"- `{task['title']}`: no file changes; stopped to avoid loop.")
                 break
 
-            review = review_task(task, cursor_summary)
+            validation = run_validation()
+            review = review_task(task, cursor_summary, validation)
             fixes = 0
             while review["verdict"] == "NEEDS_FIX" and fixes < MAX_FIX:
                 fixes += 1
@@ -504,7 +538,8 @@ def main() -> int:
                 fix_sha = commit_changes(fix_task["title"])
                 if not fix_sha:
                     break
-                review = review_task(task, cursor_summary)
+                validation = run_validation()
+                review = review_task(task, cursor_summary, validation)
 
             completed += 1
             append_report(

@@ -11,6 +11,7 @@ STRICT OVERNIGHT RULES:
 - Do not rewrite unrelated working systems.
 - Preserve the current Vanilla ES modules / Canvas 2D / LPC approach unless the task explicitly requires otherwise.
 - Run relevant local checks when possible.
+- Before finishing, run `py tools/validate_static_client.py` and fix failures caused by your changes.
 - Update ai/HANDOFF.md and ai/TASKS.md after meaningful work.
 - If you create an art requirement, put machine-readable pending jobs in ai/ASSET_QUEUE.json.
 - Generated image art must not be called final until validated.

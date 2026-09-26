@@ -26,7 +26,8 @@ papigames.alperensenel.com/
 └─ ...
 ```
 
-`config.env.example` içindeki `REPO_PATH=..` bu düzen içindir.
+Bu arşiv şu anda bir ek klasör katmanıyla açıldığı için `config.env.example`
+içindeki `REPO_PATH=../..` depo kökünü gösterir.
 
 ## 2) Cursor CLI
 
@@ -93,10 +94,11 @@ Python, Git, Cursor CLI ve repo durumunu gösterir.
 6. OpenAI Director'ın repo state dosyalarından tek bir sonraki görev seçmesi
 7. Cursor CLI `agent -p` ile görevi uygulaması
 8. Git commit
-9. OpenAI Reviewer'ın sonucu incelemesi
-10. Gerekirse maksimum 3 fix turu
-11. Sonraki task
-12. `ai/NIGHTLY_REPORT.md` güncelleme
+9. Statik istemci doğrulaması (JS syntax + ES module import yolları)
+10. OpenAI Reviewer'ın tam commit diff'i ve test çıktısını incelemesi
+11. Gerekirse maksimum 3 fix turu
+12. Sonraki task
+13. `ai/NIGHTLY_REPORT.md` güncelleme
 
 ## Asset queue formatı
 

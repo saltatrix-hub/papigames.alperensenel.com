@@ -1,5 +1,7 @@
 # Dependencies / OS
 node_modules/
+__pycache__/
+*.pyc
 .DS_Store
 Thumbs.db
 *.log
@@ -18,4 +20,3 @@ ASTRAYA_2D_MMO_COMPLETE_PROJECT/
 assets/sprites/_dl/
 astraya-ai-orchestrator/**/config.env
 astraya-ai-orchestrator/**/logs/
-

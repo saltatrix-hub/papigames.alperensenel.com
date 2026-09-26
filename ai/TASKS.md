@@ -2,7 +2,16 @@
 
 ## IN PROGRESS
 
-None. Knight validation is waiting for review.
+### OPS-AI-001 — Safe ChatGPT/Cursor overnight loop
+
+- [x] Preserve the current mixed asset work in a checkpoint branch.
+- [x] Install Cursor Agent CLI.
+- [x] Give the reviewer the full commit diff and deterministic validation output.
+- [x] Add a no-dependency static-client validator.
+- [ ] Authenticate Cursor Agent CLI.
+- [ ] Run a two-task, no-push, no-asset-promotion dry run.
+
+Knight validation is still waiting for review.
 
 ## TODO
 

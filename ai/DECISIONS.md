@@ -87,3 +87,24 @@ Reason:
 Baking effects into equipment sheets would force a new character export for every skill.
 
 Status: Active
+
+---
+
+## ADR-007 — Overnight agents work only on isolated branches
+
+Date: 2026-09-26
+
+Decision:
+The OpenAI director/reviewer and Cursor implementation loop may run unattended only
+on a newly created `ai/nightly-*` branch. It must not merge to `main`. Every Cursor
+commit is checked by deterministic static-client validation, and the reviewer must
+receive the actual patch rather than relying on the implementer's summary.
+
+Generated images remain review candidates by default. The loop stops on a human/art
+blocker or after its configured task and fix limits.
+
+Reason:
+This keeps unattended iteration recoverable and prevents summaries or attractive but
+misaligned sprite output from being treated as proof of correctness.
+
+Status: Active

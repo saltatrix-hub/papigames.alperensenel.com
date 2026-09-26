@@ -1,5 +1,21 @@
 # Latest AI Developer Handoff
 
+## 2026-09-26 — AI collaboration setup
+
+The current mixed Knight/Assassin workspace was preserved in commit `6b02878` on
+`codex/ai-collaboration-setup`. Intentional Assassin asset deletions were retained.
+
+Cursor Agent CLI is installed. The overnight orchestrator now points at the correct
+repository root, invokes Cursor in non-interactive force mode under explicit deny
+rules, runs `tools/validate_static_client.py`, and sends the full latest commit diff
+plus validation output to the OpenAI reviewer.
+
+Validation passed for 26 JavaScript files. The remaining setup blocker is Cursor CLI
+authentication. After login, the first run should use two tasks, no automatic push,
+and no automatic asset promotion.
+
+---
+
 Status: Knight visual pipeline ready for review. Other classes were not implemented.
 
 ## Summary
