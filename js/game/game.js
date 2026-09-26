@@ -420,6 +420,12 @@ export class Game {
     else if (p.mods.stun) p.moving = false;
     else {
       if ((mx || my) && !p.mods.root) {
+        const yaw = this.renderer.view?.yaw || 0;
+        const fX = -Math.sin(yaw), fY = -Math.cos(yaw);
+        const rX = Math.cos(yaw), rY = -Math.sin(yaw);
+        const wx = rX * mx - fX * my;
+        const wy = rY * mx - fY * my;
+        mx = wx; my = wy;
         const l = Math.hypot(mx, my); mx /= l; my /= l;
         const sp = p.moveSpeed * (p.atkAnim >= 0 && p.kit.attack.kind !== 'melee' ? 0.8 : 1);
         const ox = p.x, oy = p.y;

@@ -210,8 +210,24 @@ export class WorldView {
   constructor(canvas) {
     this.canvas = canvas;
     this.S = S;
-    this.pitch = 60 * Math.PI / 180;
-    this.dist = 15;
+    this.pitch = 42 * Math.PI / 180;
+    this.yaw = -48 * Math.PI / 180;
+    this.dist = 36;
+    this.distMin = 16;
+    this.distMax = 64;
+    this.pitchMin = 24 * Math.PI / 180;
+    this.pitchMax = 68 * Math.PI / 180;
+    canvas.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const step = e.deltaY > 0 ? 1.1 : 1 / 1.1;
+      if (e.shiftKey) {
+        const dir = e.deltaY > 0 ? -1 : 1;
+        this.pitch = Math.min(this.pitchMax, Math.max(this.pitchMin, this.pitch + dir * 0.06));
+      } else {
+        this.dist = Math.min(this.distMax, Math.max(this.distMin, this.dist * step));
+      }
+      this.aim();
+    }, { passive: false });
     this.focusX = 0;
     this.focusY = 0;
     this.mapId = '';
@@ -226,7 +242,7 @@ export class WorldView {
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(30, 1, 0.1, 200);
+    this.camera = new THREE.PerspectiveCamera(30, 1, 0.1, 500);
     this.scene.add(new THREE.HemisphereLight('#fff0d4', '#1c2830', 0.55));
     this.sun = new THREE.DirectionalLight('#fff4dc', 1.75);
     this.sun.castShadow = true;
@@ -293,9 +309,25 @@ export class WorldView {
     const tx = this.focusX * S;
     const tz = this.focusY * S;
     const dist = this.dist;
-    this.camera.position.set(tx, Math.sin(this.pitch) * dist, tz + Math.cos(this.pitch) * dist);
-    this.camera.lookAt(tx, 1.05, tz);
-    this.sun.position.set(tx - 10, 16, tz + 8);
+    const flat = Math.cos(this.pitch) * dist;
+    this.camera.position.set(
+      tx + Math.sin(this.yaw) * flat,
+      Math.sin(this.pitch) * dist,
+      tz + Math.cos(this.yaw) * flat,
+    );
+    this.camera.lookAt(tx, 1.15, tz);
+    if (this.scene.fog) {
+      this.scene.fog.near = this.dist * 0.85;
+      this.scene.fog.far = this.dist * 3.4;
+    }
+    const span = Math.max(24, this.dist * 1.15);
+    this.sun.shadow.camera.left = -span;
+    this.sun.shadow.camera.right = span;
+    this.sun.shadow.camera.top = span;
+    this.sun.shadow.camera.bottom = -span;
+    this.sun.shadow.camera.far = this.dist * 3.5;
+    this.sun.shadow.camera.updateProjectionMatrix();
+    this.sun.position.set(tx - Math.sin(this.yaw) * 12, 14, tz - Math.cos(this.yaw) * 8);
     this.sun.target.position.set(tx, 0, tz);
     this.sun.target.updateMatrixWorld();
   }

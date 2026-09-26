@@ -1,7 +1,7 @@
 import { Input } from './core/input.js';
 import { audio } from './core/audio.js';
-import { Game, loadSettings } from './game/game.js';
-import { Renderer } from './render/renderer.js';
+import { Game, loadSettings } from './game/game.js?v=cam3';
+import { Renderer } from './render/renderer.js?v=cam3';
 import { UI } from './ui/ui.js';
 
 const canvas = document.getElementById('world');
