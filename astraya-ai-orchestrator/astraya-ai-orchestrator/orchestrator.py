@@ -95,10 +95,11 @@ def must_exist() -> None:
     if not os.getenv("CURSOR_API_KEY"):
         # Cursor can also be authenticated by agent login, so only warn.
         log("UYARI: CURSOR_API_KEY bos. Mevcut `agent login` oturumu kullanilacak.")
-    if shutil.which(CURSOR_CMD) is None:
+    cursor_executable = shutil.which(CURSOR_CMD)
+    if cursor_executable is None:
         raise RuntimeError(f"Cursor CLI bulunamadi: {CURSOR_CMD}. Once Cursor CLI kur ve `agent login` yap.")
     run(["git", "--version"], check=True)
-    run([CURSOR_CMD, "status"], check=False)
+    run([cursor_executable, "status"], check=False)
 
 
 def git_output(*args: str) -> str:
@@ -253,7 +254,8 @@ def run_cursor(task: dict[str, Any]) -> str:
         task=task["task"],
         criteria="\n".join(f"- {x}" for x in task.get("acceptance_criteria", [])),
     )
-    cmd = [CURSOR_CMD, "-p", "--force", prompt, "--output-format", "text"]
+    cursor_executable = shutil.which(CURSOR_CMD) or CURSOR_CMD
+    cmd = [cursor_executable, "-p", "--force", prompt, "--output-format", "text"]
     if CURSOR_MODEL:
         cmd += ["--model", CURSOR_MODEL]
     env = os.environ.copy()
