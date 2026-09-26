@@ -381,10 +381,15 @@ def run_validation() -> str:
     return result
 
 
-def review_task(task: dict[str, Any], cursor_summary: str, validation: str) -> dict[str, Any]:
+def review_task(
+    task: dict[str, Any],
+    cursor_summary: str,
+    validation: str,
+    commit_ref: str = "HEAD",
+) -> dict[str, Any]:
     review_prompt = (HERE / "prompts" / "reviewer.md").read_text(encoding="utf-8")
     diff = run(
-        ["git", "show", "--format=fuller", "--stat", "--patch", "HEAD"],
+        ["git", "show", "--format=fuller", "--stat", "--patch", commit_ref],
         check=False,
     ).stdout
     prompt = (
