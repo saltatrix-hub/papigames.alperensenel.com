@@ -48,6 +48,7 @@ MAX_FIX = int(os.getenv("MAX_FIX_ROUNDS", "3"))
 MAX_ASSETS = int(os.getenv("MAX_ASSETS_PER_RUN", "8"))
 AUTO_PUSH = os.getenv("AUTO_PUSH", "1") == "1"
 AUTO_PROMOTE = os.getenv("AUTO_PROMOTE_ASSETS", "0") == "1"
+ENABLE_ASSET_GENERATION = os.getenv("ENABLE_ASSET_GENERATION", "0") == "1"
 REQUIRE_CLEAN = os.getenv("REQUIRE_CLEAN_WORKTREE", "1") == "1"
 CURSOR_CMD = os.getenv("CURSOR_AGENT_COMMAND", "agent")
 CURSOR_MODEL = os.getenv("CURSOR_MODEL", "").strip()
@@ -541,6 +542,8 @@ def review_asset(job: dict[str, Any], image_path: Path) -> dict[str, Any]:
 
 
 def process_asset_queue() -> int:
+    if not ENABLE_ASSET_GENERATION:
+        return 0
     jobs = load_asset_queue()
     n = 0
     changed = False

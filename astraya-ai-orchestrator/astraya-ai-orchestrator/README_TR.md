@@ -142,6 +142,9 @@ Durumlar:
 
 Varsayılan olarak `approved_candidate` bile production'a taşınmaz. Bu özellikle sprite sheet hassasiyeti yüzündendir.
 
+API kredisi veya görsel üretim isteği yoksa `ENABLE_ASSET_GENERATION=0` bırakılır;
+pending işler değiştirilmeden kuyrukta bekler. Üretim açılacağı zaman bunu `1` yap.
+
 ## Önemli: AI sprite üretiminin sınırı
 
 Görsel modeller güzel konsept ve sprite adayları üretebilir; ancak 64x64 LPC gibi frame/pivot hassasiyetli animasyonlarda kusursuz grid ve piksel hizasını garanti etmez.
