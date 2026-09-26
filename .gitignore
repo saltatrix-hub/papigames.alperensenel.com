@@ -20,3 +20,4 @@ ASTRAYA_2D_MMO_COMPLETE_PROJECT/
 assets/sprites/_dl/
 astraya-ai-orchestrator/**/config.env
 astraya-ai-orchestrator/**/logs/
+ai/.cursor_task_prompt.md

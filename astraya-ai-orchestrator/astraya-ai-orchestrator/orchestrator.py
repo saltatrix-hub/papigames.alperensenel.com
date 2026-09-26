@@ -311,19 +311,29 @@ def run_cursor(task: dict[str, Any]) -> str:
         criteria="\n".join(f"- {x}" for x in task.get("acceptance_criteria", [])),
     )
     cursor_executable = shutil.which(CURSOR_CMD) or CURSOR_CMD
-    cmd = [cursor_executable, "-p", "--force", prompt, "--output-format", "text"]
+    task_file = REPO / "ai" / ".cursor_task_prompt.md"
+    task_file.parent.mkdir(parents=True, exist_ok=True)
+    task_file.write_text(prompt, encoding="utf-8")
+    short_prompt = (
+        "Read ai/.cursor_task_prompt.md completely and execute that assigned task now. "
+        "Do not ask what to do next."
+    )
+    cmd = [cursor_executable, "-p", "--force", short_prompt, "--output-format", "text"]
     if CURSOR_MODEL:
         cmd += ["--model", CURSOR_MODEL]
     env = os.environ.copy()
-    p = subprocess.run(
-        cmd,
-        cwd=str(REPO),
-        text=True,
-        capture_output=True,
-        encoding="utf-8",
-        errors="replace",
-        env=env,
-    )
+    try:
+        p = subprocess.run(
+            cmd,
+            cwd=str(REPO),
+            text=True,
+            capture_output=True,
+            encoding="utf-8",
+            errors="replace",
+            env=env,
+        )
+    finally:
+        task_file.unlink(missing_ok=True)
     if p.stdout.strip():
         log("Cursor summary:\n" + p.stdout[-8000:])
     if p.stderr.strip():
