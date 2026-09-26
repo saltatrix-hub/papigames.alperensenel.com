@@ -5,7 +5,7 @@ import { CLASS_KIT, STATS, STAT_TR, xpToNext } from '../game/stats.js';
 import { RECIPES, recipeNeeds, merchantStock, affixText, gearStats, MATERIAL_TR, PROF_TR } from '../game/items.js';
 import { dungeonDef, RES_TR } from '../game/world.js';
 import { itemIcon, skillIcon } from '../render/sprites.js';
-import { drawFigure3D } from '../render/figure3d.js';
+import { tickPreview, paintBust } from '../render/view3d.js';
 import { ELEMENT } from '../game/skills.js';
 import { $, $$, el, esc, fmt, fmtFull } from '../core/util.js';
 import { audio } from '../core/audio.js';
@@ -143,17 +143,8 @@ export class UI {
     return { ...base, hair: this.create.hair, skin: this.create.skin };
   }
 
-  drawPreview(cv, cls, look, t = this.titleT) {
-    if (!cv) return;
-    const ctx = cv.getContext('2d');
-    ctx.clearRect(0, 0, cv.width, cv.height);
-    ctx.fillStyle = '#0b1020'; ctx.fillRect(0, 0, cv.width, cv.height);
-    try {
-      const dir = [0, 2, 3, 1][Math.floor(t / 2.2) % 4];
-      const phase = t % 2.2;
-      const attack = phase > 1.55 ? Math.min(0.999, (phase - 1.55) / 0.65) : -1;
-      drawFigure3D(ctx, cv.width / 2, cv.height * 0.84, cls, dir, { walk: t * 3, attack, moving: true }, 2.15);
-    } catch (err) { console.warn('preview', err); }
+  drawPreview(cv, cls) {
+    try { tickPreview(cv, cls); } catch (err) { console.warn('preview', err); }
   }
 
   startNew() {
@@ -267,7 +258,7 @@ export class UI {
     this.updatePrompt();
     this._miniN = (this._miniN || 0) + 1;
     if (this._miniN % 4 === 0) this.updateMinimap();
-    if (this._portraitCls !== p.cls) { this._portraitCls = p.cls; this.drawPortrait($('#portrait'), p); }
+    try { paintBust($('#portrait'), p.cls); } catch (err) { console.warn('portrait', err); }
   }
 
   updateBars() {
@@ -406,10 +397,7 @@ export class UI {
 
   drawPortrait(cv, hero) {
     if (!cv || !hero) return;
-    const ctx = cv.getContext('2d');
-    ctx.clearRect(0, 0, cv.width, cv.height);
-    ctx.fillStyle = '#121018'; ctx.fillRect(0, 0, cv.width, cv.height);
-    drawFigure3D(ctx, cv.width / 2, cv.height * 0.96, hero.cls, 0, { walk: 0, attack: -1, moving: false }, 0.62);
+    paintBust(cv, hero.cls);
   }
 
   // ================================================================ feedback
@@ -506,10 +494,7 @@ export class UI {
     $('#dlg-name').textContent = npc?.name || 'Bilinmeyen';
     $('#dlg-sub').textContent = title || npc?.title || '';
     $('#dlg-text').textContent = text;
-    const face = $('#dlg-face');
-    const ctx = face.getContext('2d');
-    ctx.clearRect(0, 0, face.width, face.height);
-    if (npc) drawFigure3D(ctx, 32, 70, 'npc', 0, { walk: 0, attack: -1, moving: false }, 0.72);
+    if (npc) paintBust($('#dlg-face'), 'npc');
     const box = $('#dlg-choices');
     box.innerHTML = '';
     const list = choices.length ? choices : [{ label: 'Kapat' }];
