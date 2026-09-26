@@ -1,16 +1,16 @@
 // World renderer: ground chunks, y-sorted scene, telegraphs, FX, overhead UI, lighting, weather.
-import { drawHero, drawMonster, shadow } from './sprites.js';
-import { drawCastSprite } from './worldart.js';
+import { shadow } from './sprites.js';
+import { drawFigure3D, drawMonster3D } from './figure3d.js';
 import { THEMES } from '../data/content.js';
 import { makeCanvas, rgba, clamp, TAU, shade } from '../core/util.js';
 import { RARITY } from '../data/content.js';
-
 export class Renderer {
   constructor(canvas, game) {
     this.cv = canvas;
     this.ctx = canvas.getContext('2d');
     this.game = game;
     this.cam = { x: 0, y: 0, zoom: 1 };
+    this.iso = 0.62;
     this.light = makeCanvas(4, 4);
     this.weather = [];
     this.drawList = [];
@@ -24,12 +24,12 @@ export class Renderer {
     this.dpr = dpr;
     // world zoom: keep ~ 30 metres visible horizontally on wide screens
     this.cam.zoom = clamp(Math.min(w / 1280, h / 760), 0.72, 1.35) * dpr;
-    this.vw = this.cv.width / this.cam.zoom; this.vh = this.cv.height / this.cam.zoom;
+    this.vw = this.cv.width / this.cam.zoom; this.vh = this.cv.height / (this.cam.zoom * this.iso);
     const lw = Math.ceil(this.vw / 8), lh = Math.ceil(this.vh / 8);
     this.light.width = lw; this.light.height = lh;
   }
-  screenToWorld(sx, sy) { return { x: this.cam.x + (sx * this.dpr) / this.cam.zoom, y: this.cam.y + (sy * this.dpr) / this.cam.zoom }; }
-  worldToScreen(x, y) { return { x: ((x - this.cam.x) * this.cam.zoom) / this.dpr, y: ((y - this.cam.y) * this.cam.zoom) / this.dpr }; }
+  screenToWorld(sx, sy) { return { x: this.cam.x + (sx * this.dpr) / this.cam.zoom, y: this.cam.y + (sy * this.dpr) / (this.cam.zoom * this.iso) }; }
+  worldToScreen(x, y) { return { x: ((x - this.cam.x) * this.cam.zoom) / this.dpr, y: ((y - this.cam.y) * this.cam.zoom * this.iso) / this.dpr }; }
 
   follow(target, dt) {
     const w = this.game.world, map = w.map;
@@ -52,7 +52,7 @@ export class Renderer {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = map.floor ? '#07050a' : map.theme.wall;
     ctx.fillRect(0, 0, this.cv.width, this.cv.height);
-    ctx.setTransform(z, 0, 0, z, 0, 0);
+    ctx.setTransform(z, 0, 0, z * this.iso, 0, 0);
     ctx.imageSmoothingEnabled = false;
     map.drawGround(ctx, cam, this.vw, this.vh, 3);
     ctx.imageSmoothingEnabled = false;
@@ -92,39 +92,47 @@ export class Renderer {
     list.length = n;
     list.sort((a, b) => a.y - b.y);
     const P = game.player;
+    const stand = (x, y, fn) => {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(1, 1 / this.iso);
+      ctx.translate(-x, -y);
+      fn();
+      ctx.restore();
+    };
     for (const it of list) {
       const o = it.o;
-      if (it.k === 0) {
+      if (it.k === 0) stand(o.x, o.y, () => {
         const sp = o.sp;
         const fade = P.y < o.y && P.y > o.y - sp.ay + 10 && Math.abs(P.x - o.x) < sp.c.width * 0.4 && sp.ay > 60;
         if (fade) ctx.globalAlpha = 0.55;
         ctx.drawImage(sp.c, o.x - sp.ax, o.y - sp.ay);
         ctx.globalAlpha = 1;
-      } else if (it.k === 1) {
+      }); else if (it.k === 1) stand(o.x + o.w / 2, o.y, () => {
         const sp = o.sp;
         const fade = P.y < o.y && P.y > o.y - o.h - 60 && P.x > o.x && P.x < o.x + o.w;
         if (fade) ctx.globalAlpha = 0.6;
         ctx.drawImage(sp.c, o.x - sp.ox, o.y - sp.oy);
         ctx.globalAlpha = 1;
         if (o.label) this.label(ctx, o.x + o.w / 2, o.y - o.h - 28, BUILDING_TR[o.label] || o.label, '#ffe8b0', 12);
-      } else if (it.k === 2) this.drawObject(ctx, o, T);
-      else if (it.k === 3) this.drawNPC(ctx, o, T);
-      else if (it.k === 4) this.drawHeroEnt(ctx, o, T);
-      else if (it.k === 5) this.drawMonsterEnt(ctx, o, T);
-      else if (it.k === 6) this.drawCore(ctx, o, T);
+      }); else if (it.k === 2) stand(o.x, o.y, () => this.drawObject(ctx, o, T));
+      else if (it.k === 3) stand(o.x, o.y, () => this.drawNPC(ctx, o, T));
+      else if (it.k === 4) stand(o.x, o.y, () => this.drawHeroEnt(ctx, o, T));
+      else if (it.k === 5) stand(o.x, o.y, () => this.drawMonsterEnt(ctx, o, T));
+      else if (it.k === 6) stand(o.x, o.y, () => this.drawCore(ctx, o, T));
     }
 
     // projectiles
-    for (const p of w.projectiles) this.drawProjectile(ctx, p, T);
+    for (const p of w.projectiles) stand(p.x, p.y, () => this.drawProjectile(ctx, p, T));
     // meteors
     for (const m of w.meteors) {
       const k = m.t / m.dur;
-      const x = m.x + (1 - k) * 160, y = m.y - (1 - k) * 420;
-      ctx.save();
-      ctx.fillStyle = m.color; ctx.beginPath(); ctx.arc(x, y, 14 * m.scale, 0, TAU); ctx.fill();
-      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(x, y, 6 * m.scale, 0, TAU); ctx.fill();
-      ctx.strokeStyle = rgba(m.color, 0.5); ctx.lineWidth = 10 * m.scale; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 60, y - 150); ctx.stroke();
-      ctx.restore();
+      const x = m.x + (1 - k) * 160, y = m.y - (1 - k) * 260;
+      stand(x, y, () => {
+        ctx.fillStyle = m.color; ctx.beginPath(); ctx.arc(x, y, 14 * m.scale, 0, TAU); ctx.fill();
+        ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(x, y, 6 * m.scale, 0, TAU); ctx.fill();
+        ctx.strokeStyle = rgba(m.color, 0.5); ctx.lineWidth = 10 * m.scale; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 40, y - 90); ctx.stroke();
+      });
     }
     // slashes / rings / beams
     ctx.save();
@@ -158,9 +166,10 @@ export class Renderer {
 
     // overhead UI
     for (const it of list) {
-      if (it.k === 3) this.npcOverhead(ctx, it.o, T);
-      else if (it.k === 4) this.heroOverhead(ctx, it.o);
-      else if (it.k === 5) this.monsterOverhead(ctx, it.o);
+      const o = it.o;
+      if (it.k === 3) stand(o.x, o.y, () => this.npcOverhead(ctx, o, T));
+      else if (it.k === 4) stand(o.x, o.y, () => this.heroOverhead(ctx, o));
+      else if (it.k === 5) stand(o.x, o.y, () => this.monsterOverhead(ctx, o));
     }
     // floating combat text
     ctx.textAlign = 'center';
@@ -171,8 +180,10 @@ export class Renderer {
       ctx.font = `${f.crit ? 900 : 800} ${size}px Inter, system-ui, sans-serif`;
       ctx.globalAlpha = k > 0.7 ? (1 - k) / 0.3 : 1;
       ctx.lineWidth = 3.5; ctx.strokeStyle = 'rgba(10,6,14,.85)';
-      ctx.strokeText(f.text, f.x, f.y);
-      ctx.fillStyle = f.color; ctx.fillText(f.text, f.x, f.y);
+      stand(f.x, f.y, () => {
+        ctx.strokeText(f.text, f.x, f.y);
+        ctx.fillStyle = f.color; ctx.fillText(f.text, f.x, f.y);
+      });
     }
     ctx.globalAlpha = 1;
 
@@ -370,15 +381,14 @@ export class Renderer {
     this.label(ctx, c.x, c.y - 80, c.name, '#ffe8a0', 11);
   }
   drawNPC(ctx, n, T) {
-    const who = /guard|captain|soldier|watch|knight|marshal/i.test(`${n.title} ${n.name}`) ? 'soldier'
-      : /lady|maiden|princess|sister|priestess/i.test(`${n.title} ${n.name}`) ? 'princess' : null;
     const anim = { walk: n.walkT, moving: n.moving, attack: -1, time: n.animT };
-    if (who && drawCastSprite(ctx, who, n.x, n.y, n.moving ? n.dir : 0, anim, 1.15)) return;
-    drawHero(ctx, n.x, n.y, 'npc', n.look, n.moving ? n.dir : 0, anim, 1.15, {});
+    const guard = /guard|captain|soldier|watch|knight|marshal/i.test(`${n.title} ${n.name}`);
+    const holy = /priest|sister|mina/i.test(`${n.title} ${n.name}`);
+    drawFigure3D(ctx, n.x, n.y, guard ? 'Guard' : holy ? 'Priest' : 'npc', n.moving ? n.dir : 0, anim, 1.05);
   }
   drawHeroEnt(ctx, h, T) {
     if (h.dead) {
-      ctx.save(); ctx.globalAlpha = 0.5; ctx.translate(h.x, h.y); ctx.rotate(Math.PI / 2); drawHero(ctx, 0, 0, h.cls, h.look, 2, { walk: 0, attack: -1, time: 0 }, 1.2, { noShadow: true }); ctx.restore();
+      ctx.save(); ctx.globalAlpha = 0.5; ctx.translate(h.x, h.y); ctx.rotate(Math.PI / 2); drawFigure3D(ctx, 0, 0, h.cls, 2, { walk: 0, attack: -1 }, 1.15); ctx.restore();
       return;
     }
     const stealth = h.buffs.some((b) => b.stealth);
@@ -393,7 +403,7 @@ export class Renderer {
     const blink = (h.animT % 4) < 0.12;
     const flash = h.flash > 0;
     if (flash) h.flash -= 0.016;
-    drawHero(ctx, h.x, h.y - z, h.cls, h.look, h.dir, { walk: h.walkT, moving: h.moving, attack: h.atkAnim, time: h.animT }, 1.2, { mount: h.mount && h.mount.kind, blink, noShadow: !!z });
+    drawFigure3D(ctx, h.x, h.y - z, h.cls, h.dir, { walk: h.walkT, moving: h.moving, attack: h.atkAnim, time: h.animT }, 1.15);
     if (h.mods.stun) this.stunStars(ctx, h.x, h.y - 64, T);
     ctx.globalAlpha = 1;
   }
@@ -401,13 +411,13 @@ export class Renderer {
     if (m.dead) {
       const k = clamp((this.game.world.time - m.deathT) / 1.4, 0, 1);
       ctx.save(); ctx.globalAlpha = 1 - k;
-      drawMonster(ctx, m.x, m.y + k * 4, { name: m.name, arch: m.arch, color: shade(m.color, -0.4), size: m.size * (1 - k * 0.2), dir: m.dir, t: 0, atk: -1, moving: false, boss: m.boss, eye: m.eye, wing: m.wing });
+      drawMonster3D(ctx, m.x, m.y + k * 4, { color: shade(m.color, -0.4), size: m.size * (1 - k * 0.2), dir: m.dir, t: 0, moving: false, boss: m.boss, eye: m.eye });
       ctx.restore();
       return;
     }
     const z = m.z || 0;
     if (m.state === 'return') ctx.globalAlpha = 0.6;
-    drawMonster(ctx, m.x, m.y - z, { name: m.name, arch: m.arch, color: m.color, size: m.size, dir: m.dir, t: m.animT, atk: m.atkAnim, moving: m.moving, boss: m.boss, aura: m.aura && (m.enraged ? '#ff2020' : m.aura), flash: m.flash > 0, eye: m.eye, wing: m.wing });
+    drawMonster3D(ctx, m.x, m.y - z, { color: m.color, size: m.size, dir: m.dir, t: m.animT, moving: m.moving, boss: m.boss, eye: m.eye });
     ctx.globalAlpha = 1;
     if (m.windup > 0 && m.boss) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = rgba('#ff6040', 0.25 + Math.sin(T * 20) * 0.1); ctx.beginPath(); ctx.ellipse(m.x, m.y - 30 * m.size, 30 * m.size, 36 * m.size, 0, 0, TAU); ctx.fill(); ctx.restore(); }
     if (m.mods.stun) this.stunStars(ctx, m.x, m.y - 50 * m.size - 10, T);
@@ -540,7 +550,7 @@ export class Renderer {
     // light colour glow
     lc.globalCompositeOperation = 'source-over';
     ctx.save();
-    ctx.setTransform(this.cam.zoom, 0, 0, this.cam.zoom, 0, 0);
+    ctx.setTransform(this.cam.zoom, 0, 0, this.cam.zoom * this.iso, 0, 0);
     ctx.imageSmoothingEnabled = true;
     ctx.drawImage(L, 0, 0, this.vw, this.vh);
     ctx.globalCompositeOperation = 'lighter';
