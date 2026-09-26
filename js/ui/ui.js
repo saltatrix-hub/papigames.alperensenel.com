@@ -149,7 +149,9 @@ export class UI {
     ctx.clearRect(0, 0, cv.width, cv.height);
     ctx.fillStyle = '#0b1020'; ctx.fillRect(0, 0, cv.width, cv.height);
     try {
-      drawHero(ctx, cv.width / 2, cv.height * 0.82, cls, look, 0, { walk: t * 3, attack: -1, time: t, moving: true }, 2.6);
+      const dir = cls === 'Assassin' ? [0, 2, 3, 1][Math.floor(t / 0.9) % 4] : 0;
+      const y = cls === 'Assassin' ? cv.height * 0.94 : cv.height * 0.82;
+      drawHero(ctx, cv.width / 2, y, cls, look, dir, { walk: t * 3, attack: -1, time: t, moving: true }, cls === 'Assassin' ? 2.9 : 2.6);
     } catch (err) { console.warn('preview', err); }
   }
 

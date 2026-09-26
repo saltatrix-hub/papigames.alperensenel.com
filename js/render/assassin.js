@@ -39,7 +39,7 @@ export function drawAssassin(ctx, x, y, dir, anim, scale = 1, opts = {}) {
   const img = imgs[i];
   const foot = feet[i];
   if (!img || !foot) return false;
-  const h = 96 * scale;
+  const h = 72 * scale;
   const k = h / foot.h;
   const walk = anim?.walk || 0;
   const bob = anim?.moving ? Math.abs(Math.sin(walk * 2)) * 2.4 * scale : Math.sin((anim?.time || 0) * 2) * scale;
