@@ -6,6 +6,7 @@ import { RECIPES, recipeNeeds, merchantStock, affixText, gearStats, MATERIAL_TR,
 import { dungeonDef, RES_TR } from '../game/world.js';
 import { drawHero, itemIcon, skillIcon } from '../render/sprites.js';
 import { ELEMENT } from '../game/skills.js';
+import { resolveCharacterVisual } from '../data/characterVisuals.js';
 import { $, $$, el, esc, fmt, fmtFull } from '../core/util.js';
 import { audio } from '../core/audio.js';
 
@@ -263,7 +264,9 @@ export class UI {
     this.updatePrompt();
     this._miniN = (this._miniN || 0) + 1;
     if (this._miniN % 4 === 0) this.updateMinimap();
-    if (this._portraitCls !== p.cls) { this._portraitCls = p.cls; this.drawPortrait($('#portrait'), p); }
+    const visual = resolveCharacterVisual(p.cls, this.game.eq);
+    const portraitKey = visual?.id || p.cls;
+    if (this._portraitCls !== portraitKey) { this._portraitCls = portraitKey; this.drawPortrait($('#portrait'), p, visual); }
   }
 
   updateBars() {
@@ -400,12 +403,12 @@ export class UI {
     ctx.fillStyle = '#6dff8a'; ctx.beginPath(); ctx.arc(p.x * sx, p.y * sy, 3, 0, Math.PI * 2); ctx.fill();
   }
 
-  drawPortrait(cv, hero) {
+  drawPortrait(cv, hero, visual) {
     if (!cv || !hero) return;
     const ctx = cv.getContext('2d');
     ctx.clearRect(0, 0, cv.width, cv.height);
     ctx.fillStyle = '#121018'; ctx.fillRect(0, 0, cv.width, cv.height);
-    drawHero(ctx, cv.width / 2, cv.height * 0.92, hero.cls, hero.look, 0, { walk: 0, attack: -1, time: this.game.world.time, moving: false }, 1.35);
+    drawHero(ctx, cv.width / 2, cv.height * 0.92, hero.cls, hero.look, 0, { walk: 0, attack: -1, time: this.game.world.time, moving: false }, 1.35, { visual });
   }
 
   // ================================================================ feedback

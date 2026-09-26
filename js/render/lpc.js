@@ -28,6 +28,7 @@ const LAYERS = {
     hair: 'walkcycle/HEAD_hair_blonde.png',
     belt: 'walkcycle/BELT_leather.png',
     quiver: 'walkcycle/BEHIND_quiver.png',
+    shield: 'walkcycle/WEAPON_shield_cutout_body.png',
   },
   slash: {
     body: 'slash/BODY_human.png',
@@ -142,8 +143,8 @@ const BAKE_H = 84;
 const BAKE_OX = 48;
 const BAKE_OY = 70;
 
-function bakeFrame(cls, act, keys, group, col, row) {
-  const key = `${cls}|${act}|${col}|${row}`;
+function bakeFrame(cls, act, keys, group, col, row, cacheId = cls) {
+  const key = `${cacheId}|${act}|${col}|${row}`;
   const hit = baked.get(key);
   if (hit) return hit;
   if (!ready) return null;
@@ -195,8 +196,8 @@ function frameCol(anim, cols, attacking, act) {
 export function drawLpcHero(ctx, x, y, cls, look, dir, anim, scale = 1, opts = {}) {
   const kit = KITS[cls] || KITS.npc;
   const attacking = anim.attack >= 0 && kit.act !== 'walk';
-  const act = attacking ? kit.act : 'walk';
-  const keys = attacking ? kit.actKeys : kit.walk;
+  const act = opts.visual ? (attacking ? 'slash' : 'walk') : (attacking ? kit.act : 'walk');
+  const keys = opts.visual ? (attacking ? opts.visual.slash : opts.visual.walk) : (attacking ? kit.actKeys : kit.walk);
   const group = LAYERS[act];
   const cols = COLS[act];
   const row = DIR_ROW[dir] ?? 2;
@@ -212,7 +213,7 @@ export function drawLpcHero(ctx, x, y, cls, look, dir, anim, scale = 1, opts = {
     ctx.fillStyle = 'rgba(0,0,0,0.28)'; ctx.fill();
   }
   if (opts.mount) ctx.translate(0, -10);
-  const frame = bakeFrame(cls, act, keys, group, col, row);
+  const frame = bakeFrame(cls, act, keys, group, col, row, opts.visual?.id || cls);
   if (frame) {
     ctx.drawImage(frame, -BAKE_OX, -BAKE_OY);
     ctx.restore();

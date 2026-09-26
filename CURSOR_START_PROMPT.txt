@@ -1,0 +1,685 @@
+# ASTRAYA — CHARACTER ASSET PIPELINE TASK
+
+Read `AGENTS.md` first.
+
+Then read:
+
+* `ai/PROJECT_STATE.md`
+* `ai/TASKS.md`
+* `ai/DECISIONS.md`
+* `ai/BUGS.md`
+* `ai/HANDOFF.md`
+* `README.md`
+
+Also inspect the existing:
+
+* `assets/`
+* `assets/sprites/`
+* `assets/sprites/lpc/`
+* `assets/art/`
+* `js/render/lpc.js`
+* `js/render/sprites.js`
+* `js/render/renderer.js`
+* `js/game/game.js`
+* `js/game/items.js`
+* `design/class_sprite_spec.csv`
+* `design/03_CLASSES/`
+* relevant sections of `design/ASTRAYA_MASTER_GAME_DESIGN_DOCUMENT.md`
+
+---
+
+# CURRENT PRIORITY
+
+DO NOT focus on multiplayer, backend, networking, database, quests, economy, balance, or other large gameplay systems yet.
+
+The current priority is to establish the complete character asset and animation pipeline for all six playable classes:
+
+1. Knight
+2. Berserker
+3. Assassin
+4. Ranger
+5. Mage
+6. Priest
+
+The goal is to prepare ASTRAYA so that every class can have:
+
+* unique character visuals
+* four-direction movement
+* walking animation
+* idle animation
+* basic attack animation
+* class-specific combat animation
+* skill/cast animations
+* equipment visual layers
+* weapon visual layers
+* skill effect sprite sheets
+
+Do NOT destroy or replace the existing LPC rendering system unless absolutely necessary.
+
+Use the current LPC system as the foundation where possible.
+
+---
+
+# CORE CHARACTER DIRECTIONS
+
+Every playable character asset must support:
+
+* front / down
+* back / up
+* left
+* right
+
+Do not create a system that only supports front-facing characters.
+
+The four-direction system is mandatory.
+
+---
+
+# REQUIRED ANIMATION STATES
+
+Create an asset specification and technical pipeline for the following states.
+
+## Common
+
+* idle
+* walk
+* hit
+* death
+
+## Knight
+
+* sword slash
+* shield stance
+* shield attack
+* heavy sword attack
+* skill cast / special attack
+
+## Berserker
+
+* axe slash
+* heavy axe attack
+* overhead smash
+* rage animation
+* skill cast / special attack
+
+## Assassin
+
+* dagger slash
+* dual dagger combo
+* stab
+* dash attack
+* skill cast / special attack
+
+## Ranger
+
+* bow idle
+* bow draw
+* arrow release
+* multi-shot
+* skill cast / special attack
+
+## Mage
+
+* spell cast
+* staff action
+* projectile cast
+* area spell cast
+* skill cast / special attack
+
+## Priest
+
+* holy cast
+* staff / mace action
+* healing cast
+* support spell cast
+* skill cast / special attack
+
+---
+
+# RECOMMENDED FRAME TARGETS
+
+Unless the existing LPC source requires a different frame structure:
+
+Idle:
+4 frames per direction
+
+Walk:
+8 frames per direction
+
+Basic melee attack:
+6–8 frames per direction
+
+Bow attack:
+8–13 frames per direction
+
+Spell cast:
+7–8 frames per direction
+
+Hit:
+3–4 frames per direction
+
+Death:
+6–8 frames
+
+Do not blindly recreate assets if compatible animation sheets already exist.
+
+First inspect the existing LPC sheets.
+
+---
+
+# ASSET ARCHITECTURE
+
+We do NOT want one completely baked character sprite sheet for every equipment combination.
+
+The character must eventually use layered rendering.
+
+Recommended layers:
+
+1. body
+2. legs
+3. feet
+4. torso / armor
+5. shoulders
+6. gloves
+7. hair
+8. helmet / hood
+9. cape / back item
+10. main-hand weapon
+11. off-hand weapon / shield / tome
+12. additional cosmetic layer
+13. temporary combat effects
+
+Equipment visuals must remain separate from gameplay stats.
+
+Preferred flow:
+
+equipped item
+→ visual ID
+→ character visual descriptor
+→ sprite layers
+→ animation renderer
+
+---
+
+# EQUIPMENT REQUIREMENTS
+
+The system must be capable of supporting changing equipment visuals.
+
+Example:
+
+Knight Level 1 sword
+
+must be visually different from:
+
+Knight Level 5 sword
+
+and:
+
+Knight Level 10 sword
+
+The same principle should later work for:
+
+* swords
+* axes
+* daggers
+* bows
+* staffs
+* maces
+* shields
+* tomes
+* helmets
+* chest armor
+* gloves
+* boots
+* capes
+* costumes
+
+Do NOT create separate complete character sprites for every possible equipment combination.
+
+Equipment must be composable.
+
+---
+
+# FIRST EQUIPMENT MILESTONE
+
+For the initial pipeline, prepare support for three visual tiers:
+
+* Tier 1
+* Tier 5
+* Tier 10
+
+This is only the initial validation set.
+
+Example for Knight:
+
+Sword:
+
+* knight_sword_t01
+* knight_sword_t05
+* knight_sword_t10
+
+Shield:
+
+* knight_shield_t01
+* knight_shield_t05
+* knight_shield_t10
+
+Helmet:
+
+* knight_helmet_t01
+* knight_helmet_t05
+* knight_helmet_t10
+
+Armor:
+
+* knight_armor_t01
+* knight_armor_t05
+* knight_armor_t10
+
+The architecture must support adding more tiers later without changing renderer logic.
+
+---
+
+# SKILL EFFECTS
+
+Skill effects must NOT be baked permanently into character sprites.
+
+Create a separate effect asset pipeline.
+
+Recommended structure:
+
+assets/effects/
+knight/
+berserker/
+assassin/
+ranger/
+mage/
+priest/
+
+Initial effect targets:
+
+## Knight
+
+* sword_arc
+* shield_burst
+* ground_impact
+
+## Berserker
+
+* heavy_slash
+* rage_aura
+* ground_smash
+
+## Assassin
+
+* dark_slash
+* dash_smoke
+* poison_hit
+
+## Ranger
+
+* arrow_trail
+* multishot
+* wind_arrow
+
+## Mage
+
+* fire_projectile
+* frost_burst
+* arcane_explosion
+
+## Priest
+
+* heal_glow
+* holy_circle
+* light_pillar
+
+Effects must be independent from equipment and character sprite layers.
+
+---
+
+# DESIRED DIRECTORY STRUCTURE
+
+Evaluate the current repository first.
+
+If compatible with the existing structure, prepare a clean organization similar to:
+
+assets/
+characters/
+knight/
+base/
+equipment/
+weapons/
+armor/
+helmets/
+offhand/
+cosmetics/
+animations/
+
+```
+    berserker/
+    assassin/
+    ranger/
+    mage/
+    priest/
+
+effects/
+    knight/
+    berserker/
+    assassin/
+    ranger/
+    mage/
+    priest/
+```
+
+Do not move or delete existing production assets unnecessarily.
+
+If moving existing assets would create broken paths, leave them where they are and create a compatibility mapping.
+
+---
+
+# NAMING CONVENTION
+
+Define one consistent naming system.
+
+Recommended example:
+
+CLASS_SLOT_TIER_ACTION_DIRECTION_FRAME
+
+Examples:
+
+knight_body_walk_down_00.png
+
+knight_body_walk_down_01.png
+
+knight_armor_t01_walk_left_03.png
+
+knight_sword_t05_attack_right_04.png
+
+ranger_bow_t10_attack_up_07.png
+
+mage_staff_t05_cast_down_02.png
+
+Effects:
+
+mage_fire_projectile_00.png
+
+mage_fire_projectile_01.png
+
+knight_sword_arc_00.png
+
+Do not mix random naming conventions.
+
+---
+
+# SPRITE SIZE
+
+Inspect the current LPC system before choosing dimensions.
+
+The current LPC pipeline appears to use 64×64 source frames.
+
+Do NOT arbitrarily change this without verifying the renderer.
+
+Document:
+
+* source frame size
+* rendered size
+* anchor point
+* character foot position
+* weapon pivot expectations
+* frame origin
+* direction row order
+
+The body and all equipment layers must align pixel-perfectly.
+
+---
+
+# RIGHT / LEFT DIRECTION RULE
+
+Determine whether left and right require separate sprite artwork or whether selected layers can be mirrored safely.
+
+Weapons, shields, asymmetrical armor and directional effects may require dedicated left/right logic.
+
+Do not assume every sprite can simply be mirrored.
+
+Document the final rule.
+
+---
+
+# ART GENERATION LIMIT
+
+Do not pretend that production-quality final character artwork exists if it does not.
+
+If final art is missing:
+
+* create the required folder structure
+* create manifest/spec files
+* create visual mapping architecture
+* create placeholder entries where necessary
+* clearly mark missing art
+* do not silently substitute unrelated art
+
+The purpose of this task is to make the project READY for consistent asset production and integration.
+
+---
+
+# CREATE AN ASSET MANIFEST
+
+Create a central asset manifest.
+
+Preferred example:
+
+`js/data/characterVisuals.js`
+
+or another appropriate data file based on the existing architecture.
+
+It should describe visual assets without hardcoding them throughout the renderer.
+
+Conceptual example:
+
+Knight:
+body
+armor
+helmet
+mainHand
+offHand
+animations
+effects
+
+The renderer should consume this data.
+
+Do not scatter concrete asset paths across many files.
+
+---
+
+# CREATE ASSET DOCUMENTATION
+
+Create:
+
+`design/CHARACTER_ASSET_PRODUCTION_SPEC.md`
+
+This document must contain:
+
+1. all six classes
+2. required animation states
+3. frame counts
+4. four-direction requirements
+5. sprite dimensions
+6. layer ordering
+7. naming convention
+8. equipment visual rules
+9. weapon visual rules
+10. skill effect rules
+11. animation sheet layout
+12. left/right mirroring rules
+13. asset export requirements
+14. transparency requirements
+15. anchor / pivot rules
+16. checklist for each class
+
+Also create a clear checklist table for:
+
+Knight
+Berserker
+Assassin
+Ranger
+Mage
+Priest
+
+---
+
+# IMPORTANT
+
+Do NOT start mass-producing hundreds of fake placeholder PNG files.
+
+First establish:
+
+* specification
+* architecture
+* manifest
+* integration method
+* directory structure
+
+Then use one class as the validation class.
+
+Use:
+
+KNIGHT
+
+as the first validation implementation.
+
+---
+
+# KNIGHT VALIDATION TARGET
+
+The first working example should prove that the architecture supports:
+
+* Knight facing front
+* Knight facing back
+* Knight facing left
+* Knight facing right
+
+and:
+
+* idle
+* walk
+* basic sword attack
+
+with interchangeable:
+
+* sword
+* shield
+* helmet
+* armor
+
+Use existing compatible LPC art as temporary source layers where possible.
+
+The important part is proving that equipment selection can change visible layers.
+
+Do not redesign the entire game.
+
+---
+
+# AFTER KNIGHT WORKS
+
+Do NOT immediately implement everything.
+
+Prepare the remaining class specifications first.
+
+The intended order is:
+
+1. Knight
+2. Berserker
+3. Assassin
+4. Ranger
+5. Mage
+6. Priest
+
+After Knight validation, update `ai/HANDOFF.md` and stop for review.
+
+---
+
+# ACCEPTANCE CRITERIA
+
+This task is complete only when:
+
+* the existing game still loads
+* no new ES module errors exist
+* current gameplay remains functional
+* the existing LPC renderer remains usable
+* a documented six-class asset specification exists
+* a consistent asset naming convention exists
+* an asset manifest architecture exists
+* four-direction rendering is supported
+* animation states are documented
+* equipment layers are documented
+* skill-effect layers are documented
+* Knight is used as a working validation example
+* Knight equipment visuals can be changed without changing item stats
+* missing production art is clearly documented
+* `ai/HANDOFF.md` is updated
+
+---
+
+# DO NOT DO YET
+
+Do not implement:
+
+* multiplayer networking
+* backend server
+* login/auth
+* database migration
+* auction backend
+* guilds
+* PvP networking
+* large quest rewrites
+* balance overhaul
+* framework migration
+* React/Vue/Phaser migration
+* full game rewrite
+
+The focus is CHARACTER ASSETS AND ANIMATION PIPELINE ONLY.
+
+---
+
+# FINAL HANDOFF
+
+When done, update:
+
+`ai/HANDOFF.md`
+
+Include:
+
+## Summary
+
+What was implemented.
+
+## Files changed
+
+All created or modified files.
+
+## Existing assets reused
+
+List them.
+
+## Missing assets
+
+List exactly what still needs to be drawn/generated.
+
+## Knight validation
+
+Describe:
+
+* directions tested
+* animations tested
+* equipment layers tested
+
+## Architecture
+
+Explain how a new sword, armor or skill effect can be added without modifying core renderer logic.
+
+## Next recommended task
+
+Recommend only ONE next step.
+
+Stop after the handoff and wait for review.

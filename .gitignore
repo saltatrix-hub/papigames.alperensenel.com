@@ -14,5 +14,8 @@ ASTRAYA_2D_MMO_COMPLETE_PROJECT/
 .vscode/
 .idea/
 
+# Download/cache and local orchestration state
 assets/sprites/_dl/
+astraya-ai-orchestrator/**/config.env
+astraya-ai-orchestrator/**/logs/
 

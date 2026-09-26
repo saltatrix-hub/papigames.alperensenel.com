@@ -4,6 +4,7 @@ import { drawCastSprite } from './worldart.js';
 import { THEMES } from '../data/content.js';
 import { makeCanvas, rgba, clamp, TAU, shade } from '../core/util.js';
 import { RARITY } from '../data/content.js';
+import { resolveCharacterVisual } from '../data/characterVisuals.js';
 
 export class Renderer {
   constructor(canvas, game) {
@@ -393,7 +394,8 @@ export class Renderer {
     const blink = (h.animT % 4) < 0.12;
     const flash = h.flash > 0;
     if (flash) h.flash -= 0.016;
-    drawHero(ctx, h.x, h.y - z, h.cls, h.look, h.dir, { walk: h.walkT, moving: h.moving, attack: h.atkAnim, time: h.animT }, 1.2, { mount: h.mount && h.mount.kind, blink, noShadow: !!z });
+    const visual = h.isPlayer ? resolveCharacterVisual(h.cls, this.game.eq) : null;
+    drawHero(ctx, h.x, h.y - z, h.cls, h.look, h.dir, { walk: h.walkT, moving: h.moving, attack: h.atkAnim, time: h.animT }, 1.2, { mount: h.mount && h.mount.kind, blink, noShadow: !!z, visual });
     if (h.mods.stun) this.stunStars(ctx, h.x, h.y - 64, T);
     ctx.globalAlpha = 1;
   }
