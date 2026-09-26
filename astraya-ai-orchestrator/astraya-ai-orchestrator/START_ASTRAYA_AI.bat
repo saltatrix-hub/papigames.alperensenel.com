@@ -2,14 +2,11 @@
 setlocal EnableExtensions EnableDelayedExpansion
 cd /d "%~dp0"
 
-rem Cursor Agent and Codex desktop keep their CLIs in user-local folders that may
-rem not be visible to a process started by double-click until the next sign-in.
-if exist "%LOCALAPPDATA%\cursor-agent\agent.cmd" set "PATH=%LOCALAPPDATA%\cursor-agent;%PATH%"
-where codex >nul 2>nul
-if errorlevel 1 (
-  for /d %%D in ("%LOCALAPPDATA%\OpenAI\Codex\bin\*") do (
-    if exist "%%~fD\codex.exe" set "PATH=%%~fD;!PATH!"
-  )
+rem Use absolute CLI paths. PATH lookup is unreliable in a window opened by double-click.
+set "CURSOR_AGENT_COMMAND=%LOCALAPPDATA%\cursor-agent\agent.cmd"
+set "CODEX_COMMAND="
+for /d %%D in ("%LOCALAPPDATA%\OpenAI\Codex\bin\*") do (
+  if exist "%%~fD\codex.exe" set "CODEX_COMMAND=%%~fD\codex.exe"
 )
 
 if not exist "config.env" (
@@ -42,18 +39,23 @@ if not %errorlevel%==0 (
   exit /b 1
 )
 
-where agent >nul 2>nul
-if errorlevel 1 (
+if not exist "%CURSOR_AGENT_COMMAND%" (
   echo Cursor Agent CLI bulunamadi. Once Cursor CLI kur.
   pause
   exit /b 1
 )
 
-where codex >nul 2>nul
-if errorlevel 1 (
+if not defined CODEX_COMMAND (
   echo Codex CLI bulunamadi. Codex masaustu uygulamasini acip tekrar dene.
   pause
   exit /b 1
+)
+
+if "%ASTRAYA_PREFLIGHT_ONLY%"=="1" (
+  echo ASTRAYA preflight PASS.
+  echo Cursor: %CURSOR_AGENT_COMMAND%
+  echo Codex: %CODEX_COMMAND%
+  exit /b 0
 )
 
 %PY% orchestrator.py

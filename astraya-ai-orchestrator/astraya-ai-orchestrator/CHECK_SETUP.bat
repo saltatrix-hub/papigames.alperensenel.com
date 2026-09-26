@@ -2,12 +2,10 @@
 setlocal EnableExtensions EnableDelayedExpansion
 cd /d "%~dp0"
 
-if exist "%LOCALAPPDATA%\cursor-agent\agent.cmd" set "PATH=%LOCALAPPDATA%\cursor-agent;%PATH%"
-where codex >nul 2>nul
-if errorlevel 1 (
-  for /d %%D in ("%LOCALAPPDATA%\OpenAI\Codex\bin\*") do (
-    if exist "%%~fD\codex.exe" set "PATH=%%~fD;!PATH!"
-  )
+set "CURSOR_AGENT_COMMAND=%LOCALAPPDATA%\cursor-agent\agent.cmd"
+set "CODEX_COMMAND="
+for /d %%D in ("%LOCALAPPDATA%\OpenAI\Codex\bin\*") do (
+  if exist "%%~fD\codex.exe" set "CODEX_COMMAND=%%~fD\codex.exe"
 )
 
 echo === Python ===
@@ -20,13 +18,13 @@ git --version
 
 echo.
 echo === Cursor CLI ===
-call agent --version
-call agent status
+call "%CURSOR_AGENT_COMMAND%" --version
+call "%CURSOR_AGENT_COMMAND%" status
 
 echo.
 echo === Codex CLI ===
-codex --version
-codex login status
+"%CODEX_COMMAND%" --version
+"%CODEX_COMMAND%" login status
 
 echo.
 echo === Repo ===
