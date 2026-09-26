@@ -75,8 +75,8 @@ The playable site is deployed as a static client.
 `js/render/lpc.js`
 - already composites character layers
 - supports 4 directions
-- contains class-specific static visual kits
-- currently chooses many visual layers primarily by class kit rather than equipped item ID
+- plays data-driven class actions: slash, bow, and spellcast
+- accepts one shared `{ walk, attack, action }` descriptor for every playable class
 
 `js/render/sprites.js`
 - includes a procedural fallback character renderer
@@ -84,11 +84,14 @@ The playable site is deployed as a static client.
 
 ## Current visual-equipment limitation
 
-Knight is on a data-driven visual path:
+All six classes are now on the same data-driven base-animation path:
 
-equipped item → `visualId` or ilvl tier → `js/data/characterVisuals.js` → LPC layer keys → `drawLpcHero`
+class + equipped item → `visualId` or class default → `js/data/characterVisuals.js` → LPC layer keys + action group → `drawLpcHero`
 
-Stats stay in `sumEquipment`. Other classes still use the static LPC class kits. Assassin also has a separate static 4-direction pack that is not part of this pipeline.
+Stats stay in `sumEquipment`. Knight/Berserker/Assassin fallbacks use slash, Ranger
+uses bow, and Mage/Priest use spellcast. Assassin keeps its dedicated chibi renderer
+and dual-dagger attack as the current art-direction reference; its walk is still a
+motion treatment over static directional art, not a full frame-authored walk cycle.
 
 Production gaps: Knight longsword candidate sheets now exist but are not promoted;
 slash shield, tier-10 armor/helmet, hit, death, and every skill-effect PNG remain
@@ -96,7 +99,11 @@ missing. See `design/CHARACTER_ASSET_PRODUCTION_SPEC.md`.
 
 ## Current priority
 
-Knight visual pipeline is in review. Do not start the other five classes until that review accepts the sword-sheet follow-up.
+Finish the five missing class identities in the same chibi/modular art direction as
+the Assassin pack. Existing `assets/art/class_*_sheet.jpg` files define each class's
+identity; `assets/assassin/` defines the target chibi rendering and modular export
+structure. Approve four-direction class turnarounds before producing equipment layers
+or animation sheets. Generated art remains candidate-only until human review.
 
 The modular equipment goal is unchanged:
 

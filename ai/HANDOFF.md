@@ -1,5 +1,60 @@
 # Latest AI Developer Handoff
 
+## 2026-09-26 — Class identity scope clarified
+
+The intended art sequence is now explicit:
+
+1. Use the existing Assassin chibi pack as the style/modularity benchmark.
+2. Create matching four-direction chibi identities for Knight, Berserker, Ranger,
+   Mage, and Priest, using the existing `assets/art/class_*_sheet.jpg` identity art.
+3. After human approval, split each into body, hair, helmet, armor, main/offhand,
+   back/wing/cape, and costume layers.
+4. Only then author walk and basic-attack animation sheets.
+
+The machine-readable plan is `design/class_chibi_asset_plan.json`. The runtime
+LPC animation baseline remains useful as a playable fallback while production art is
+created. Built-in image generation is currently blocked by account usage quota, so no
+new class PNG was falsely marked complete.
+
+---
+
+## 2026-09-26 — Six-class animation baseline
+
+The user explicitly expanded the visual milestone from Knight-only to all six classes.
+Every playable class now resolves through `js/data/characterVisuals.js` and the existing
+four-direction LPC compositor:
+
+- Knight, Berserker, Assassin: slash
+- Ranger: bow
+- Mage, Priest: spellcast
+
+Assassin keeps its dedicated chibi renderer as the running visual reference. Its
+current directional art has an expanded dual-dagger attack treatment, but walking is
+still motion applied to static direction art rather than a full authored walk sheet.
+The shared LPC descriptor remains its fallback. The canonical Assassin source/reference
+folders are present; the old duplicate `Base/Equipment/SOURCE_SHEETS` hierarchy was
+not restored.
+
+`tools/character_animation_preview.html` renders all six classes, all four directions,
+walk and basic attack side by side. It loaded in a real browser with no console errors.
+`design/class_animation_matrix.json` records the production targets for Assassin-style
+replacement art. Those replacement sheets do not exist yet and must remain candidates
+until human visual review.
+
+The first built-in image-generation attempt for the Berserker four-direction style
+reference was rejected by the service with `usage_limit_reached`. No partial or fake
+art was committed. Resume candidate generation after the image quota resets; the
+runtime LPC baseline does not depend on that external step.
+
+Validation:
+
+- `python tools/validate_static_client.py` — PASS (26 JavaScript files)
+- Node resolver check — all six classes returned non-empty walk/attack layers and the
+  expected slash/bow/spell action
+- Browser preview — all class/direction cells rendered; no console warnings/errors
+
+---
+
 ## 2026-09-26 — Knight longsword candidates generated
 
 Two non-production candidates now exist under `assets/generated_candidates/`:

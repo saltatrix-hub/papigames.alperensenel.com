@@ -1,6 +1,8 @@
 # ASTRAYA character asset production spec
 
-Status: pipeline defined. Knight is the only class wired into the running renderer. Production art for hit, death, tier-5/10 weapons, and every skill effect is not in the repo.
+Status: all six classes are wired to the common LPC walk/basic-attack pipeline.
+Assassin-style replacement art, hit, death, tier-5/10 weapons, and every skill effect
+are still production gaps.
 
 The GDD sheet `design/class_sprite_spec.csv` asks for 96×96 and 8 directions. The playable client does not use that size. This spec follows the renderer that already ships.
 
@@ -8,7 +10,10 @@ The GDD sheet `design/class_sprite_spec.csv` asks for 96×96 and 8 directions. T
 
 Knight, Berserker, Assassin, Ranger, Mage, Priest.
 
-Only Knight reads `js/data/characterVisuals.js`. The other five still use the static class kits in `js/render/lpc.js`. Assassin also has a separate static 4-direction pack under `assets/assassin/`; that pack is not part of this layered pipeline.
+All six classes have compatible entries in `js/data/characterVisuals.js`. Assassin's
+separate 4-direction pack under `assets/assassin/` remains the current runtime chibi
+reference with a dedicated dual-dagger treatment. Its directional PNGs are not a full
+frame-authored walk cycle.
 
 ## 2. Animation states
 
@@ -17,13 +22,17 @@ Common, required later for every class: idle, walk, hit, death.
 | Class | Combat states still required |
 | --- | --- |
 | Knight | sword slash, shield stance, shield attack, heavy sword attack, skill cast |
-| Berserker | axe slash, heavy axe, overhead smash, rage, skill cast |
-| Assassin | dagger slash, dual-dagger combo, stab, dash attack, skill cast |
-| Ranger | bow idle, bow draw, arrow release, multi-shot, skill cast |
-| Mage | spell cast, staff action, projectile cast, area cast, skill cast |
-| Priest | holy cast, staff/mace action, heal cast, support cast, skill cast |
+| Berserker | axe production layer; heavy axe, overhead smash, rage, skill cast |
+| Assassin | Assassin-style production walk/slash; dual-dagger combo, stab, dash attack, skill cast |
+| Ranger | Assassin-style production walk/bow; multi-shot, skill cast |
+| Mage | Assassin-style production walk/spell; staff action, projectile cast, area cast, skill cast |
+| Priest | Assassin-style production walk/spell; staff/mace action, heal cast, support cast, skill cast |
 
-What the current LPC compositor can already play: walk-cycle (idle + walk) and one combat group per class (Knight/Berserker/Assassin slash, Ranger bow, Mage/Priest spellcast). Hit and death sheets do not exist.
+What the current LPC compositor already plays through the shared visual resolver:
+walk-cycle (idle + walk) and one combat group per class
+(Knight/Berserker/Assassin slash, Ranger bow, Mage/Priest spellcast). Hit and death
+sheets do not exist. The exact machine-readable production targets are in
+`design/class_animation_matrix.json`.
 
 ## 3. Frame counts
 
@@ -183,7 +192,7 @@ Status words: Ready = sheet exists and is wired. Temporary = a different LPC she
 
 | Need | Status |
 | --- | --- |
-| 4-direction walk and slash body | Not started on the manifest. Class kit still uses leather + dagger. |
+| 4-direction walk and slash body | Runtime ready through the shared manifest; leather body + dagger are temporary LPC art. |
 | Axe t01 / t05 / t10 | Missing |
 | Heavy axe, smash, rage | Missing |
 | Hit, death | Missing |
@@ -193,8 +202,8 @@ Status words: Ready = sheet exists and is wired. Temporary = a different LPC she
 
 | Need | Status |
 | --- | --- |
-| Layered LPC pipeline | Not started |
-| Static 4-direction full character | Separate pack in `assets/assassin/`. No walk cycle, no equipment swap. |
+| Layered LPC pipeline | Runtime ready for four-direction walk + slash. |
+| Static 4-direction full character | Restored reference pack in `assets/assassin/`; still needs authored walk/attack frames. |
 | Dagger tiers, dual combo, stab, dash | Missing as layered sheets |
 | Hit, death | Missing |
 | Effects dark_slash, dash_smoke, poison_hit | Missing |
@@ -203,7 +212,7 @@ Status words: Ready = sheet exists and is wired. Temporary = a different LPC she
 
 | Need | Status |
 | --- | --- |
-| Layered pipeline | Not started. Class kit uses bow sheets. |
+| Layered pipeline | Runtime ready for four-direction walk + bow attack. |
 | Bow t01 / t05 / t10 | Missing as separate tier sheets. One LPC bow exists inside the class kit. |
 | Draw, release, multi-shot | Not split into manifest states |
 | Hit, death | Missing |
@@ -213,7 +222,7 @@ Status words: Ready = sheet exists and is wired. Temporary = a different LPC she
 
 | Need | Status |
 | --- | --- |
-| Layered pipeline | Not started. Class kit uses spellcast robe. |
+| Layered pipeline | Runtime ready for four-direction walk + spellcast. |
 | Staff tiers | Missing. One LPC staff exists on the thrust sheet and is not the mage kit weapon. |
 | Projectile cast, area cast | Missing as separate sheets |
 | Hit, death | Missing |
@@ -223,7 +232,7 @@ Status words: Ready = sheet exists and is wired. Temporary = a different LPC she
 
 | Need | Status |
 | --- | --- |
-| Layered pipeline | Not started. Class kit uses spellcast robe. |
+| Layered pipeline | Runtime ready for four-direction walk + spellcast. |
 | Mace / tome tiers | Missing |
 | Heal cast, support cast | Missing as separate sheets |
 | Hit, death | Missing |

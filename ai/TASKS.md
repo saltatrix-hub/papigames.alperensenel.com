@@ -2,6 +2,28 @@
 
 ## IN PROGRESS
 
+### VIS-CLASS-IDENTITY-001 — Five missing Assassin-style chibi class packs
+
+- [x] Confirm the Assassin pack as the shared chibi/modular style reference.
+- [x] Map existing class identity sheets for Knight, Berserker, Ranger, Mage, and Priest.
+- [x] Define swappable slots: body, hair, helmet, armor, weapons/offhand, back/wing/cape, costume.
+- [x] Record class palettes, weapons, layer order, and production order in `design/class_chibi_asset_plan.json`.
+- [ ] Generate four-direction full-character candidates for the five missing classes.
+- [ ] Human-review class identity, silhouette, proportions, palette, and common feet pivot.
+- [ ] Split approved designs into modular equipment layers.
+- [ ] Produce and validate walk/basic-attack sheets from the approved modular designs.
+
+### VIS-CLASS-ANIM-001 — Six-class runtime walk + basic attack baseline
+
+- [x] Preserve Assassin's chibi renderer and dual-dagger attack as the running reference.
+- [x] Put all six classes on the shared visual resolver as a compatible fallback path.
+- [x] Assign class-correct attack groups: slash, bow, or spellcast.
+- [x] Add a browser animation matrix covering four directions for walk and attack.
+- [x] Restore the canonical Assassin reference pack without the old duplicate hierarchy.
+- [ ] After VIS-CLASS-IDENTITY-001 approval, produce replacement walk and attack sheets for each class.
+- [ ] Human-review feet anchors, direction rows, silhouettes, hand grips, and motion arcs.
+- [ ] Promote only reviewed sheets and replace temporary weapons.
+
 ### OPS-AI-001 — Safe ChatGPT/Cursor overnight loop
 
 - [x] Preserve the current mixed asset work in a checkpoint branch.
@@ -14,7 +36,7 @@
   two reviewer-directed fix rounds; the configured second task was intentionally not
   started after proving the complete loop.
 
-Knight validation is still waiting for review.
+Knight candidate-art validation is still waiting for review.
 
 ## TODO
 
@@ -25,7 +47,8 @@ Knight validation is still waiting for review.
 - [ ] Point `knight_sword_t01` at the validated sheets (manifest rewire blocked until then).
 
 ### VIS-EQUIP-002 — Visual equipment registry
-Knight registry exists in `js/data/characterVisuals.js`. Other classes are not in it yet.
+All six base class looks now resolve through `js/data/characterVisuals.js`. Tiered
+equipment variants beyond the existing Knight slice are still missing.
 
 ### VIS-EQUIP-003 — Armor tiers
 Support visible armor progression for selected level / equipment tiers.
@@ -59,4 +82,5 @@ These are intentionally not part of the current visible-equipment milestone.
 - Base gameplay item/equipment state exists.
 - Four-direction LPC renderer exists.
 - Class-specific LPC visual kits exist.
-- VIS-EQUIP-001 Knight slice: visual id → LPC layers, stats untouched, missing art listed. Other classes not migrated.
+- VIS-EQUIP-001 Knight slice: visual id → LPC layers, stats untouched, missing art listed.
+- Six-class base animation resolver: walk + class-correct basic attack, four directions.

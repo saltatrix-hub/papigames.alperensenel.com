@@ -14,6 +14,51 @@ Status: Active
 
 ---
 
+## ADR-009 — Approve class identity before equipment and animation production
+
+Date: 2026-09-26
+
+Decision:
+The Assassin pack is the rendering-style and modular-export benchmark. The existing
+class concept sheets remain the identity source for Knight, Berserker, Ranger, Mage,
+and Priest. Each missing class first receives one consistent four-direction chibi
+turnaround. Only an approved turnaround may be split into base body, head/hair,
+helmet, chest armor, main hand, off hand, back/wing/cape, and costume override layers.
+Walk and basic-attack sheets are produced from those approved modular designs.
+
+Reason:
+Generating animation before locking the five missing class identities would multiply
+inconsistencies across every frame and equipment combination. This order establishes
+the reusable MMORPG character base once, then scales it across variable gear.
+
+Status: Active
+
+---
+
+## ADR-008 — One animation contract for all playable classes
+
+Date: 2026-09-26
+
+Decision:
+All six classes have a data-driven walk layer list, attack layer list, and attack
+group through `js/data/characterVisuals.js`. The action group is slash for Knight,
+Berserker, and the Assassin fallback; bow for Ranger; spellcast for Mage and Priest.
+The dedicated Assassin chibi renderer stays active as the runtime art reference.
+
+The high-resolution Assassin asset pack is the art-direction and modular-slot
+reference for future replacement sheets, but its static cut-outs are not treated as
+animation frames. Replacement art must satisfy the LPC-compatible contract recorded
+in `design/class_animation_matrix.json` and pass human review before promotion.
+
+Reason:
+This gives every class a compatible four-direction walk/basic-attack fallback while
+preserving the approved Assassin chibi direction. New class art can replace the
+fallbacks without coupling appearance to gameplay stats.
+
+Status: Active
+
+---
+
 ## ADR-002 — Reuse LPC compositor
 
 Date: 2026-09-26
