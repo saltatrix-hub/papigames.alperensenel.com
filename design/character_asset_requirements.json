@@ -1,0 +1,87 @@
+{
+  "schema": "astraya.character_asset_requirements.v1",
+  "source_spec": "design/CHARACTER_ASSET_PRODUCTION_SPEC.md",
+  "notes": [
+    "These are production requirements only. Generated image art is a candidate until human visual review promotes it.",
+    "Do not mark temporary LPC stand-ins as resolved until both candidate sheets pass validation and the visual manifest is rewired."
+  ],
+  "requirements": [
+    {
+      "id": "REQ-KNIGHT-SWORD-T01-SHEETS",
+      "visual_id": "knight_sword_t01",
+      "class": "Knight",
+      "role": "sword",
+      "tier": 1,
+      "status": "missing_production_art",
+      "current_stand_in": {
+        "kind": "temporary-lpc",
+        "slash_layer": "slash/WEAPON_dagger.png",
+        "walk_layer": null,
+        "note": "knight_sword_t01 currently uses the temporary dagger slash sheet. No walk-cycle sword sheet exists, so idle/walk show no blade."
+      },
+      "description": "Production longsword weapon-layer PNG sheets for Knight tier-1: one walk-cycle sheet and one slash sheet. Weapon layer only; no body, armor, or baked equipment combinations.",
+      "format": {
+        "file_type": "PNG",
+        "background": "transparent",
+        "alpha": 0,
+        "cell_size_px": [64, 64],
+        "padding_between_cells_px": 0,
+        "filter_when_drawn": "nearest",
+        "premultiply_against_backdrop": false
+      },
+      "directions": {
+        "row_order": ["up", "left", "down", "right"],
+        "row_count": 4,
+        "mirroring_allowed": false,
+        "note": "Left and right are separate authored rows. Do not mirror left from right or right from left."
+      },
+      "alignment": {
+        "cell_origin": "top-left of each 64x64 frame",
+        "feet_line": "existing LPC feet line; compositor draws the cell at (-32, -54) in character space and places feet at (48, 70) inside the 96x84 bake cache",
+        "sword_grip": "per-frame grip must match the LPC hand position in the matching body sheet column for that animation group",
+        "renderer_pixel_offset": "do not add a per-item pixel offset in the renderer"
+      },
+      "validation": {
+        "generated_output_status": "unvalidated_candidate",
+        "requires_human_visual_review": true,
+        "auto_promote_forbidden": true,
+        "manifest_rewire_gate": "Do not rewire CHARACTER_VISUALS knight_sword_t01 away from the temporary dagger until both walk and slash candidate sheets pass human visual review."
+      },
+      "sheets": [
+        {
+          "id": "knight_sword_t01_walk",
+          "animation_group": "walkcycle",
+          "target_path": "assets/characters/knight/weapons/knight_sword_t01_walk.png",
+          "sheet_size_px": [576, 256],
+          "columns": 9,
+          "rows": 4,
+          "frames_per_direction": 9,
+          "frame_usage": {
+            "idle": "column 0",
+            "walk": "columns 1-8"
+          },
+          "content": "Longsword weapon layer only, aligned to LPC walkcycle body hands across all 9 columns and 4 direction rows."
+        },
+        {
+          "id": "knight_sword_t01_slash",
+          "animation_group": "slash",
+          "target_path": "assets/characters/knight/weapons/knight_sword_t01_slash.png",
+          "sheet_size_px": [384, 256],
+          "columns": 6,
+          "rows": 4,
+          "frames_per_direction": 6,
+          "frame_usage": {
+            "slash": "columns 0-5"
+          },
+          "content": "Longsword weapon layer only, aligned to LPC slash body hands across all 6 columns and 4 direction rows. Not the temporary dagger sheet."
+        }
+      ],
+      "out_of_scope": [
+        "Do not generate artwork in this requirement file.",
+        "Do not change renderer or characterVisuals.js until both candidates are validated.",
+        "Do not start Berserker, Assassin, Ranger, Mage, or Priest sheets.",
+        "Do not treat slash192/WEAPON_longsword.png (192px grid) as a drop-in replacement."
+      ]
+    }
+  ]
+}

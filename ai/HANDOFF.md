@@ -1,5 +1,42 @@
 # Latest AI Developer Handoff
 
+## 2026-09-26 — VIS-KNIGHT-SWORD-001 requirement queue
+
+Task completed: created the production requirement and one active asset-queue job for missing `knight_sword_t01` walk-cycle and slash longsword PNG sheets. No artwork generated. No renderer, manifest, or gameplay files changed. The temporary dagger stand-in is still in use and is not marked resolved.
+
+### Files changed
+
+- `design/character_asset_requirements.json` — requirement `REQ-KNIGHT-SWORD-T01-SHEETS`
+- `ai/ASSET_QUEUE.json` — single active job `JOB-KNIGHT-SWORD-T01-SHEETS`
+- `ai/TASKS.md` — checklist progress for VIS-KNIGHT-SWORD-001
+- `ai/HANDOFF.md` — this handoff
+
+### Behavior added
+
+- Walk target: `assets/characters/knight/weapons/knight_sword_t01_walk.png` at 576×256 (9×4 of 64×64)
+- Slash target: `assets/characters/knight/weapons/knight_sword_t01_slash.png` at 384×256 (6×4 of 64×64)
+- Rows: `up`, `left`, `down`, `right`; mirroring prohibited
+- Transparent PNG, existing LPC feet line, per-frame sword-grip alignment
+- Generated output marked `unvalidated_candidate` requiring human visual review
+- Queue records temporary dagger stand-in; manifest rewire blocked until both sheets validate
+
+### Tests / checks
+
+- JSON parse of both new files (stdlib `json`) — OK
+- `python tools/validate_static_client.py` — PASS (26 JavaScript files)
+
+### Known problems / blockers
+
+- Production longsword PNGs do not exist yet.
+- `knight_sword_t01` still maps slash to the temporary dagger layer.
+- Manifest rewiring must wait until both candidate sheets pass human visual review.
+
+### Recommended next task
+
+Generate candidate PNGs for the two target paths in `JOB-KNIGHT-SWORD-T01-SHEETS` (or hand-author them), then run human visual review against `REQ-KNIGHT-SWORD-T01-SHEETS`. Do not rewire `characterVisuals.js` and do not start another class.
+
+---
+
 ## 2026-09-26 — AI collaboration setup
 
 The current mixed Knight/Assassin workspace was preserved in commit `6b02878` on
@@ -38,7 +75,7 @@ The character asset pipeline is now specified and Knight is the only class on it
 
 Hit, death, skill-effect playback, and Berserker / Assassin / Ranger / Mage / Priest were not started.
 
-## Files changed
+## Files changed (prior Knight slice)
 
 - `js/data/characterVisuals.js` — Knight visual manifest and resolver
 - `js/data/effectVisuals.js` — effect ids, all marked missing
@@ -135,6 +172,4 @@ Skill effects stay in `EFFECT_VISUALS`. They are not composited into the charact
 
 ## Next recommended task
 
-Draw one real 64×64 Knight longsword sheet pair (walk-cycle and slash, four LPC rows) and point `knight_sword_t01` at those files so the dagger stand-in can be removed.
-
-Stop here. Do not start Berserker.
+Generate/validate the two `knight_sword_t01` candidate sheets listed in `ai/ASSET_QUEUE.json`. Do not rewire the dagger stand-in until both pass human review. Do not start Berserker.

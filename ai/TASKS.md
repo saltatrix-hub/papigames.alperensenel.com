@@ -19,7 +19,9 @@ Knight validation is still waiting for review.
 ## TODO
 
 ### VIS-KNIGHT-SWORD-001 — Replace the dagger stand-in
-Draw 64×64 walk and slash longsword sheets (4 LPC rows) and point `knight_sword_t01` at them.
+- [x] Machine-readable production requirement + asset queue for `knight_sword_t01` walk/slash sheets (`design/character_asset_requirements.json`, `ai/ASSET_QUEUE.json`).
+- [ ] Draw/validate 64×64 walk and slash longsword candidate sheets (4 LPC rows). Dagger stand-in remains until both pass human review.
+- [ ] Point `knight_sword_t01` at the validated sheets (manifest rewire blocked until then).
 
 ### VIS-EQUIP-002 — Visual equipment registry
 Knight registry exists in `js/data/characterVisuals.js`. Other classes are not in it yet.
