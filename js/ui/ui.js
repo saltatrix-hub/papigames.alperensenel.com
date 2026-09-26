@@ -148,11 +148,12 @@ export class UI {
     ctx.clearRect(0, 0, cv.width, cv.height);
     ctx.fillStyle = '#0b1020'; ctx.fillRect(0, 0, cv.width, cv.height);
     try {
-      const dir = cls === 'Assassin' ? [0, 2, 3, 1][Math.floor(t / 2.2) % 4] : 0;
-      const y = cls === 'Assassin' ? cv.height * 0.94 : cv.height * 0.82;
+      const sheet = cls === 'Assassin' || cls === 'Knight' || cls === 'Berserker' || cls === 'Ranger' || cls === 'Mage' || cls === 'Priest';
+      const dir = sheet ? [0, 2, 3, 1][Math.floor(t / 2.2) % 4] : 0;
+      const y = sheet ? cv.height * 0.94 : cv.height * 0.82;
       const phase = t % 2.2;
-      const attack = cls === 'Assassin' && phase > 0.45 ? Math.min(0.999, (phase - 0.45) / 0.55) : -1;
-      drawHero(ctx, cv.width / 2, y, cls, look, dir, { walk: t * 3, attack, time: t, moving: attack < 0 }, cls === 'Assassin' ? 2.9 : 2.6);
+      const attack = sheet && phase > 0.45 ? Math.min(0.999, (phase - 0.45) / 0.55) : -1;
+      drawHero(ctx, cv.width / 2, y, cls, look, dir, { walk: t * 3, attack, time: t, moving: attack < 0 }, sheet ? 2.9 : 2.6);
     } catch (err) { console.warn('preview', err); }
   }
 
