@@ -7,8 +7,8 @@ const PACKS = {
     src: 'assets/knight/sheet.png',
     neck: 0.4,
     grip: 0.96,
-    wscale: 0.68,
-    hand: 0.18,
+    wscale: 0.7,
+    hand: 0.22,
     cuts: [[29, 25, 163, 285], [194, 25, 155, 285], [518, 24, 157, 286], [356, 24, 161, 285]],
     helm: [[23, 334, 117, 144], [147, 340, 111, 136], [257, 337, 111, 138], [367, 336, 122, 139]],
     chest: [[16, 496, 128, 168], [155, 498, 88, 158], [252, 496, 124, 162], [381, 498, 93, 158]],
@@ -20,7 +20,7 @@ const PACKS = {
     neck: 0.47,
     grip: 0.94,
     wscale: 0.62,
-    hand: 0.2,
+    hand: 0.24,
     cuts: [[14, 11, 181, 302], [187, 11, 154, 302], [507, 12, 156, 301], [335, 11, 177, 302]],
     helm: [[13, 334, 121, 137], [140, 335, 116, 141], [260, 330, 119, 146], [378, 335, 121, 141]],
     chest: [[13, 484, 135, 184], [151, 485, 94, 181], [247, 488, 117, 173], [368, 487, 112, 181]],
@@ -29,9 +29,9 @@ const PACKS = {
   Ranger: {
     src: 'assets/ranger/sheet.png',
     neck: 0.42,
-    grip: 0.5,
+    grip: 0.48,
     wscale: 0.58,
-    hand: 0.26,
+    hand: 0.24,
     cuts: [[17, 19, 174, 299], [186, 17, 170, 301], [516, 17, 171, 301], [360, 17, 156, 299]],
     helm: [[20, 341, 121, 135], [143, 341, 115, 131], [257, 341, 112, 129], [368, 341, 117, 131]],
     chest: [[19, 494, 121, 167], [144, 494, 92, 167], [247, 493, 120, 169], [380, 494, 91, 165]],
@@ -123,7 +123,7 @@ export function drawClassSheet(ctx, x, y, cls, dir, anim, scale = 1, opts = {}) 
   const neckY = -h * (1 - spec.neck);
   const handSign = dir === 1 ? -1 : 1;
   const handX = handSign * spec.hand * h;
-  const handY = -0.36 * h;
+  const handY = -0.24 * h;
 
   ctx.save();
   ctx.translate(x + lx, y + ly - bob);
@@ -137,7 +137,7 @@ export function drawClassSheet(ctx, x, y, cls, dir, anim, scale = 1, opts = {}) 
   }
   ctx.drawImage(img, -img.width * k / 2, -h, img.width * k, h);
   blit(ctx, pack.chest[g], k, 0, neckY, 'top');
-  if (pack.offhand) blit(ctx, pack.offhand[g], k * 0.82, -handSign * 0.22 * h, -0.46 * h, 'mid');
+  if (pack.offhand) blit(ctx, pack.offhand[g], k * 0.85, -handSign * 0.22 * h, -0.36 * h, 'mid');
   blit(ctx, pack.helm[g], k, 0, neckY, 'bottom');
   const weapon = pack.weapon[g];
   if (weapon) {
