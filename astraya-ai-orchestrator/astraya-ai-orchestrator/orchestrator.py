@@ -132,7 +132,6 @@ def install_cursor_permissions() -> None:
         return
     p.parent.mkdir(parents=True, exist_ok=True)
     config = {
-        "version": 1,
         "permissions": {
             "allow": [
                 "Read(**)",
