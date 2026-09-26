@@ -3,6 +3,7 @@
 import { TAU, shade, rgba, makeCanvas, hashStr, rng, mix } from '../core/util.js';
 import { itemPng, skillPng, slotPng } from '../data/icons.js';
 import { drawLpcHero, lpcReady } from './lpc.js';
+import { drawAssassin } from './assassin.js';
 import { drawKenneyProp, drawKenneyHouse, drawSheetMob, mobKey } from './worldart.js';
 
 // ------------------------------------------------------------------ helpers
@@ -96,6 +97,7 @@ const CLASS_WEAPONS = {
  * look: colours; cls: class id (weapons/silhouette) or 'npc'.
  */
 export function drawHero(ctx, x, y, cls, look, dir, anim, scale = 1, opts = {}) {
+  if (cls === 'Assassin' && drawAssassin(ctx, x, y, dir, anim, scale, opts)) return;
   if (lpcReady()) {
     if (opts.mount) {
       ctx.save();
