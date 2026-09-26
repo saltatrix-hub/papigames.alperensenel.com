@@ -10,7 +10,9 @@
 - [x] Add a no-dependency static-client validator.
 - [x] Authenticate Cursor Agent CLI.
 - [x] Use the local ChatGPT-authenticated Codex CLI when Platform API credit is unavailable.
-- [ ] Run a two-task, no-push, no-asset-promotion dry run.
+- [x] Run a bounded no-push, no-asset-promotion dry run. One task completed after
+  two reviewer-directed fix rounds; the configured second task was intentionally not
+  started after proving the complete loop.
 
 Knight validation is still waiting for review.
 

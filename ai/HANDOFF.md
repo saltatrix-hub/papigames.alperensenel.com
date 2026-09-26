@@ -15,6 +15,19 @@ authenticated. A structured Codex smoke test returned valid schema-constrained J
 through the stored ChatGPT login. The first run is limited to two tasks, no automatic
 push, and no automatic asset promotion.
 
+The first end-to-end task completed on `ai/nightly-20260926-112423`. Codex selected
+the Knight t01 longsword requirement queue, Cursor implemented it, and Codex rejected
+two incomplete validator designs before issuing PASS. The accepted nightly branch is
+at commit `424b17e`; it was not pushed and was not merged into this setup branch.
+
+Dry-run fixes retained in the setup branch:
+
+- Windows resolves the full `agent.cmd` path.
+- Project `.cursor/cli.json` uses the project-only permission schema.
+- Large Codex prompts use stdin to avoid the Windows command-length limit.
+- Cursor tasks use an ignored workspace prompt file to avoid `.cmd` argument loss.
+- Reviews can resume against a specific commit.
+
 ---
 
 Status: Knight visual pipeline ready for review. Other classes were not implemented.
