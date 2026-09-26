@@ -269,7 +269,7 @@ def codex_structured(prompt: str, schema: dict[str, Any], name: str) -> dict[str
             str(output_path),
             "--cd",
             str(REPO),
-            prompt,
+            "-",
         ]
         log(f"Codex structured run: {name}")
         env = os.environ.copy()
@@ -283,6 +283,7 @@ def codex_structured(prompt: str, schema: dict[str, Any], name: str) -> dict[str
             encoding="utf-8",
             errors="replace",
             env=env,
+            input=prompt,
             timeout=600,
         )
         if p.stderr.strip():
