@@ -103,6 +103,10 @@ receive the actual patch rather than relying on the implementer's summary.
 Generated images remain review candidates by default. The loop stops on a human/art
 blocker or after its configured task and fix limits.
 
+Director/reviewer inference defaults to the local Codex CLI authenticated through the
+user's ChatGPT account. The Platform API is reserved for optional image-candidate
+generation, so exhausted image/API credit does not disable code direction or review.
+
 Reason:
 This keeps unattended iteration recoverable and prevents summaries or attractive but
 misaligned sprite output from being treated as proof of correctness.

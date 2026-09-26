@@ -8,6 +8,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 from typing import Any
@@ -40,6 +41,8 @@ LOG_DIR.mkdir(exist_ok=True)
 
 OPENAI_MODEL = os.getenv("OPENAI_DIRECTOR_MODEL", "gpt-5.5")
 IMAGE_MODEL = os.getenv("OPENAI_IMAGE_MODEL", "gpt-image-2.5-flare")
+DIRECTOR_BACKEND = os.getenv("DIRECTOR_BACKEND", "codex").strip().lower()
+CODEX_CMD = os.getenv("CODEX_COMMAND", "codex")
 MAX_TASKS = int(os.getenv("MAX_TASKS_PER_RUN", "8"))
 MAX_FIX = int(os.getenv("MAX_FIX_ROUNDS", "3"))
 MAX_ASSETS = int(os.getenv("MAX_ASSETS_PER_RUN", "8"))
@@ -90,8 +93,10 @@ def run(cmd: list[str], cwd: Path | None = None, check: bool = True, timeout: in
 def must_exist() -> None:
     if not REPO.exists() or not (REPO / ".git").exists():
         raise RuntimeError(f"REPO_PATH git repo degil: {REPO}")
-    if not os.getenv("OPENAI_API_KEY"):
+    if DIRECTOR_BACKEND == "openai" and not os.getenv("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY config.env icinde bos.")
+    if DIRECTOR_BACKEND == "codex" and shutil.which(CODEX_CMD) is None:
+        raise RuntimeError(f"Codex CLI bulunamadi: {CODEX_CMD}.")
     if not os.getenv("CURSOR_API_KEY"):
         # Cursor can also be authenticated by agent login, so only warn.
         log("UYARI: CURSOR_API_KEY bos. Mevcut `agent login` oturumu kullanilacak.")
@@ -224,6 +229,10 @@ REVIEW_SCHEMA = {
 
 
 def structured(prompt: str, schema: dict[str, Any], name: str) -> dict[str, Any]:
+    if DIRECTOR_BACKEND == "codex":
+        return codex_structured(prompt, schema, name)
+    if DIRECTOR_BACKEND != "openai":
+        raise RuntimeError(f"Bilinmeyen DIRECTOR_BACKEND: {DIRECTOR_BACKEND}")
     c = client()
     response = c.responses.create(
         model=OPENAI_MODEL,
@@ -238,6 +247,53 @@ def structured(prompt: str, schema: dict[str, Any], name: str) -> dict[str, Any]
         },
     )
     return json.loads(response.output_text)
+
+
+def codex_structured(prompt: str, schema: dict[str, Any], name: str) -> dict[str, Any]:
+    codex_executable = shutil.which(CODEX_CMD) or CODEX_CMD
+    with tempfile.TemporaryDirectory(prefix="astraya-codex-") as temp_dir:
+        temp = Path(temp_dir)
+        schema_path = temp / f"{name}.schema.json"
+        output_path = temp / f"{name}.result.json"
+        schema_path.write_text(json.dumps(schema, ensure_ascii=False, indent=2), encoding="utf-8")
+        cmd = [
+            codex_executable,
+            "exec",
+            "--ephemeral",
+            "--sandbox",
+            "read-only",
+            "--color",
+            "never",
+            "--output-schema",
+            str(schema_path),
+            "--output-last-message",
+            str(output_path),
+            "--cd",
+            str(REPO),
+            prompt,
+        ]
+        log(f"Codex structured run: {name}")
+        env = os.environ.copy()
+        # Force the stored ChatGPT login instead of the Platform API key used for assets.
+        env.pop("OPENAI_API_KEY", None)
+        p = subprocess.run(
+            cmd,
+            cwd=str(REPO),
+            text=True,
+            capture_output=True,
+            encoding="utf-8",
+            errors="replace",
+            env=env,
+            timeout=600,
+        )
+        if p.stderr.strip():
+            with LOG_FILE.open("a", encoding="utf-8") as f:
+                f.write("[codex stderr]\n" + p.stderr[-12000:].rstrip() + "\n")
+        if p.returncode != 0:
+            raise RuntimeError(f"Codex structured run failed ({p.returncode}): {p.stderr[-2000:]}")
+        if not output_path.exists():
+            raise RuntimeError("Codex structured run sonuc dosyasi olusturmadi.")
+        return json.loads(output_path.read_text(encoding="utf-8"))
 
 
 def choose_task() -> dict[str, Any]:
@@ -367,6 +423,10 @@ def save_asset_queue(jobs: list[dict[str, Any]]) -> None:
 def generate_asset_candidate(job: dict[str, Any]) -> Path | None:
     jid = str(job.get("id") or f"asset-{int(time.time())}")
     prompt = str(job.get("prompt") or "").strip()
+    if not os.getenv("OPENAI_API_KEY"):
+        job["status"] = "blocked"
+        job["note"] = "OPENAI_API_KEY missing for image generation"
+        return None
     if not prompt:
         job["status"] = "blocked"
         job["note"] = "prompt missing"

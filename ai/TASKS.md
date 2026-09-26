@@ -8,7 +8,8 @@
 - [x] Install Cursor Agent CLI.
 - [x] Give the reviewer the full commit diff and deterministic validation output.
 - [x] Add a no-dependency static-client validator.
-- [ ] Authenticate Cursor Agent CLI.
+- [x] Authenticate Cursor Agent CLI.
+- [x] Use the local ChatGPT-authenticated Codex CLI when Platform API credit is unavailable.
 - [ ] Run a two-task, no-push, no-asset-promotion dry run.
 
 Knight validation is still waiting for review.

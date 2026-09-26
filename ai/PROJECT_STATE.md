@@ -109,11 +109,12 @@ The modular equipment goal is unchanged:
 An opt-in local overnight orchestrator lives under
 `astraya-ai-orchestrator/astraya-ai-orchestrator/`.
 
-- OpenAI selects and reviews one bounded task at a time.
+- ChatGPT-authenticated Codex selects and reviews one bounded task at a time.
 - Cursor Agent CLI performs implementation work on an isolated nightly branch.
 - The reviewer receives the actual commit patch and deterministic validation output.
 - `tools/validate_static_client.py` checks JavaScript syntax and relative ES module paths.
 - Generated art remains a candidate unless explicitly promoted.
 - Automatic merge to `main` is not allowed.
 
-The automation is installed but not operational until Cursor Agent CLI is authenticated.
+Cursor Agent CLI and Codex CLI are authenticated. Platform API credit is required only
+for optional image-candidate generation, not for task direction or code review.

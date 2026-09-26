@@ -10,9 +10,10 @@ repository root, invokes Cursor in non-interactive force mode under explicit den
 rules, runs `tools/validate_static_client.py`, and sends the full latest commit diff
 plus validation output to the OpenAI reviewer.
 
-Validation passed for 26 JavaScript files. The remaining setup blocker is Cursor CLI
-authentication. After login, the first run should use two tasks, no automatic push,
-and no automatic asset promotion.
+Validation passed for 26 JavaScript files. Cursor Agent CLI and Codex CLI are both
+authenticated. A structured Codex smoke test returned valid schema-constrained JSON
+through the stored ChatGPT login. The first run is limited to two tasks, no automatic
+push, and no automatic asset promotion.
 
 ---
 

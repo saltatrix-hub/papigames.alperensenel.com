@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Write(js/**)",
+      "Write(css/**)",
+      "Write(assets/**)",
+      "Write(design/**)",
+      "Write(ai/**)",
+      "Write(tools/**)",
+      "Write(.cursor/**)",
+      "Write(AGENTS.md)",
+      "Write(README.md)",
+      "Write(index.html)",
+      "Shell(node)",
+      "Shell(python)",
+      "Shell(py)",
+      "Shell(npm)",
+      "Shell(npx)"
+    ],
+    "deny": [
+      "Shell(git)",
+      "Shell(gh)",
+      "Shell(rm)",
+      "Shell(del)",
+      "Shell(rmdir)",
+      "Read(**/.env*)",
+      "Write(**/.env*)",
+      "Write(.git/**)",
+      "Write(astraya-ai-orchestrator/**)",
+      "Write(CNAME)"
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # ASTRAYA AI Orchestrator — Gece Modu
 
-Bu paket **OpenAI Director/Reviewer + Cursor CLI Developer + Git nightly branch + asset candidate queue** döngüsünü çalıştırır.
+Bu paket **ChatGPT-authenticated Codex Director/Reviewer + Cursor CLI Developer + Git nightly branch + asset candidate queue** döngüsünü çalıştırır.
 
 ## Güvenlik modeli
 
@@ -41,20 +41,34 @@ agent status
 
 İstersen automation için `CURSOR_API_KEY` kullan.
 
-## 3) OpenAI API
+## 3) Codex / ChatGPT girişi
+
+Director ve Reviewer varsayılan olarak bu bilgisayardaki Codex CLI'nin kayıtlı
+ChatGPT oturumunu kullanır:
+
+```powershell
+codex login status
+```
+
+`Logged in using ChatGPT` çıktısı yeterlidir. Director/Reviewer için Platform API
+kredisi gerekmez.
+
+## 4) OpenAI API (yalnızca asset üretimi)
 
 `config.env.example` dosyasını `config.env` adıyla kopyala.
 
-Şunları doldur:
+Görsel asset candidate üretmek istiyorsan doldur:
 
 ```text
-OPENAI_API_KEY=...
 CURSOR_API_KEY=...
+OPENAI_API_KEY=...
 ```
 
 API anahtarlarını GitHub'a commit etme.
 
-## 4) Mevcut Cursor değişikliklerini commit et
+`CURSOR_API_KEY` zorunlu değildir; `agent login` oturumu kullanılabilir.
+
+## 5) Mevcut Cursor değişikliklerini commit et
 
 Gece modu varsayılan olarak kirli working tree ile başlamaz.
 
@@ -68,7 +82,7 @@ git push
 
 Bunu Cursor/Git arayüzünden de yapabilirsin.
 
-## 5) Test
+## 6) Test
 
 `CHECK_SETUP.bat`
 
@@ -76,7 +90,7 @@ Bunu Cursor/Git arayüzünden de yapabilirsin.
 
 Python, Git, Cursor CLI ve repo durumunu gösterir.
 
-## 6) Başlat
+## 7) Başlat
 
 `START_ASTRAYA_AI.bat`
 
