@@ -1,6 +1,16 @@
 @echo off
-setlocal
+setlocal EnableExtensions EnableDelayedExpansion
 cd /d "%~dp0"
+
+rem Cursor Agent and Codex desktop keep their CLIs in user-local folders that may
+rem not be visible to a process started by double-click until the next sign-in.
+if exist "%LOCALAPPDATA%\cursor-agent\agent.cmd" set "PATH=%LOCALAPPDATA%\cursor-agent;%PATH%"
+where codex >nul 2>nul
+if errorlevel 1 (
+  for /d %%D in ("%LOCALAPPDATA%\OpenAI\Codex\bin\*") do (
+    if exist "%%~fD\codex.exe" set "PATH=%%~fD;!PATH!"
+  )
+)
 
 if not exist "config.env" (
   echo [ASTRAYA] config.env bulunamadi.
@@ -28,6 +38,20 @@ if %errorlevel%==0 (
 %PY% -m pip install -r requirements.txt
 if not %errorlevel%==0 (
   echo Paket kurulumu basarisiz.
+  pause
+  exit /b 1
+)
+
+where agent >nul 2>nul
+if errorlevel 1 (
+  echo Cursor Agent CLI bulunamadi. Once Cursor CLI kur.
+  pause
+  exit /b 1
+)
+
+where codex >nul 2>nul
+if errorlevel 1 (
+  echo Codex CLI bulunamadi. Codex masaustu uygulamasini acip tekrar dene.
   pause
   exit /b 1
 )
