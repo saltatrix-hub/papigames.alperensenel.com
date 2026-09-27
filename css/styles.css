@@ -97,7 +97,7 @@ canvas#world { display: block; width: 100vw; height: 100vh; height: 100dvh; outl
 .class-card {
   border: 1px solid var(--line); background: #0c1220; border-radius: 10px; padding: 0; overflow: hidden; color: var(--ink);
 }
-.class-card img { width: 100%; height: 92px; object-fit: cover; display: block; filter: saturate(0.95); }
+.class-card img, .class-card canvas.face { width: 100%; height: 132px; object-fit: cover; display: block; }
 .class-card span { display: block; padding: 6px 4px 8px; font-size: 12px; font-family: var(--serif); }
 .class-card:hover, .class-card.active { border-color: var(--gold-2); box-shadow: 0 0 0 1px var(--gold-2) inset; }
 .create-preview { display: grid; grid-template-columns: 220px 1fr; gap: 16px; margin-top: 14px; align-items: center; }
@@ -111,7 +111,7 @@ canvas#world { display: block; width: 100vw; height: 100vh; height: 100dvh; outl
 .look-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 12px; color: var(--muted); }
 .swatches { display: flex; gap: 6px; flex-wrap: wrap; }
 .swatch { width: 18px; height: 18px; border-radius: 50%; border: 2px solid transparent; padding: 0; }
-.swatch.active { border-color: #fff; }
+.look-row input[type="range"] { flex: 1; accent-color: var(--gold-2); }
 
 .btn, .ghost, .icon-btn {
   border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); color: var(--ink);
@@ -179,8 +179,10 @@ canvas#world { display: block; width: 100vw; height: 100vh; height: 100dvh; outl
 .wallet { display: flex; gap: 10px; align-items: center; padding: 6px 10px; }
 .tracker { width: 100%; padding: 10px 12px; font-size: 13px; }
 .tracker h3 { margin: 0 0 6px; font-family: var(--serif); font-size: 13px; color: var(--gold-2); }
-.tracker .goal { color: #d5deea; }
-.tracker .side { margin-top: 8px; color: #9fe0ff; font-size: 12px; }
+.tracker .goal { color: #d5deea; cursor: pointer; }
+.tracker .side { margin-top: 8px; color: #9fe0ff; font-size: 12px; cursor: pointer; }
+.tracker .goal:hover, .tracker .side:hover { color: #fff; }
+.panel .goal, .panel .skill-row[data-go] { cursor: pointer; }
 
 .chat { padding: 8px; }
 .chat-log { height: 128px; overflow-y: auto; font-size: 12px; line-height: 1.4; color: #d5deea; }

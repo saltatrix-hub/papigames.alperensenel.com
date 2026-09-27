@@ -1,4 +1,4 @@
-import { WorldView } from './view3d.js?v=cam3';
+import { WorldView } from './view3d.js?v=town22';
 
 export class Renderer {
   constructor(canvas, game) {

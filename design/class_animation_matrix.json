@@ -1,0 +1,77 @@
+{
+  "schema": "astraya.class_animation_matrix.v1",
+  "updated": "2026-09-26",
+  "identity_plan": "design/class_chibi_asset_plan.json",
+  "production_gate": "Do not generate final animation sheets until the matching four-direction chibi identity is approved.",
+  "reference_pack": "assets/assassin/",
+  "reference_note": "The Assassin pack defines the shared chibi silhouette, four authored directions, modular equipment slots, and bottom-center feet pivot. Its current PNGs are static production references, not animation frames.",
+  "runtime_contract": {
+    "cell_size_px": [64, 64],
+    "row_order": ["up", "left", "down", "right"],
+    "mirroring_allowed": false,
+    "walk": { "columns": 9, "sheet_size_px": [576, 256], "idle_column": 0, "moving_columns": [1, 8] },
+    "slash": { "columns": 6, "sheet_size_px": [384, 256] },
+    "bow": { "columns": 13, "sheet_size_px": [832, 256] },
+    "spell": { "columns": 7, "sheet_size_px": [448, 256] },
+    "background": "transparent",
+    "pivot": "bottom-center feet line",
+    "generated_output_status": "unvalidated_candidate",
+    "auto_promote_forbidden": true
+  },
+  "classes": [
+    {
+      "class": "Knight",
+      "slug": "knight",
+      "basic_action": "slash",
+      "runtime_status": "animated_lpc_temporary_weapon",
+      "production_art_status": "candidate_weapon_pending_human_review",
+      "walk_target": "assets/characters/knight/base/knight_base_walk.png",
+      "attack_target": "assets/characters/knight/base/knight_base_slash.png"
+    },
+    {
+      "class": "Berserker",
+      "slug": "berserker",
+      "basic_action": "slash",
+      "runtime_status": "animated_lpc_temporary_weapon",
+      "production_art_status": "queued",
+      "walk_target": "assets/characters/berserker/base/berserker_base_walk.png",
+      "attack_target": "assets/characters/berserker/base/berserker_base_slash.png"
+    },
+    {
+      "class": "Assassin",
+      "slug": "assassin",
+      "basic_action": "slash",
+      "runtime_status": "dedicated_chibi_directional_motion_and_dual_dagger_attack_with_lpc_fallback",
+      "production_art_status": "static_reference_needs_animation",
+      "walk_target": "assets/characters/assassin/base/assassin_base_walk.png",
+      "attack_target": "assets/characters/assassin/base/assassin_base_slash.png"
+    },
+    {
+      "class": "Ranger",
+      "slug": "ranger",
+      "basic_action": "bow",
+      "runtime_status": "animated_lpc_ready",
+      "production_art_status": "queued",
+      "walk_target": "assets/characters/ranger/base/ranger_base_walk.png",
+      "attack_target": "assets/characters/ranger/base/ranger_base_bow.png"
+    },
+    {
+      "class": "Mage",
+      "slug": "mage",
+      "basic_action": "spell",
+      "runtime_status": "animated_lpc_temporary_weapon",
+      "production_art_status": "queued",
+      "walk_target": "assets/characters/mage/base/mage_base_walk.png",
+      "attack_target": "assets/characters/mage/base/mage_base_spell.png"
+    },
+    {
+      "class": "Priest",
+      "slug": "priest",
+      "basic_action": "spell",
+      "runtime_status": "animated_lpc_temporary_weapon",
+      "production_art_status": "queued",
+      "walk_target": "assets/characters/priest/base/priest_base_walk.png",
+      "attack_target": "assets/characters/priest/base/priest_base_spell.png"
+    }
+  ]
+}

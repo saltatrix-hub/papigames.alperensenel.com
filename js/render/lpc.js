@@ -28,6 +28,7 @@ const LAYERS = {
     hair: 'walkcycle/HEAD_hair_blonde.png',
     belt: 'walkcycle/BELT_leather.png',
     quiver: 'walkcycle/BEHIND_quiver.png',
+    shield: 'walkcycle/WEAPON_shield_cutout_body.png',
   },
   slash: {
     body: 'slash/BODY_human.png',
@@ -142,8 +143,8 @@ const BAKE_H = 84;
 const BAKE_OX = 48;
 const BAKE_OY = 70;
 
-function bakeFrame(cls, act, keys, group, col, row) {
-  const key = `${cls}|${act}|${col}|${row}`;
+function bakeFrame(cls, act, keys, group, col, row, cacheId = cls) {
+  const key = `${cacheId}|${act}|${col}|${row}`;
   const hit = baked.get(key);
   if (hit) return hit;
   if (!ready) return null;
@@ -166,10 +167,11 @@ function bakeFrame(cls, act, keys, group, col, row) {
   if (cls === 'Assassin') {
     const dagger = sheets.get(group.dagger || LAYERS.slash.dagger);
     if (dagger) {
-      b.drawImage(dagger, 0, row * S, S, S, -S / 2 - 10, -S + 14, S, S);
+      const weaponCol = act === 'slash' ? col : 0;
+      b.drawImage(dagger, weaponCol * S, row * S, S, S, -S / 2 - 10, -S + 14, S, S);
       b.save();
       b.scale(-1, 1);
-      b.drawImage(dagger, 0, row * S, S, S, -S / 2 - 10, -S + 14, S, S);
+      b.drawImage(dagger, weaponCol * S, row * S, S, S, -S / 2 - 10, -S + 14, S, S);
       b.restore();
     }
     b.fillStyle = 'rgba(8, 6, 14, 0.92)';
@@ -195,8 +197,11 @@ function frameCol(anim, cols, attacking, act) {
 export function drawLpcHero(ctx, x, y, cls, look, dir, anim, scale = 1, opts = {}) {
   const kit = KITS[cls] || KITS.npc;
   const attacking = anim.attack >= 0 && kit.act !== 'walk';
-  const act = attacking ? kit.act : 'walk';
-  const keys = attacking ? kit.actKeys : kit.walk;
+  const visualAct = opts.visual?.action || 'slash';
+  const act = opts.visual ? (attacking ? visualAct : 'walk') : (attacking ? kit.act : 'walk');
+  const keys = opts.visual
+    ? (attacking ? (opts.visual.attack || opts.visual.slash) : opts.visual.walk)
+    : (attacking ? kit.actKeys : kit.walk);
   const group = LAYERS[act];
   const cols = COLS[act];
   const row = DIR_ROW[dir] ?? 2;
@@ -212,7 +217,7 @@ export function drawLpcHero(ctx, x, y, cls, look, dir, anim, scale = 1, opts = {
     ctx.fillStyle = 'rgba(0,0,0,0.28)'; ctx.fill();
   }
   if (opts.mount) ctx.translate(0, -10);
-  const frame = bakeFrame(cls, act, keys, group, col, row);
+  const frame = bakeFrame(cls, act, keys, group, col, row, opts.visual?.id || cls);
   if (frame) {
     ctx.drawImage(frame, -BAKE_OX, -BAKE_OY);
     ctx.restore();

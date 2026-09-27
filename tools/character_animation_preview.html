@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <base href="../">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ASTRAYA — Class Animation Preview</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; }
+    body { margin: 0; background: #090b13; color: #eef1ff; }
+    header { padding: 18px 22px 10px; }
+    h1 { margin: 0 0 6px; font-size: 20px; }
+    p { margin: 0; color: #9da7c5; font-size: 13px; }
+    canvas { display: block; width: min(100%, 1280px); height: auto; margin: 0 auto 24px; image-rendering: pixelated; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Altı sınıf — 4 yön walk + basic attack</h1>
+    <p>Yönler: down · left · right · up. Üretim silahı eksik olan sınıflar mevcut LPC katmanını geçici olarak kullanır.</p>
+  </header>
+  <canvas id="preview" width="1280" height="780"></canvas>
+  <script type="module">
+    import { drawLpcHero } from '../js/render/lpc.js';
+    import { resolveCharacterVisual } from '../js/data/characterVisuals.js';
+
+    const classes = ['Knight', 'Berserker', 'Assassin', 'Ranger', 'Mage', 'Priest'];
+    const directions = ['down', 'left', 'right', 'up'];
+    const canvas = document.querySelector('#preview');
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+
+    function render(ms) {
+      const t = ms / 1000;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0d1120';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.font = '600 14px Inter, system-ui, sans-serif';
+      ctx.fillStyle = '#8590af';
+      ctx.fillText('WALK', 205, 24);
+      ctx.fillText('BASIC ATTACK', 785, 24);
+
+      classes.forEach((cls, row) => {
+        const y = 105 + row * 108;
+        const visual = resolveCharacterVisual(cls, {});
+        ctx.fillStyle = '#eef1ff';
+        ctx.font = '700 15px Inter, system-ui, sans-serif';
+        ctx.fillText(cls, 18, y - 20);
+        ctx.fillStyle = '#7783a4';
+        ctx.font = '11px Inter, system-ui, sans-serif';
+        ctx.fillText(visual.action, 18, y - 3);
+
+        for (let dir = 0; dir < 4; dir++) {
+          const walkX = 190 + dir * 118;
+          const attackX = 770 + dir * 118;
+          ctx.fillStyle = '#6f7998';
+          ctx.fillText(directions[dir], walkX - 17, y + 45);
+          ctx.fillText(directions[dir], attackX - 17, y + 45);
+          drawLpcHero(ctx, walkX, y + 22, cls, {}, dir, {
+            walk: t * 5, moving: true, attack: -1, time: t,
+          }, 1, { visual });
+          drawLpcHero(ctx, attackX, y + 22, cls, {}, dir, {
+            walk: 0, moving: false, attack: (t * 0.9) % 1, time: t,
+          }, 1, { visual });
+        }
+        ctx.strokeStyle = '#1b2238';
+        ctx.beginPath();
+        ctx.moveTo(12, y + 53);
+        ctx.lineTo(canvas.width - 12, y + 53);
+        ctx.stroke();
+      });
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+  </script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 import { GDD } from '../data/gdd.js';
 import { CLASS_TR, REGION_META, REGION_ORDER, TIPS, RARITY, SLOT_TR } from '../data/content.js';
-import { listSaves, SAVE_PREFIX, COSTUMES, loadSettings, saveSettings, REGION_DUNGEONS } from '../game/game.js';
+import { listSaves, SAVE_PREFIX, COSTUMES, loadSettings, saveSettings, REGION_DUNGEONS } from '../game/game.js?v=town21';
 import { CLASS_KIT, STATS, STAT_TR, xpToNext } from '../game/stats.js';
 import { RECIPES, recipeNeeds, merchantStock, affixText, gearStats, MATERIAL_TR, PROF_TR } from '../game/items.js';
 import { dungeonDef, RES_TR } from '../game/world.js';
 import { itemIcon, skillIcon } from '../render/sprites.js';
-import { tickPreview, paintBust } from '../render/view3d.js';
+import { tickPreview, paintBust } from '../render/view3d.js?v=town22';
 import { ELEMENT } from '../game/skills.js';
 import { $, $$, el, esc, fmt, fmtFull } from '../core/util.js';
 import { audio } from '../core/audio.js';
@@ -20,6 +20,8 @@ const DOLL_ROWS = [
 ];
 
 const HAIR = ['#8a5a2e', '#1a1a24', '#e8c070', '#dcdce6', '#f0d8a0', '#3a2414', '#d8d8d8', '#c05a2a', '#6a3a1a'];
+const BROW = ['#3a2414', '#1a1a1a', '#8a5a2e', '#c05a2a', '#d8d8d8', '#6a3a1a', '#e8e0d0'];
+const EYE = ['#3a6ea5', '#2f6a3a', '#6a4ad4', '#c9a23a', '#8a4a2a', '#1a1a1a', '#c45a6a', '#d8d8d8'];
 const SKIN = ['#f2d0b0', '#e6b894', '#e8c8a8', '#f0d4b8', '#f6dcc4', '#c89060', '#8d5a3a', '#f8e0c8'];
 const FACE = {
   Knight: 'assets/art/class_knight_face.jpg', Berserker: 'assets/art/class_berserker_face.jpg',
@@ -62,7 +64,7 @@ export class UI {
     this.dead = false;
     this.promptOpen = false;
     this.panels = {};
-    this.create = { slot: 1, cls: 'Knight', hair: CLASS_KIT.Knight.look.hair, skin: CLASS_KIT.Knight.look.skin };
+    this.create = { slot: 1, cls: 'Knight', hair: CLASS_KIT.Knight.look.hair, skin: CLASS_KIT.Knight.look.skin, brow: CLASS_KIT.Knight.look.brow, eye: CLASS_KIT.Knight.look.eye, height: 1 };
     this.titleT = 0;
     this.dodgeFlash = 0;
     this.boss = null;
@@ -85,22 +87,33 @@ export class UI {
     grid.innerHTML = '';
     for (const cls of Object.keys(CLASS_TR)) {
       const b = el('button', 'class-card' + (cls === this.create.cls ? ' active' : ''));
-      b.innerHTML = `<img src="${FACE[cls]}" alt="${CLASS_TR[cls].tr}" /><span>${CLASS_TR[cls].tr}</span>`;
-      b.onclick = () => { this.create.cls = cls; this.create.hair = CLASS_KIT[cls].look.hair; this.create.skin = CLASS_KIT[cls].look.skin; this.refreshCreate(); };
+      b.innerHTML = `<canvas class="face" data-bust="card" data-cls="${cls}" width="480" height="360"></canvas><span>${CLASS_TR[cls].tr}</span>`;
+      b.onclick = () => {
+        const look = CLASS_KIT[cls].look;
+        this.create.cls = cls;
+        this.create.hair = look.hair;
+        this.create.skin = look.skin;
+        this.create.brow = look.brow;
+        this.create.eye = look.eye;
+        this.refreshCreate();
+      };
       grid.appendChild(b);
     }
-    const hs = $('#hair-swatches'), ss = $('#skin-swatches');
-    hs.innerHTML = ''; ss.innerHTML = '';
-    for (const c of HAIR) {
-      const b = el('button', 'swatch'); b.style.background = c;
-      b.onclick = () => { this.create.hair = c; this.refreshCreate(); };
-      hs.appendChild(b);
-    }
-    for (const c of SKIN) {
-      const b = el('button', 'swatch'); b.style.background = c;
-      b.onclick = () => { this.create.skin = c; this.refreshCreate(); };
-      ss.appendChild(b);
-    }
+    const hs = $('#hair-swatches'), ss = $('#skin-swatches'), bs = $('#brow-swatches'), es = $('#eye-swatches');
+    hs.innerHTML = ''; ss.innerHTML = ''; bs.innerHTML = ''; es.innerHTML = '';
+    const swatch = (box, list, key) => {
+      for (const c of list) {
+        const b = el('button', 'swatch'); b.style.background = c;
+        b.onclick = () => { this.create[key] = c; this.refreshCreate(); };
+        box.appendChild(b);
+      }
+    };
+    swatch(hs, HAIR, 'hair');
+    swatch(bs, BROW, 'brow');
+    swatch(ss, SKIN, 'skin');
+    swatch(es, EYE, 'eye');
+    const height = $('#hero-height');
+    height.oninput = () => { this.create.height = Number(height.value) / 100; this.refreshCreate(); };
     $('#btn-start').onclick = () => this.startNew();
     $('#btn-admin').onclick = () => this.startAdmin();
     $('#hero-name').value = '';
@@ -134,17 +147,21 @@ export class UI {
     $$('#class-grid .class-card').forEach((el, i) => el.classList.toggle('active', Object.keys(CLASS_TR)[i] === this.create.cls));
     $('#class-blurb').textContent = CLASS_TR[this.create.cls].blurb;
     $$('#hair-swatches .swatch').forEach((el, i) => el.classList.toggle('active', HAIR[i] === this.create.hair));
+    $$('#brow-swatches .swatch').forEach((el, i) => el.classList.toggle('active', BROW[i] === this.create.brow));
     $$('#skin-swatches .swatch').forEach((el, i) => el.classList.toggle('active', SKIN[i] === this.create.skin));
+    $$('#eye-swatches .swatch').forEach((el, i) => el.classList.toggle('active', EYE[i] === this.create.eye));
+    const height = $('#hero-height');
+    if (height) height.value = String(Math.round((this.create.height || 1) * 100));
     this.drawPreview($('#preview'), this.create.cls, this.look());
   }
 
   look() {
     const base = { ...CLASS_KIT[this.create.cls].look };
-    return { ...base, hair: this.create.hair, skin: this.create.skin };
+    return { ...base, hair: this.create.hair, skin: this.create.skin, brow: this.create.brow, eye: this.create.eye, height: this.create.height || 1 };
   }
 
-  drawPreview(cv, cls) {
-    try { tickPreview(cv, cls); } catch (err) { console.warn('preview', err); }
+  drawPreview(cv, cls, look) {
+    try { tickPreview(cv, cls, look || this.look()); } catch (err) { console.warn('preview', err); }
   }
 
   startNew() {
@@ -245,6 +262,7 @@ export class UI {
   tickTitle(dt) {
     this.titleT += dt;
     this.drawPreview($('#preview'), this.create.cls, this.look(), this.titleT);
+    document.querySelectorAll('#class-grid canvas.face').forEach((cv) => paintBust(cv, cv.dataset.cls));
   }
 
   tick(dt) {
@@ -385,19 +403,21 @@ export class UI {
     const cv = $('#minimap'), ctx = cv.getContext('2d');
     const w = this.game.world, map = w.map, p = this.game.player;
     if (!map) return;
-    ctx.fillStyle = '#0a0e16'; ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.imageSmoothingEnabled = false;
+    if (map.minimap) ctx.drawImage(map.minimap, 0, 0, cv.width, cv.height);
+    else { ctx.fillStyle = '#1a2438'; ctx.fillRect(0, 0, cv.width, cv.height); }
     const sx = cv.width / map.pw, sy = cv.height / map.ph;
-    ctx.fillStyle = '#1a2438'; ctx.fillRect(0, 0, cv.width, cv.height);
-    for (const n of w.npcs) { ctx.fillStyle = '#ffd76a'; ctx.fillRect(n.x * sx - 1, n.y * sy - 1, 3, 3); }
+    for (const n of w.npcs) { ctx.fillStyle = '#ffd76a'; ctx.fillRect(n.x * sx - 1.5, n.y * sy - 1.5, 3, 3); }
     for (const m of w.monsters) if (!m.dead) { ctx.fillStyle = m.boss ? '#ff6a3a' : '#e05050'; ctx.fillRect(m.x * sx - 1, m.y * sy - 1, m.boss ? 4 : 2, m.boss ? 4 : 2); }
     const qt = this.game.questTarget;
-    if (qt) { ctx.strokeStyle = '#ffd76a'; ctx.beginPath(); ctx.arc(qt.x * sx, qt.y * sy, 5, 0, Math.PI * 2); ctx.stroke(); }
-    ctx.fillStyle = '#6dff8a'; ctx.beginPath(); ctx.arc(p.x * sx, p.y * sy, 3, 0, Math.PI * 2); ctx.fill();
+    if (qt) { ctx.strokeStyle = '#ffd76a'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(qt.x * sx, qt.y * sy, 6, 0, Math.PI * 2); ctx.stroke(); }
+    ctx.fillStyle = '#6dff8a'; ctx.beginPath(); ctx.arc(p.x * sx, p.y * sy, 3.5, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#04140a'; ctx.lineWidth = 1; ctx.stroke();
   }
 
   drawPortrait(cv, hero) {
     if (!cv || !hero) return;
-    paintBust(cv, hero.cls);
+    paintBust(cv, hero.cls, hero.look);
   }
 
   // ================================================================ feedback
@@ -470,8 +490,12 @@ export class UI {
     const sides = Object.keys(q.side).filter((id) => q.side[id].state === 'active').slice(0, 3);
     $('#tracker').innerHTML = `
       <h3>${esc(q.chapter.short)}</h3>
-      <div class="goal">${g ? esc(q.step.t) + ' — ' + esc(g.text) : 'Ana hikâye tamamlandı.'}</div>
-      ${sides.map((id) => `<div class="side">${esc(q.sideGoal(id).text)}</div>`).join('')}`;
+      <div class="goal" data-go="main">${g ? esc(q.step.t) + ' — ' + esc(g.text) : 'Ana hikâye tamamlandı.'}</div>
+      ${sides.map((id) => `<div class="side" data-go="${id}">${esc(q.sideGoal(id).text)}</div>`).join('')}
+      <p class="hint">Sağ tık: hedefe git</p>`;
+    $('#tracker').querySelectorAll('[data-go]').forEach((el) => {
+      el.oncontextmenu = (ev) => { ev.preventDefault(); ev.stopPropagation(); this.game.walkQuest(el.dataset.go); };
+    });
   }
   refreshAll() {
     this.updateBars(); this.updateHotbar(); this.fillTracker(); this.questChanged();
@@ -787,10 +811,14 @@ export class UI {
     panel.querySelector('.body').innerHTML = `
       <h3>${esc(q.chapter.title)}</h3>
       <p>${esc(q.chapter.intro)}</p>
-      <p><b>${q.step ? esc(q.step.t) : 'Tamamlandı'}</b><br>${g ? esc(g.text) : ''}</p>
+      <p class="goal" data-go="main"><b>${q.step ? esc(q.step.t) : 'Tamamlandı'}</b><br>${g ? esc(g.text) : ''}</p>
       <h3>Yan görevler</h3>
-      ${sides.length ? sides.map(([id, s]) => `<div class="skill-row"><div>${esc(q.sideGoal(id).text)}</div><button data-ab="${id}">Bırak</button></div>`).join('') : '<p class="hint">Aktif yan görev yok. NPC’lerde ! işaretine bak.</p>'}`;
+      ${sides.length ? sides.map(([id, s]) => `<div class="skill-row" data-go="${id}"><div>${esc(q.sideGoal(id).text)}</div><button data-ab="${id}">Bırak</button></div>`).join('') : '<p class="hint">Aktif yan görev yok. NPC’lerde ! işaretine bak.</p>'}
+      <p class="hint">Göreve sağ tık: NPC, yaratık veya hedefe yürü.</p>`;
     panel.querySelectorAll('[data-ab]').forEach((b) => b.onclick = () => { q.abandon(b.dataset.ab); this.fillQuests(panel); });
+    panel.querySelectorAll('[data-go]').forEach((el) => {
+      el.oncontextmenu = (ev) => { ev.preventDefault(); ev.stopPropagation(); this.game.walkQuest(el.dataset.go); };
+    });
   }
 
   fillMap(panel) {

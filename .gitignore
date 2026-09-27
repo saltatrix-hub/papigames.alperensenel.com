@@ -1,5 +1,7 @@
 # Dependencies / OS
 node_modules/
+__pycache__/
+*.pyc
 .DS_Store
 Thumbs.db
 *.log
@@ -14,5 +16,8 @@ ASTRAYA_2D_MMO_COMPLETE_PROJECT/
 .vscode/
 .idea/
 
+# Download/cache and local orchestration state
 assets/sprites/_dl/
-
+astraya-ai-orchestrator/**/config.env
+astraya-ai-orchestrator/**/logs/
+ai/.cursor_task_prompt.md

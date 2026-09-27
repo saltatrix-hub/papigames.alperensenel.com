@@ -126,7 +126,7 @@ export const STORY_NPCS = {
 
 // Personal names for GDD's generic service NPCs ("Verdant NPC 3" → "Bram, Auctioneer").
 export const NPC_NAMES = {
-  MAP_DAW: ['Hilda', 'Odo', 'Marta', 'Pell', 'Gisela', 'Bertram'],
+  MAP_DAW: ['Hilda', 'Odo', 'Marta', 'Pell', 'Gisela', 'Bertram', 'Sela', 'Nils'],
   MAP_VER: ['Bram', 'Lirien', 'Oswin', 'Tamsin', 'Corwen', 'Elowen'],
   MAP_MOO: ['Morrow', 'Ilse', 'Garrow', 'Wren', 'Selka', 'Haskel'],
   MAP_ASH: ['Kassa', 'Torvik', 'Ember', 'Ragn', 'Solvei', 'Drago'],

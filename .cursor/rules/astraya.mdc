@@ -1,0 +1,40 @@
+---
+description: Core ASTRAYA architecture and AI collaboration rules
+alwaysApply: true
+---
+
+# ASTRAYA Project Rule
+
+This repository is an existing playable game, not a blank project.
+
+Always read `AGENTS.md` first and follow it.
+
+Use these files as persistent collaboration state:
+
+- `ai/PROJECT_STATE.md`
+- `ai/TASKS.md`
+- `ai/DECISIONS.md`
+- `ai/BUGS.md`
+- `ai/HANDOFF.md`
+
+The authoritative game design remains under `design/`.
+
+## Before coding
+
+- Inspect the existing implementation.
+- Search for an existing system before adding a new one.
+- Prefer extending current modules over creating duplicate managers.
+- Keep Vanilla ES modules and Canvas 2D unless the task explicitly changes architecture.
+
+## After coding
+
+Update `ai/HANDOFF.md` with:
+
+- task completed
+- files changed
+- behavior added
+- tests/checks performed
+- known problems
+- recommended next task
+
+When a feature changes project state, also update `ai/PROJECT_STATE.md` and `ai/TASKS.md`.

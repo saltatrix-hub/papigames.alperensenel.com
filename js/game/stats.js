@@ -11,32 +11,32 @@ export const CLASS_KIT = {
   Knight: {
     base: { STR: 10, AGI: 5, DEX: 5, VIT: 12, INT: 3, SPI: 5 }, grow: { VIT: 3, STR: 2 }, baseHP: 260, armorMult: 1.0,
     attack: { kind: 'melee', range: 1.9, arc: 110, interval: 0.8, coef: 1.0 }, threat: 1.6, magic: false,
-    look: { body: '#2c4f9e', trim: '#e2c05a', metal: '#c9ced8', hair: '#8a5a2e', skin: '#f2d0b0', cape: '#2a4a9a', hat: 'none' },
+    look: { body: '#2c4f9e', trim: '#e2c05a', metal: '#c9ced8', hair: '#8a5a2e', skin: '#f2d0b0', eye: '#3a6ea5', brow: '#4a2e18', cape: '#2a4a9a', hat: 'none' },
   },
   Berserker: {
     base: { STR: 12, AGI: 6, DEX: 5, VIT: 10, INT: 2, SPI: 3 }, grow: { STR: 3, VIT: 2 }, baseHP: 240, armorMult: 0.85,
     attack: { kind: 'melee', range: 2.2, arc: 140, interval: 1.0, coef: 1.25 }, threat: 1.2, magic: false,
-    look: { body: '#8e1f1f', trim: '#2a2020', metal: '#8a8a90', hair: '#e8e0d0', skin: '#e6b894', cape: '#5a1414', hat: 'none', fur: true },
+    look: { body: '#8e1f1f', trim: '#2a2020', metal: '#8a8a90', hair: '#e8e0d0', skin: '#e6b894', eye: '#6a8a4a', brow: '#c8b8a0', cape: '#5a1414', hat: 'none', fur: true },
   },
   Assassin: {
     base: { STR: 6, AGI: 12, DEX: 10, VIT: 6, INT: 3, SPI: 3 }, grow: { AGI: 3, DEX: 2 }, baseHP: 175, armorMult: 0.55,
     attack: { kind: 'melee', range: 1.6, arc: 80, interval: 0.48, coef: 0.62 }, threat: 0.8, magic: false,
-    look: { body: '#2a2238', trim: '#7b4fd0', metal: '#b0b0c0', hair: '#1a1a24', skin: '#e8c8a8', cape: '#3a2a5a', hat: 'hood' },
+    look: { body: '#2a2238', trim: '#7b4fd0', metal: '#b0b0c0', hair: '#c45a3a', skin: '#e8c8a8', eye: '#7a5a3a', brow: '#3a2418', cape: '#3a2a5a', hat: 'hood' },
   },
   Ranger: {
     base: { STR: 5, AGI: 10, DEX: 12, VIT: 6, INT: 3, SPI: 4 }, grow: { DEX: 3, AGI: 2 }, baseHP: 175, armorMult: 0.65,
     attack: { kind: 'ranged', range: 12, interval: 0.72, coef: 0.85, proj: 'arrow', speed: 16 }, threat: 0.9, magic: false,
-    look: { body: '#2e6b3a', trim: '#8a6a3a', metal: '#a08050', hair: '#e8c070', skin: '#f2d0b0', cape: '#24552e', hat: 'hood' },
+    look: { body: '#2e6b3a', trim: '#8a6a3a', metal: '#a08050', hair: '#e8c070', skin: '#f2d0b0', eye: '#3d8a4a', brow: '#6a4a28', cape: '#24552e', hat: 'hood' },
   },
   Mage: {
     base: { STR: 3, AGI: 3, DEX: 4, VIT: 5, INT: 12, SPI: 10 }, grow: { INT: 3, SPI: 2 }, baseHP: 145, armorMult: 0.4,
     attack: { kind: 'ranged', range: 11, interval: 0.82, coef: 0.9, proj: 'arcane', speed: 13 }, threat: 0.9, magic: true,
-    look: { body: '#26357e', trim: '#d8d8e8', metal: '#c8a860', hair: '#dcdce6', skin: '#f0d4b8', cape: '#1e2a66', hat: 'none' },
+    look: { body: '#26357e', trim: '#d8d8e8', metal: '#c8a860', hair: '#dcdce6', skin: '#f0d4b8', eye: '#6a4ad4', brow: '#8a8aa0', cape: '#1e2a66', hat: 'none' },
   },
   Priest: {
     base: { STR: 4, AGI: 3, DEX: 3, VIT: 6, INT: 10, SPI: 12 }, grow: { SPI: 3, INT: 2 }, baseHP: 165, armorMult: 0.42,
     attack: { kind: 'ranged', range: 10, interval: 0.85, coef: 0.82, proj: 'holy', speed: 12 }, threat: 0.7, magic: true,
-    look: { body: '#f0ece0', trim: '#c9a23a', metal: '#e0c060', hair: '#f0d8a0', skin: '#f6dcc4', cape: '#a82a2a', hat: 'hood' },
+    look: { body: '#f0ece0', trim: '#c9a23a', metal: '#e0c060', hair: '#f0d8a0', skin: '#f6dcc4', eye: '#c9a23a', brow: '#a08050', cape: '#a82a2a', hat: 'hood' },
   },
 };
 

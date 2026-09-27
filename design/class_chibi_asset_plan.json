@@ -1,0 +1,89 @@
+{
+  "schema": "astraya.class_chibi_asset_plan.v1",
+  "updated": "2026-09-26",
+  "goal": "Complete one coherent modular chibi identity pack for every playable class before producing final animation sheets.",
+  "style_reference": {
+    "primary": "assets/assassin/00_RAW_SHEETS/base.png",
+    "costume": "assets/assassin/00_RAW_SHEETS/costumes.png",
+    "rules": [
+      "Match Assassin chibi head-to-body ratio, outline weight, material detail, and four-view presentation.",
+      "Keep one identity, silhouette, scale, and bottom-center feet pivot across front, left, back, and right.",
+      "Do not bake equipment into the body base. Export swappable layers with identical canvas and pivot.",
+      "Generated images remain unvalidated candidates until human review."
+    ]
+  },
+  "directions": ["front", "left", "back", "right"],
+  "slots": [
+    "base_body",
+    "head_hair",
+    "helmet",
+    "chest_armor",
+    "main_hand",
+    "off_hand",
+    "back_wing_cape",
+    "costume_override"
+  ],
+  "layer_order": [
+    "back_wing_cape",
+    "base_body",
+    "chest_armor",
+    "costume_override",
+    "head_hair",
+    "helmet",
+    "off_hand",
+    "main_hand"
+  ],
+  "classes": [
+    {
+      "class": "Assassin",
+      "slug": "assassin",
+      "identity_reference": "assets/art/class_assassin_sheet.jpg",
+      "palette": "Violet / Black",
+      "signature_weapon": "Dual Daggers / Short Swords",
+      "status": "reference_pack_exists",
+      "note": "Use as the style and modular-export benchmark; animation frames still need production."
+    },
+    {
+      "class": "Knight",
+      "slug": "knight",
+      "identity_reference": "assets/art/class_knight_sheet.jpg",
+      "palette": "Royal Blue / Gold / Silver",
+      "signature_weapon": "Longsword + Tower Shield",
+      "status": "identity_reference_ready_chibi_pack_missing"
+    },
+    {
+      "class": "Berserker",
+      "slug": "berserker",
+      "identity_reference": "assets/art/class_berserker_sheet.jpg",
+      "palette": "Crimson / Black / Iron",
+      "signature_weapon": "Two-handed Greataxe",
+      "status": "identity_reference_ready_chibi_pack_missing"
+    },
+    {
+      "class": "Ranger",
+      "slug": "ranger",
+      "identity_reference": "assets/art/class_ranger_sheet.jpg",
+      "palette": "Emerald / Brown / Antique Gold",
+      "signature_weapon": "Longbow + Quiver",
+      "status": "identity_reference_ready_chibi_pack_missing"
+    },
+    {
+      "class": "Mage",
+      "slug": "mage",
+      "identity_reference": "assets/art/class_mage_sheet.jpg",
+      "palette": "Cobalt / Silver / Arcane Blue",
+      "signature_weapon": "Arcane Staff / Orb / Grimoire",
+      "status": "identity_reference_ready_chibi_pack_missing"
+    },
+    {
+      "class": "Priest",
+      "slug": "priest",
+      "identity_reference": "assets/art/class_priest_sheet.jpg",
+      "palette": "Ivory / Gold / Red",
+      "signature_weapon": "Holy Mace / Sacred Tome",
+      "status": "identity_reference_ready_chibi_pack_missing"
+    }
+  ],
+  "production_order": ["Knight", "Berserker", "Ranger", "Mage", "Priest"],
+  "approval_gate": "Approve the four-direction full-character identity first; only then split modular equipment and author walk/basic-attack animation sheets."
+}

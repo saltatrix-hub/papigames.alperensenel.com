@@ -437,11 +437,145 @@ const B = {
     w.fx.ring(c.x, c.y, 8 * M, '#fff4b0', 0.8); w.fx.burst(c.x, c.y - 30, '#fff4b0', 30); audio.play('heal');
   } },
   'Apotheosis': { g: 'ultimate', self: true, run(w, c) { buff(c, 'apotheosis', 'Apotheosis', 15, { mods: { heal: 0.3, dmg: 0.15 } }, '#fff4b0'); w.fx.ring(c.x, c.y, 90, '#fff4b0', 0.8); audio.play('holy'); } },
+
+  'Şafak Mızrağı': { g: 'leap', range: 8, aoe: true, run(w, c, s, aim, k) {
+    const p = clampAim(c, aim, 8 * M);
+    w.fx.beam(c.x, c.y - 30, p.x, p.y - 10, '#ffe08a', 0.25, 8);
+    w.leap(c, p.x, p.y, 0.38, () => {
+      hitList(w, c, w.inCircle(w.enemiesOf(c), c.x, c.y, 2.6 * M), k, { threat: 160 }, (t) => applyStatus(w, t, STATUS.stun(1.1), c));
+      w.fx.ring(c.x, c.y, 2.6 * M, '#fff4c0', 0.45); w.fx.burst(c.x, c.y, '#ffe08a', 22); w.shake(6); audio.play('slam');
+    });
+  } },
+  'Yemin Halkası': { g: 'aoe', support: true, run(w, c, s, aim, k) {
+    w.zone({ owner: c, x: c.x, y: c.y, r: 4.2 * M, dur: 6, every: 0.8, kind: 'oath', color: '#ffe08a',
+      onEnemy: (e) => dealDamage(w, c, e, { coef: k * 0.35, skill: true, threat: 40 }),
+      ally: (a) => healActor(w, c, a, c.atk * 0.35, { silent: true }),
+    });
+    w.fx.ring(c.x, c.y, 4.2 * M, '#ffe08a', 0.7); audio.play('holy');
+  } },
+  'Kızıl Tırpan': { g: 'aoe', range: 3.4, aoe: true, run(w, c, s, aim, k) {
+    const a = aimAngle(c, aim);
+    for (let i = 0; i < 3; i++) w.delayed(i * 0.16, () => {
+      if (c.dead) return;
+      hitList(w, c, w.inCone(w.enemiesOf(c), c.x, c.y, a, 200, (2.2 + i * 0.5) * M), k / 3, {}, (t) => applyStatus(w, t, STATUS.bleed(Math.round(c.atk * 0.08), 4), c));
+      w.fx.slash(c.x, c.y - 16, a, (2.2 + i * 0.5) * M, 200, i === 2 ? '#ff2a1a' : '#ff5a3a');
+      audio.play('swing');
+    });
+  } },
+  'Kemik Çatlağı': { g: 'cone', range: 3, run(w, c, s, aim, k) {
+    const a = aimAngle(c, aim);
+    hitList(w, c, w.inCone(w.enemiesOf(c), c.x, c.y, a, 80, 3 * M), k, {}, (t) => {
+      t.addBuff({ id: 'armorbreak', name: 'Kemik Çatlağı', dur: 6, debuff: true, mods: { def: -0.2 }, color: '#ffb070' });
+      w.knockback(t, c.x, c.y, 1.1 * M);
+    });
+    w.fx.slash(c.x, c.y - 16, a, 3 * M, 80, '#ffb070'); w.shake(5); audio.play('heavy');
+  } },
+  'Gölge Çiçeği': { g: 'stealth', range: 6, aoe: true, run(w, c, s, aim, k) {
+    const p = clampAim(c, aim, 6 * M);
+    w.fx.burst(c.x, c.y - 16, '#7050a0', 16);
+    if (!w.map.blockedCircle(p.x, p.y, c.radius)) { c.x = p.x; c.y = p.y; }
+    w.zone({ owner: c, x: p.x, y: p.y, r: 2.8 * M, dur: 5, every: 0.7, kind: 'poison', color: '#7d4ad4',
+      onEnemy: (e) => { dealDamage(w, c, e, { coef: k * 0.28, skill: true }); applyStatus(w, e, STATUS.poison(Math.round(c.atk * 0.05), 3), c); },
+    });
+    w.fx.ring(p.x, p.y, 2.8 * M, '#b070ff', 0.5); audio.play('stealth');
+  } },
+  'Ay Dilimi': { g: 'cone', range: 7, run(w, c, s, aim, k) {
+    const a = aimAngle(c, aim);
+    for (let i = -2; i <= 2; i++) {
+      w.projectile({ owner: c, x: c.x, y: c.y - 16, ang: a + i * 0.16, speed: 15 * M, range: 7 * M, kind: 'knife', color: i === 0 ? '#f4f7fb' : '#c9b6ff', pierce: 2,
+        onHit: (t) => dealDamage(w, c, t, { coef: k * (i === 0 ? 0.7 : 0.4), skill: true }) });
+    }
+    audio.play('shoot');
+  } },
+  'Rüzgâr Yarığı': { g: 'bolt', range: 12, run(w, c, s, aim, k) {
+    const a = aimAngle(c, aim);
+    w.projectile({ owner: c, x: c.x, y: c.y - 16, ang: a, speed: 18 * M, range: 12 * M, kind: 'arrow', color: '#d8ffe4', pierce: 3, onHit: (t) => {
+      dealDamage(w, c, t, { coef: k, skill: true });
+      for (const side of [-0.4, 0.4]) w.projectile({ owner: c, x: t.x, y: t.y, ang: a + side, speed: 14 * M, range: 4 * M, kind: 'arrow', color: '#9affc0', pierce: 1, onHit: (u) => dealDamage(w, c, u, { coef: k * 0.45, skill: true }) });
+      w.fx.burst(t.x, t.y - 16, '#9affc0', 10);
+    } });
+    audio.play('shoot');
+  } },
+  'Giz Perdesi': { g: 'stealth', self: true, run(w, c) {
+    buff(c, 'veil', 'Giz Perdesi', 4, { stealth: true, mods: { ms: 0.28 } }, '#6aff8a');
+    for (const m of w.monsters) if (m.threat.has(c)) m.threat.delete(c);
+    w.fx.ring(c.x, c.y, 2.2 * M, '#1e3328', 0.45); w.fx.burst(c.x, c.y - 10, '#9affc0', 16); audio.play('stealth');
+  } },
+  'Yıldız Mührü': { g: 'aoe', range: 12, aoe: true, run(w, c, s, aim, k) {
+    const p = clampAim(c, aim, 12 * M);
+    w.fx.ring(p.x, p.y, 2.2 * M, '#7fc8ff', 0.7);
+    w.delayed(0.7, () => {
+      if (c.dead) return;
+      hitList(w, c, w.inCircle(w.enemiesOf(c), p.x, p.y, 2.4 * M), k, { magic: true });
+      w.fx.burst(p.x, p.y, '#fff1a8', 26); w.fx.ring(p.x, p.y, 2.4 * M, '#ffe08a', 0.35); audio.play('magic');
+    });
+  } },
+  'Buz Aynası': { g: 'aoe', range: 10, aoe: true, run(w, c, s, aim, k) {
+    const p = clampAim(c, aim, 10 * M);
+    w.zone({ owner: c, x: p.x, y: p.y, r: 3.2 * M, dur: 5, every: 0.6, kind: 'frost', color: '#bfe7ff',
+      onEnemy: (e) => { dealDamage(w, c, e, { coef: k * 0.22, magic: true, skill: true }); applyStatus(w, e, STATUS.slow(0.4, 1.2), c); },
+    });
+    w.fx.ring(p.x, p.y, 3.2 * M, '#d7f3ff', 0.6); audio.play('magic');
+  } },
+  'Altın Hale': { g: 'heal', support: true, heal: true, run(w, c) {
+    w.zone({ owner: c, x: c.x, y: c.y, r: 4.5 * M, dur: 6, every: 0.8, kind: 'halo', color: '#fff0a0',
+      ally: (a) => healActor(w, c, a, c.atk * 0.42, { silent: true }),
+    });
+    w.fx.ring(c.x, c.y, 4.5 * M, '#fff0a0', 0.7); audio.play('heal');
+  } },
+  'Günah Alevi': { g: 'bolt', range: 11, run(w, c, s, aim, k) {
+    const t = resolveTarget(w, c, aim, 11 * M); if (!t) return false;
+    const dealt = dealDamage(w, c, t, { coef: k, magic: true, skill: true });
+    if (dealt > 0) healActor(w, c, c, dealt * 0.45);
+    w.fx.beam(c.x, c.y - 24, t.x, t.y - 20, '#fff4b0', 0.35, 8);
+    w.fx.burst(t.x, t.y - 16, '#ffe08a', 14); audio.play('holy');
+  } },
 };
 
 export function behaviourOf(skill) { return B[skill.name]; }
 export function glyphOf(skill) { return (B[skill.name] || {}).g || 'strike'; }
 export function skillRangePx(skill) { const b = B[skill.name]; return ((b && b.range) || 2) * M; }
+
+function sigRanks(coef, cd, cost) {
+  return [0, 1, 2, 3, 4].map((i) => ({ coef: +(coef + i * 0.08).toFixed(2), cd: +Math.max(3, cd - i * 0.25).toFixed(2), cost: cost + i }));
+}
+function sig(id, name, desc, hitbox, coef, cd, cost) {
+  return { id, name, unlock: 1, type: 'Active', desc, hitbox, cc: '', threat: '80 threat', ranks: sigRanks(coef, cd, cost) };
+}
+const SIGNATURES = {
+  Knight: [
+    sig('SKL_KNI_SIG1', 'Şafak Mızrağı', 'Işık mızrağıyla atılır, inişte sersemletir.', '2.6m circle', 1.45, 10, 22),
+    sig('SKL_KNI_SIG2', 'Yemin Halkası', 'Ayakta duran bir yemin: düşmana zarar, yoldaşa can.', '4.2m circle', 0.9, 16, 28),
+  ],
+  Berserker: [
+    sig('SKL_BER_SIG1', 'Kızıl Tırpan', 'Üç geniş tırpan, kanatma bırakır.', '200° cone', 1.7, 9, 24),
+    sig('SKL_BER_SIG2', 'Kemik Çatlağı', 'Darbe zırhı kırar ve geri iter.', '80° cone 3m', 1.35, 11, 20),
+  ],
+  Assassin: [
+    sig('SKL_ASN_SIG1', 'Gölge Çiçeği', 'Gölgede sıçrar, zehirli bir çiçek açar.', '2.8m circle', 1.15, 12, 22),
+    sig('SKL_ASN_SIG2', 'Ay Dilimi', 'Beş ay bıçağı yelpaze gibi uçar.', 'fan 7m', 1.2, 8, 18),
+  ],
+  Ranger: [
+    sig('SKL_RNG_SIG1', 'Rüzgâr Yarığı', 'Delen ok hedeften ikiye ayrılır.', '12m projectile', 1.25, 8, 18),
+    sig('SKL_RNG_SIG2', 'Giz Perdesi', 'Kısa gizlilik ve hız. Kapüşonun gölgesi.', 'self', 0, 14, 16),
+  ],
+  Mage: [
+    sig('SKL_MAG_SIG1', 'Yıldız Mührü', 'Yere mühür çizer, kısa süre sonra patlar.', '2.4m circle', 1.7, 9, 24),
+    sig('SKL_MAG_SIG2', 'Buz Aynası', 'Yavaşlatan bir buz halkası.', '3.2m circle', 0.85, 12, 22),
+  ],
+  Priest: [
+    sig('SKL_PRI_SIG1', 'Altın Hale', 'Etrafında akan altın bir şifa halkası.', '4.5m circle', 0, 14, 26),
+    sig('SKL_PRI_SIG2', 'Günah Alevi', 'Kutsal alev vurur, bir kısmı sana can olur.', '11m beam', 1.4, 8, 20),
+  ],
+};
+export function installSignatures(gdd) {
+  for (const cls of Object.keys(SIGNATURES)) {
+    const list = gdd.classes[cls].skills;
+    for (const s of [...SIGNATURES[cls]].reverse()) {
+      if (!list.some((x) => x.id === s.id)) list.unshift(s);
+    }
+  }
+}
 
 /** Basic attack per class (GDD weapons). */
 export function basicAttack(w, c, aim) {

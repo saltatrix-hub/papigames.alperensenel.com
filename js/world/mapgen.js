@@ -102,10 +102,13 @@ function scatterProps(map, R, count, avoid) {
 }
 
 function spawnsIn(map, R, zone, mobIdx, n, tier = 'Normal') {
+  const hub = map.pois && map.pois.hub;
+  const keep = hub && hub.r >= 10 * T ? hub.r + 12 * T : 0;
   for (let i = 0; i < n; i++) {
-    for (let k = 0; k < 20; k++) {
+    for (let k = 0; k < 40; k++) {
       const a = R() * Math.PI * 2, r = Math.sqrt(R()) * zone.r;
       const x = zone.x + Math.cos(a) * r, y = zone.y + Math.sin(a) * r;
+      if (keep && Math.hypot(x - hub.x, y - hub.y) < keep) continue;
       if (!map.blockedCircle(x, y, 16)) {
         map.spawns.push({ x, y, mob: Array.isArray(mobIdx) ? mobIdx[i % mobIdx.length] : mobIdx, tier, zone: zone.id });
         break;
@@ -157,7 +160,7 @@ export function generateRegion(region, meta) {
   };
 
   // ---- farm slots (GDD: solo, fast-respawn AoE, elite duo, resource hybrid)
-  const farmT = village ? [0.52, 0.62, 0.72, 0.84] : [0.18, 0.36, 0.55, 0.74];
+  const farmT = village ? [0.70, 0.78, 0.86, 0.93] : [0.18, 0.36, 0.55, 0.74];
   P.farms = farmT.map((t, i) => {
     const o = off(t, i % 2 ? 1 : -1, 11 * T);
     branch([o.base.x, o.base.y], [o.x, o.y]);
@@ -177,11 +180,13 @@ export function generateRegion(region, meta) {
 
   // ---- quest points
   const q = (t, side, d, id, r = 3 * T) => { const o = off(t, side, d); return { id, x: o.x, y: o.y, r }; };
-  P.investigate = q(village ? 0.62 : 0.3, 1, 7 * T, 'investigate');
-  P.defend = q(village ? 0.5 : 0.46, -1, 5 * T, 'defend', 4 * T);
+  P.investigate = q(village ? 0.74 : 0.3, 1, 7 * T, 'investigate');
+  P.defend = q(village ? 0.72 : 0.46, -1, 8 * T, 'defend', 4 * T);
   P.escortStart = { x: hub.x + 3 * T, y: hub.y + 2 * T };
-  P.escortEnd = q(0.66, 1, 3 * T, 'escortEnd');
-  P.activates = [q(0.5, 1, 8 * T, 'act0'), q(0.62, -1, 8 * T, 'act1'), q(0.84, 1, 7 * T, 'act2')];
+  P.escortEnd = q(village ? 0.76 : 0.66, 1, 3 * T, 'escortEnd');
+  P.activates = village
+    ? [q(0.72, 1, 9 * T, 'act0'), q(0.80, -1, 9 * T, 'act1'), q(0.90, 1, 8 * T, 'act2')]
+    : [q(0.5, 1, 8 * T, 'act0'), q(0.62, -1, 8 * T, 'act1'), q(0.84, 1, 7 * T, 'act2')];
   P.event = q(0.8, -1, 6 * T, 'event', 4 * T);
   P.explore = [
     { id: 'ex0', x: 16 * T, y: 14 * T, r: 3 * T }, { id: 'ex1', x: (W * 0.35) * T, y: (H - 12) * T, r: 3 * T }, { id: 'ex2', x: (W - 12) * T, y: (H - 16) * T, r: 3 * T },

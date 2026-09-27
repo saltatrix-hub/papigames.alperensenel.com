@@ -1,12 +1,12 @@
 // World simulation: current map, entities, projectiles, zones, telegraphs, events, travel.
 import { GDD } from '../data/gdd.js';
-import { REGION_META, REGION_ORDER, STORY_NPCS, NPC_NAMES, ROLE_TR, ROLE_SERVICE, EXTRA_DUNGEONS, GARRICK, RAID_WINGS, MINIBOSS_EPITHETS, THEMES } from '../data/content.js';
-import { generateRegion, generateDungeon, generateArena } from '../world/mapgen.js';
+import { REGION_META, REGION_ORDER, STORY_NPCS, NPC_NAMES, ROLE_TR, ROLE_SERVICE, EXTRA_DUNGEONS, GARRICK, RAID_WINGS, MINIBOSS_EPITHETS, THEMES } from '../data/content.js?v=town1';
+import { generateRegion, generateDungeon, generateArena } from '../world/mapgen.js?v=town1';
 import { TILE } from '../world/map.js';
 import { Monster, NPC, WorldObject, Hero, dirFromAngle } from './entities.js';
 import { METER, killXp, autoStats, refGear, TIER } from './stats.js';
 import { tickBuffs, dealDamage } from './combat.js';
-import { behaviourOf, basicAttack, ELEMENT } from './skills.js';
+import { behaviourOf, basicAttack, ELEMENT } from './skills.js?v=town21';
 import { monsterAI, heroAI, mechanicOf, MECH_TR } from './ai.js';
 import { regionById, regionMonsters } from './quests.js';
 import { rollLoot } from './items.js';
@@ -277,7 +277,7 @@ export class World {
     for (const gp of P.gathers) obj({ type: 'gather', gkind: gp.kind, x: gp.x, y: gp.y, ready: true, label: gp.kind === 'herb' ? 'Şifalı Ot' : gp.kind === 'ore' ? 'Maden Damarı' : 'Nadir Kristal', r: 22 });
     for (const e of P.explore) obj({ type: 'explore', x: e.x, y: e.y, id: e.id, r: e.r, hidden: true });
     // ambient "players"
-    this.spawnGhosts(rid === 'MAP_DAW' ? 7 : 3);
+    this.spawnGhosts(3);
   }
   minibossName(rid) {
     const mons = regionMonsters(rid);
@@ -299,42 +299,80 @@ export class World {
     const gddNpcs = GDD.npcs.filter((n) => n.region === r.name && !n.tier.includes('Unique'));
     const names = NPC_NAMES[rid];
     const story = STORY_NPCS[rid];
-    const mk = (o) => { const n = new NPC(o); n.map = map; this.npcs.push(n); return n; };
+    const used = new Set();
+    const mk = (o) => {
+      if (!o || !o.name || used.has(o.npcId) || used.has('n:' + o.name)) return null;
+      used.add(o.npcId);
+      used.add('n:' + o.name);
+      const n = new NPC(o);
+      n.map = map;
+      this.npcs.push(n);
+      return n;
+    };
+    const pool = names.slice();
+    let pi = 0;
+    const takeName = () => {
+      while (pi < pool.length && used.has('n:' + pool[pi])) pi++;
+      return pi < pool.length ? pool[pi++] : null;
+    };
+    const byService = {};
+    gddNpcs.forEach((n) => {
+      const service = ROLE_SERVICE[n.role];
+      if (service && !byService[service]) byService[service] = n;
+    });
     const P = map.pois;
     if (rid === 'MAP_DAW') {
       const hub = P.hub;
-      // story NPCs around fountain
-      const spots = [[-1.8, -1.6], [2.6, 1.2], [0, 0], [3.5, -2.2]];
-      story.forEach((s, i) => {
+      const spots = [[-1.8, -1.6], [2.6, 1.2], [0.4, 2.4], [3.5, -2.2]];
+      let si = 0;
+      story.forEach((s) => {
         if (s.role === 'Blacksmith' || s.role === 'Healer') return;
-        const [dx, dy] = spots[i];
+        const [dx, dy] = spots[si++] || spots[0];
         mk({ name: s.name, title: ROLE_TR[s.role] || s.role, storyId: s.id, npcId: s.id, look: s.look, x: hub.x + dx * T, y: hub.y + dy * T + 60, service: ROLE_SERVICE[s.role] || 'lore' });
       });
-      // service NPCs at doors
-      const byService = {};
-      gddNpcs.forEach((n, i) => { byService[ROLE_SERVICE[n.role]] ||= { n, name: names[i % names.length] }; });
       for (const b of map.villageBuildings) {
         let name, role, storyId = null, look = null, npcId;
         if (b.service === 'smith') { const s = story.find((x) => x.role === 'Blacksmith'); name = s.name; role = 'Blacksmith'; storyId = s.id; look = s.look; npcId = s.id; }
         else if (b.service === 'healer') { const s = story.find((x) => x.role === 'Healer'); name = s.name; role = 'Healer'; storyId = s.id; look = s.look; npcId = s.id; }
         else {
           const e = byService[b.service];
-          role = e ? e.n.role : Object.keys(ROLE_SERVICE).find((k) => ROLE_SERVICE[k] === b.service);
-          name = e ? e.name : names[(hashStr(b.service) >>> 0) % names.length];
-          npcId = e ? e.n.id : 'NPC_DW_' + b.service.toUpperCase();
+          role = e ? e.role : Object.keys(ROLE_SERVICE).find((k) => ROLE_SERVICE[k] === b.service);
+          name = takeName();
+          if (!name) continue;
+          npcId = e ? e.id : 'NPC_DW_' + b.service.toUpperCase();
         }
         mk({ name, title: ROLE_TR[role] || role, storyId, npcId, look: look || npcLook(role, name), x: b.door.x + 40, y: b.door.y + 26, service: ROLE_SERVICE[role] || b.service });
       }
-      const gm = byService.shop;
-      if (gm) mk({ name: gm.name, title: ROLE_TR['General Merchant'], npcId: gm.n.id, look: npcLook('General Merchant', gm.name), x: hub.x - 3.6 * T, y: hub.y - 0.4 * T, service: 'shop', stall: true });
+      if (!this.npcs.some((n) => n.service === 'shop')) {
+        const name = takeName();
+        const shop = byService.shop;
+        if (name) mk({ name, title: ROLE_TR['General Merchant'], npcId: shop ? shop.id : 'NPC_DW_SHOP', look: npcLook('General Merchant', name), x: hub.x - 3.6 * T, y: hub.y - 0.4 * T, service: 'shop', stall: true });
+      }
     } else {
       const spots = map.npcSpots;
       let k = 0;
-      story.forEach((s) => { const p = spots[k++ % spots.length]; mk({ name: s.name, title: ROLE_TR[s.role] || s.role.replace('Story/', ''), storyId: s.id, npcId: s.id, look: s.look, x: p.x, y: p.y, service: ROLE_SERVICE[s.role] || 'lore' }); });
-      gddNpcs.forEach((n, i) => { const p = spots[k++ % spots.length]; mk({ name: names[i % names.length], title: ROLE_TR[n.role] || n.role, npcId: n.id, look: npcLook(n.role, names[i]), x: p.x, y: p.y, service: ROLE_SERVICE[n.role] }); });
-      // every camp offers the basics (GDD: safe hub services)
-      if (!this.npcs.some((n) => n.service === 'shop')) { const p = spots[k++ % spots.length]; mk({ name: names[5], title: ROLE_TR['General Merchant'], npcId: 'NPC_X_SHOP_' + rid, look: npcLook('General Merchant', names[5]), x: p.x, y: p.y, service: 'shop' }); }
-      if (!this.npcs.some((n) => n.service === 'smith')) { const p = spots[k++ % spots.length]; mk({ name: names[4], title: ROLE_TR.Blacksmith, npcId: 'NPC_X_SMITH_' + rid, look: npcLook('Blacksmith', names[4]), x: p.x, y: p.y, service: 'smith' }); }
+      story.forEach((s) => {
+        const p = spots[k++ % spots.length];
+        mk({ name: s.name, title: ROLE_TR[s.role] || s.role.replace('Story/', ''), storyId: s.id, npcId: s.id, look: s.look, x: p.x, y: p.y, service: ROLE_SERVICE[s.role] || 'lore' });
+      });
+      const seenService = new Set(this.npcs.map((n) => n.service));
+      for (const n of gddNpcs) {
+        const service = ROLE_SERVICE[n.role];
+        if (!service || seenService.has(service)) continue;
+        const name = takeName();
+        if (!name) break;
+        seenService.add(service);
+        const p = spots[k++ % spots.length];
+        mk({ name, title: ROLE_TR[n.role] || n.role, npcId: n.id, look: npcLook(n.role, name), x: p.x, y: p.y, service });
+      }
+      if (!seenService.has('shop')) {
+        const name = takeName();
+        if (name) { const p = spots[k++ % spots.length]; mk({ name, title: ROLE_TR['General Merchant'], npcId: 'NPC_X_SHOP_' + rid, look: npcLook('General Merchant', name), x: p.x, y: p.y, service: 'shop' }); }
+      }
+      if (!seenService.has('smith')) {
+        const name = takeName();
+        if (name) { const p = spots[k++ % spots.length]; mk({ name, title: ROLE_TR.Blacksmith, npcId: 'NPC_X_SMITH_' + rid, look: npcLook('Blacksmith', name), x: p.x, y: p.y, service: 'smith' }); }
+      }
     }
   }
 
@@ -346,7 +384,8 @@ export class World {
       const cls = classes[R.int(0, 5)];
       const h = new Hero({ cls, name: GHOST_NAMES[R.int(0, GHOST_NAMES.length - 1)], level: clamp(this.game.player.level + R.int(-4, 12), 1, 100), stats: autoStats(cls, 1) });
       h.recalc(); h.team = 'neutral'; h.ghost = true; h.guild = R.chance(0.5) ? GUILDS[R.int(0, GUILDS.length - 1)] : null;
-      const [x, y] = this.map.findOpen(hub.x + R.range(-5, 5) * T, hub.y + R.range(-4, 4) * T);
+      const far = this.regionId === 'MAP_DAW' ? 30 * T : 0;
+      const [x, y] = this.map.findOpen(hub.x + far + R.range(-3, 3) * T, hub.y + R.range(-3, 3) * T);
       h.x = x; h.y = y; h.map = this.map; h.home = { x, y }; h.wanderT = R.range(0, 4);
       if (R.chance(0.25)) h.mount = { kind: ['horse', 'stag', 'drake'][R.int(0, 2)], speed: 0.6 };
       this.ghosts.push(h);
@@ -488,6 +527,138 @@ export class World {
     if (o.activate) { const r = this.objects.find((x) => x.type === 'rune'); return r || P.activates[0]; }
     if (o.boss) return P.boss;
     if (o.raid) return P.dungeon;
+    return null;
+  }
+
+  portalToward(regionId) {
+    const i = REGION_ORDER.indexOf(this.regionId);
+    const j = REGION_ORDER.indexOf(regionId);
+    if (i < 0 || j < 0 || i === j) return null;
+    const dest = REGION_ORDER[j > i ? i + 1 : i - 1];
+    const portal = this.objects.find((o) => o.type === 'portal' && o.dest === dest);
+    const name = REGION_META[regionId]?.tr || 'bölge';
+    return portal && { x: portal.x, y: portal.y, entity: portal, label: `${name} kapısı` };
+  }
+
+  huntMob(gddId, name, spawnIdx) {
+    const p = this.game.player;
+    const living = this.monsters.filter((m) => !m.dead && m.gddId === gddId);
+    living.sort((a, b) => dist(p.x, p.y, a.x, a.y) - dist(p.x, p.y, b.x, b.y));
+    if (living[0]) return { x: living[0].x, y: living[0].y, entity: living[0], attack: true, label: living[0].name };
+    const mons = regionMonsters(this.regionId);
+    const s = spawnIdx != null
+      ? this.map.spawns.find((sp) => sp.mob === spawnIdx)
+      : this.map.spawns.find((sp) => mons[sp.mob]?.id === gddId);
+    return s && { x: s.x, y: s.y, label: name };
+  }
+
+  questFocus(which) {
+    if (this.kind !== 'region') return null;
+    if (!which || which === 'main') return this.mainFocus();
+    return this.sideFocus(which);
+  }
+
+  mainFocus() {
+    const q = this.game.quests;
+    const st = q.step;
+    if (!st) return null;
+    if (q.regionId !== this.regionId) return this.portalToward(q.regionId);
+    const o = st.obj;
+    if (o.talk !== undefined) {
+      const n = this.npcs.find((x) => x.storyId === q.giverOf(st).id);
+      return n && { x: n.x, y: n.y, entity: n, label: n.name };
+    }
+    if (o.kill !== undefined || o.collect !== undefined) {
+      const idx = o.kill ?? o.collect;
+      const spec = regionMonsters(this.regionId)[idx];
+      return spec && this.huntMob(spec.id, spec.name, idx);
+    }
+    if (o.escort !== undefined) {
+      if (this.escort?.npc) return { x: this.escort.npc.x, y: this.escort.npc.y, entity: this.escort.npc, label: this.escort.npc.name };
+      const n = this.npcs.find((x) => x.storyId === STORY_NPCS[this.regionId][o.escort].id);
+      return n && { x: n.x, y: n.y, entity: n, label: n.name };
+    }
+    if (o.investigate) {
+      const clue = this.objects.find((x) => x.type === 'clue');
+      if (clue) return { x: clue.x, y: clue.y, entity: clue, label: 'İpucu' };
+      const p = this.map.pois.investigate;
+      return p && { x: p.x, y: p.y, label: 'İpucu' };
+    }
+    if (o.defend) {
+      const start = this.objects.find((x) => x.type === 'defendStart');
+      if (start) return { x: start.x, y: start.y, entity: start, label: 'Savunma' };
+      const p = this.map.pois.defend;
+      return p && { x: p.x, y: p.y, label: 'Savunma' };
+    }
+    if (o.activate) {
+      const rune = this.objects.find((x) => x.type === 'rune');
+      if (rune) return { x: rune.x, y: rune.y, entity: rune, label: 'Mühür' };
+      const p = this.map.pois.activates?.[0];
+      return p && { x: p.x, y: p.y, label: 'Mühür' };
+    }
+    if (o.boss) {
+      const boss = this.monsters.find((m) => !m.dead && m.questBoss);
+      if (boss) return { x: boss.x, y: boss.y, entity: boss, attack: true, label: boss.name };
+      const p = this.map.pois.boss;
+      return p && { x: p.x, y: p.y, label: 'Boss' };
+    }
+    if (o.raid) {
+      const gate = this.objects.find((x) => x.type === 'dungeon');
+      if (gate) return { x: gate.x, y: gate.y, entity: gate, label: gate.label || 'Zindan' };
+      const p = this.map.pois.dungeon;
+      return p && { x: p.x, y: p.y, label: 'Zindan' };
+    }
+    const t = this.questTarget();
+    return t && { x: t.x, y: t.y, label: t.label || 'Hedef' };
+  }
+
+  sideFocus(id) {
+    const q = this.game.quests;
+    const sq = q.side[id];
+    if (!sq || sq.state !== 'active') return null;
+    const def = q.sideDef(id);
+    if (q.sideGoal(id).done) {
+      const giver = this.npcs.find((n) => n.npcId === sq.giver);
+      if (sq.region !== this.regionId) return this.portalToward(sq.region);
+      return giver && { x: giver.x, y: giver.y, entity: giver, label: giver.name };
+    }
+    if (sq.region !== this.regionId) return this.portalToward(sq.region);
+    if (def.type === 'Kill') return this.huntMob(def.mobId, def.goal);
+    if (def.type === 'Bounty') {
+      const p = this.game.player;
+      const elites = this.monsters.filter((m) => !m.dead && m.tier === 'Elite' && !m.boss);
+      elites.sort((a, b) => dist(p.x, p.y, a.x, a.y) - dist(p.x, p.y, b.x, b.y));
+      if (elites[0]) return { x: elites[0].x, y: elites[0].y, entity: elites[0], attack: true, label: elites[0].name };
+      const spot = this.map.pois.elites?.[0];
+      return spot && { x: spot.x, y: spot.y, label: 'Elit' };
+    }
+    if (def.type === 'MiniBoss') {
+      const mb = this.monsters.find((m) => !m.dead && m.miniboss);
+      if (mb) return { x: mb.x, y: mb.y, entity: mb, attack: true, label: mb.name };
+      const spot = this.map.pois.miniboss;
+      return spot && { x: spot.x, y: spot.y, label: def.goal };
+    }
+    if (def.type === 'Delivery') {
+      const n = this.npcs.find((x) => x.storyId === def.target);
+      return n && { x: n.x, y: n.y, entity: n, label: n.name };
+    }
+    if (def.type === 'Collect') {
+      const node = this.objects.find((o) => o.type === 'gather' && o.ready !== false);
+      return node && { x: node.x, y: node.y, entity: node, label: node.label || 'Kaynak' };
+    }
+    if (def.type === 'Craft') {
+      const bench = this.objects.find((o) => o.type === 'craft');
+      return bench && { x: bench.x, y: bench.y, entity: bench, label: bench.label || 'Tezgâh' };
+    }
+    if (def.type === 'Explore') {
+      const seen = sq.seen || [];
+      const spot = (this.map.pois.explore || []).find((e) => !seen.includes(e.id));
+      return spot && { x: spot.x, y: spot.y, label: 'Keşif' };
+    }
+    if (def.type === 'Event') {
+      const spot = this.map.pois.event;
+      return spot && { x: spot.x, y: spot.y, label: 'Nöbet' };
+    }
     return null;
   }
 

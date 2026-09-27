@@ -1,8 +1,8 @@
 import { Input } from './core/input.js';
 import { audio } from './core/audio.js';
-import { Game, loadSettings } from './game/game.js?v=cam3';
-import { Renderer } from './render/renderer.js?v=cam3';
-import { UI } from './ui/ui.js';
+import { Game, loadSettings } from './game/game.js?v=town21';
+import { Renderer } from './render/renderer.js?v=town22';
+import { UI } from './ui/ui.js?v=town22';
 
 const canvas = document.getElementById('world');
 const input = new Input(canvas);
