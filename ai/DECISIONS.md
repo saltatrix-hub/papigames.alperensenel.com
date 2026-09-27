@@ -157,3 +157,17 @@ This keeps unattended iteration recoverable and prevents summaries or attractive
 misaligned sprite output from being treated as proof of correctness.
 
 Status: Active
+
+---
+
+## ADR-010 — Isometric 3D world view
+
+Date: 2026-09-26
+
+Decision:
+The playable world is drawn with vendored Three.js (r170) on the existing world canvas. The camera is a fixed isometric view. Characters are CC0 KayKit adventurer glTF models with idle, walk, and attack clips. Gameplay coordinates, combat, and the DOM HUD stay as they are. Pointer picking is a ray onto the ground plane.
+
+Reason:
+The user asked for a Lost Ark-style 3D presentation. Layered 2D paperdoll sheets could not produce that. Smilegate's Lost Ark assets are not usable. KayKit is CC0, rigged, and already animated.
+
+Status: Active

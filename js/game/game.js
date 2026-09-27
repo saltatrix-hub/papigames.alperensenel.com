@@ -3,14 +3,16 @@ import { GDD } from '../data/gdd.js';
 import { REGION_ORDER, REGION_META, REGION_DUNGEONS, STORY_NPCS, CLASS_TR } from '../data/content.js';
 import { Hero } from './entities.js';
 import { METER, autoStats, xpToNext, statPointsAt, skillPointsAt, CLASS_KIT, refGear, STATS } from './stats.js';
-import { glyphOf, passiveMods, skillRangePx, behaviourOf } from './skills.js';
-import { World, regionBoss, dungeonDef, RES_TR } from './world.js';
+import { glyphOf, passiveMods, skillRangePx, behaviourOf, installSignatures } from './skills.js?v=town21';
+import { World, regionBoss, dungeonDef, RES_TR } from './world.js?v=town21';
 import { QuestLog, regionById } from './quests.js';
 import { Inventory, makeStack, makeGear, baseFor, sumEquipment, starterGear, GEAR_SLOTS, RECIPES, recipeNeeds, tryEnhance, enhanceCost, auctionListings, sellPrice, buyPrice, merchantStock, oreFor } from './items.js';
 import { dist, angleTo, clamp, uid } from '../core/util.js';
 import { audio } from '../core/audio.js';
 import { healActor } from './combat.js';
 import { prebakeKit } from '../render/lpc.js';
+
+installSignatures(GDD);
 
 const M = METER;
 export const SAVE_PREFIX = 'astraya_save_v1_';
@@ -75,6 +77,15 @@ export class Game {
     this.save();
   }
 
+  pinSignatures(p) {
+    const ids = p.def.skills.filter((s) => String(s.id).includes('_SIG')).map((s) => s.id);
+    for (const id of [...ids].reverse()) {
+      if (!p.skillRanks[id]) p.skillRanks[id] = p.level >= 40 ? 5 : 1;
+      if (!p.hotbar.includes(id)) p.hotbar.unshift(id);
+    }
+    p.hotbar = p.hotbar.filter(Boolean).slice(0, 8);
+  }
+
   makeAdmin() {
     const p = this.player;
     this.admin = true;
@@ -129,6 +140,7 @@ export class Game {
     this.running = true;
     this.ui.startHUD();
     if (this.admin) { this.gold = 999999999; this.crystals = 999999999; if (p.level < 100) this.makeAdmin(); }
+    this.pinSignatures(p);
     this.ui.chatSystem(`Tekrar hoş geldin, ${p.name}.`);
     this.warmSheets();
     return true;
@@ -420,6 +432,12 @@ export class Game {
     else if (p.mods.stun) p.moving = false;
     else {
       if ((mx || my) && !p.mods.root) {
+        const yaw = this.renderer.view?.yaw || 0;
+        const fX = -Math.sin(yaw), fY = -Math.cos(yaw);
+        const rX = Math.cos(yaw), rY = -Math.sin(yaw);
+        const wx = rX * mx - fX * my;
+        const wy = rY * mx - fY * my;
+        mx = wx; my = wy;
         const l = Math.hypot(mx, my); mx /= l; my /= l;
         const sp = p.moveSpeed * (p.atkAnim >= 0 && p.kit.attack.kind !== 'melee' ? 0.8 : 1);
         const ox = p.x, oy = p.y;
@@ -431,6 +449,10 @@ export class Game {
         this.moveTo = null;
         if (p.channel) p.channel.moved = true;
       } else if (this.moveTo && !p.mods.root) {
+        if (this.autoAtk && p.target?.kind === 'monster' && !p.target.dead) {
+          this.moveTo.x = p.target.x;
+          this.moveTo.y = p.target.y;
+        }
         const d = dist(p.x, p.y, this.moveTo.x, this.moveTo.y);
         if (d < this.moveTo.r) { const fn = this.moveTo.then; this.moveTo = null; p.moving = false; if (fn) fn(); }
         else {
@@ -547,6 +569,24 @@ export class Game {
     const r = e.kind === 'npc' ? 2.2 * M : (e.r || 20) + 1.4 * M;
     if (dist(p.x, p.y, e.x, e.y) <= r) this.interact(e);
     else this.moveTo = { x: e.x, y: e.y + 10, r, then: () => this.interact(e) };
+  }
+
+  walkQuest(which) {
+    const p = this.player;
+    const focus = this.world?.questFocus?.(which || 'main');
+    if (!p || !focus) { this.ui.toast('Bu görev için hedef yok', '#ff9090'); return; }
+    const label = focus.label || 'Hedef';
+    if (focus.attack && focus.entity && !focus.entity.dead) {
+      p.target = focus.entity;
+      this.autoAtk = true;
+      const reach = p.kit.attack.kind === 'melee'
+        ? p.kit.attack.range * M + (focus.entity.radius || 16) + 10
+        : 7 * M;
+      this.moveTo = { x: focus.entity.x, y: focus.entity.y, r: Math.max(28, reach * 0.8) };
+      this.ui.targetChanged();
+    } else if (focus.entity) this.approach(focus.entity);
+    else this.moveTo = { x: focus.x, y: focus.y, r: 40 };
+    this.ui.toast(`${label} yönüne gidiliyor`, '#ffd76a');
   }
 
   interact(e) {

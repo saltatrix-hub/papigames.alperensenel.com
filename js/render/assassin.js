@@ -1,8 +1,15 @@
-/** Faced assassin (01_BASE/Full) plus a dual-dagger strike from Rusty_Dagger. */
+/** Faced assassin cut from the full bodies on the base sheet, plus Rusty_Dagger. */
 
 const DIR_FILE = ['front', 'left', 'right', 'back'];
-const BODY = 'assets/assassin/01_BASE/Full';
+const SHEET = 'assets/assassin/00_RAW_SHEETS/base.png';
 const DAGGER = 'assets/assassin/04_WEAPONS/Rusty_Dagger';
+// Uncropped bodies on the sheet: front, left, right, back. The split PNGs clip the front and left.
+const BODY_CUT = [
+  [176, 16, 235, 380],
+  [1038, 22, 235, 373],
+  [452, 23, 232, 373],
+  [749, 18, 238, 378],
+];
 
 const bodies = [null, null, null, null];
 const feet = [null, null, null, null];
@@ -12,20 +19,20 @@ const grips = [null, null, null, null];
 // rest, windup, hit. x right, y up (negative), angle clockwise from the art's natural point.
 const POSE = [
   [
-    [[0.20, -0.36, -0.5], [0.15, -0.60, -2.45], [0.05, -0.44, 1.05]],
-    [[-0.20, -0.36, 0.5], [-0.15, -0.60, 2.45], [-0.05, -0.44, -1.05]],
+    [[0.16, -0.30, -0.12], [0.14, -0.58, -2.45], [0.04, -0.42, 1.05]],
+    [[-0.18, -0.30, 0.12], [-0.16, -0.58, 2.45], [-0.06, -0.42, -1.05]],
   ],
   [
-    [[-0.14, -0.40, 0.3], [-0.02, -0.56, -1.4], [-0.18, -0.38, 0.15]],
-    [[0.05, -0.46, 0.15], [0.10, -0.52, -1.1], [0.00, -0.40, 0.4]],
+    [[-0.08, -0.34, 0.15], [-0.02, -0.56, -1.4], [-0.16, -0.36, 0.15]],
+    [[0.04, -0.36, 0.1], [0.08, -0.50, -1.1], [0.00, -0.38, 0.35]],
   ],
   [
-    [[0.14, -0.40, -0.3], [0.02, -0.56, 1.4], [0.18, -0.38, -0.15]],
-    [[-0.05, -0.46, -0.15], [-0.10, -0.52, 1.1], [0.00, -0.40, -0.4]],
+    [[0.08, -0.32, -0.15], [0.02, -0.56, 1.4], [0.16, -0.36, -0.15]],
+    [[-0.04, -0.36, -0.1], [-0.08, -0.50, 1.1], [0.00, -0.38, -0.35]],
   ],
   [
-    [[0.20, -0.38, -0.3], [0.22, -0.50, 0.35], [0.12, -0.58, -2.55]],
-    [[-0.20, -0.38, 0.3], [-0.22, -0.50, -0.35], [-0.12, -0.58, 2.55]],
+    [[0.16, -0.30, -0.12], [0.18, -0.50, 0.35], [0.10, -0.56, -2.55]],
+    [[-0.18, -0.30, 0.12], [-0.18, -0.50, -0.35], [-0.10, -0.56, 2.55]],
   ],
 ];
 
@@ -176,11 +183,20 @@ function loadSheet(url, onReady) {
 
 export function preloadAssassin() {
   if (typeof Image === 'undefined') return;
-  DIR_FILE.forEach((name, i) => {
-    loadSheet(`${BODY}/${name}.png`, (cut) => {
-      bodies[i] = cut.canvas;
-      feet[i] = { x: cut.footX, y: cut.footY, h: cut.h };
+  const sheet = new Image();
+  sheet.onload = () => {
+    BODY_CUT.forEach((rect, i) => {
+      const [x, y, w, h] = rect;
+      const c = document.createElement('canvas');
+      c.width = w;
+      c.height = h;
+      c.getContext('2d').drawImage(sheet, x, y, w, h, 0, 0, w, h);
+      bodies[i] = c;
+      feet[i] = { x: w / 2, y: h - 1, h };
     });
+  };
+  sheet.src = SHEET;
+  DIR_FILE.forEach((name, i) => {
     loadSheet(`${DAGGER}/${name}.png`, (cut) => {
       daggers[i] = cut.canvas;
       grips[i] = daggerGrip(cut.canvas);
@@ -276,7 +292,7 @@ export function drawAssassin(ctx, x, y, dir, anim, scale = 1, opts = {}) {
   const ly = dir === 0 ? punch * 8 * scale : dir === 3 ? -punch * 10 * scale : 0;
   const lead = handPose(i, 0, t);
   const rear = handPose(i, 1, t);
-  const blade = h * (0.30 + 0.08 * Math.max(lead.hit, rear.hit));
+  const blade = h * (attacking ? 0.26 + 0.08 * Math.max(lead.hit, rear.hit) : 0.22);
 
   ctx.save();
   ctx.translate(x + lx, y + ly - bob);

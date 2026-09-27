@@ -4,14 +4,15 @@ Last reviewed: 2026-09-26
 
 ## Product
 
-ASTRAYA is currently a browser-based, top-down 2D MMORPG-style game client / single-player MMO simulation based on the master GDD.
+ASTRAYA is a browser MMORPG client. The world is an isometric 3D scene; combat, quests, inventory, and saves are the existing simulation.
 
-The playable site is deployed as a static client.
+The playable site is deployed as a static client. Local module URL is `js/main.js?v=town22` (thin damage bars, signature skills, character creator, ranger hood, priest hat). That build is not published.
 
 ## Current technology
 
 - Vanilla JavaScript ES modules
-- Canvas 2D
+- Three.js r170 world view (vendored, no build step)
+- Canvas 2D for the minimap and item icons
 - Web Audio
 - Static HTML/CSS/JS
 - LocalStorage saves
@@ -50,7 +51,7 @@ The playable site is deployed as a static client.
 - Crystal/cosmetic shop concepts
 
 ### Rendering
-- Canvas renderer
+- Three.js world view with KayKit heroes, medieval buildings, named NPC loadouts, creature monsters, and skill effects
 - Procedural fallback hero rendering
 - LPC layered character rendering
 - LPC four-direction animation rows

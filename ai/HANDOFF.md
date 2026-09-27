@@ -1,5 +1,75 @@
 # Latest AI Developer Handoff
 
+Devam notu: her işten sonra `EN SON YAPILANLAR.txt` güncellenir (oyun kökü ve tasarım klasörü). Sonraki oturum önce o dosyayı okur.
+
+## 2026-09-27 — Published to main
+
+All local work through `town22` is merged into `main` and pushed, which deploys GitHub Pages. The nightly branch `ai/nightly-20260926-114830` is the second parent of the merge. `Astraya 3D/` and `EN SON YAPILANLAR.txt` stay local and untracked.
+
+## 2026-09-27 — Damage bar, signature skills, creator, hoods
+
+The overhead HP bar that appears while hurt is a short thin strip under the name. Each class has two signature skills pinned to the front of the hotbar: Şafak Mızrağı / Yemin Halkası, Kızıl Tırpan / Kemik Çatlağı, Gölge Çiçeği / Ay Dilimi, Rüzgâr Yarığı / Giz Perdesi, Yıldız Mührü / Buz Aynası, Altın Hale / Günah Alevi. The title screen picks hair, brows, skin, eye color, and height, and the bust preview follows. Ranger wears a green stealth hood. Priest wears a white cowl and a priest hat. Faces stay visible. Module URL is `js/main.js?v=town22`. Not published.
+
+## 2026-09-26 — Ground texture
+
+The world ground is no longer per-pixel noise. Grass uses broad patches and fine streaks, roads and plazas are cobbles with a dirt shoulder, and water has a shore plus a soft ripple. A roughness map keeps grass matte, stone a little harder, and water shiny. Module URL is `js/main.js?v=town20`. Not published.
+
+## 2026-09-26 — Names sit on the characters
+
+Nameplates anchor to the top of each model instead of a fixed height of 2.35. The name and job are drawn at the bottom of the label, so the gap between the head and the text is gone. Module URL is `js/main.js?v=town19`. Not published.
+
+## 2026-09-26 — Real minimap, quest right-click, sharp class cards
+
+The HUD minimap draws `map.minimap` (ground, water, roads, plazas, buildings) and keeps player, NPC, monster, and quest markers on top. Right-click on the tracker or the quest journal walks to the step target: talk NPCs are approached, kill steps chase the nearest living mob and auto-attack, other steps walk to the object or the portal toward that region. Title class cards are 480×360 3D busts of the live costumes, not the 128px JPEGs. Module URL is `js/main.js?v=town18`. Not published.
+
+## 2026-09-26 — Environment models
+
+Cone trees and dodecahedron rocks are replaced with KayKit medieval trees, rocks, log piles, flags, and barrels (CC0). Roads read as a worn stone center with a dark dirt edge. Chests use a chest model and waystones use a stone column. Module URL is `js/main.js?v=town16`. Not published.
+
+## 2026-09-26 — Faces restored, horror wash removed
+
+Class previews no longer bleach or black out the face. Knight, berserker, ranger, mage, and priest keep their painted skin and hair. The assassin uses the unhooded rogue: a visible face, a dark suit, a cape, and two knives. The character-select light hits the face. Module URL is `js/main.js?v=town15`. Not published.
+
+## 2026-09-26 — Premium class costumes
+
+The six class models keep their KayKit folds and get a real palette instead of a flat color wash. Knight is silver plate with a crimson cape. Berserker keeps the fur hat and great axe. Assassin is a black hooded suit with a darkened face, cape, and knives. Ranger is a gold dress with pale skin, a white cape, and a crossbow. Mage stays violet with the pointed hat and staff. Priest is a clean white robe and book, with no mage hat. Module URL is `js/main.js?v=town13`. Not published. There is no separate female mesh; the ranger uses the mage body in the princess colors.
+
+## 2026-09-26 — Class looks and tight NPC jobs
+
+NPC job text sits on the line directly under the name. Assassin is a black hooded male with a cape and a covered face. Ranger wears a pale gold dress, white skin, and a crossbow. Priest is a white robe with a book and no mage hat. Module URL is `js/main.js?v=town7`. Not published.
+
+## 2026-09-26 — NPC job under the name
+
+NPC nameplates draw the Turkish role under the name: Demirci, Depocu, Tüccar, Şifacı, and the rest. Monsters and the player keep a single line. Module URL is `js/main.js?v=town4`. Not published.
+
+## 2026-09-26 — Medieval buildings
+
+Village and camp buildings use KayKit medieval models (CC0) instead of box houses. Dawnwatch maps each service to its own building: barracks, blacksmith, cottage, market, tavern, castle, church, archery yard, and a second cottage. Camp hubs use the medieval tent. Doors face the plaza. Module URL is `js/main.js?v=town3`. Not published.
+
+## 2026-09-26 — Unique NPCs, mobs outside the village
+
+Each NPC uses its own KayKit loadout (body plus hat, cape, weapon, or shield). Dawnwatch spawns one named person per role: Mayor Elric, Smith Rowan, Priestess Mina, Scout Lysa, and one each of trainer, alchemist, auctioneer, storage, guild, stable, stylist, and merchant. Other regions spawn each story NPC once and one NPC per service. Hats, helmets, and capes stay hidden unless that loadout lists them.
+
+Village monster farms start further down the east road. Spawns inside 27 tiles of the Dawnwatch fountain are rejected, so boars and other mobs are not beside the houses. Ambient heroes stand on the road out of town, not in the plaza.
+
+Module URL is `js/main.js?v=town1`. Not published.
+
+## 2026-09-26 — Astraya 3D folder
+
+`Astraya 3D/` is a full copy of the client. Same combat, quests, classes, and story. The world view uses a side-isometric camera (42° above the horizon, 48° from the side) and CC0 KayKit models: green medieval buildings, trees, rocks, props, dungeon chests, and skeleton monsters. Character glTF files stay in `assets/models/`. Served locally from that folder on port 8795.
+
+WASD and arrows move relative to that camera. Up goes into the screen, down comes toward the camera, left and right strafe across the screen. Click-to-move stays in world space. The mouse wheel dollies the camera in and out. Shift plus the wheel raises and lowers the camera pitch.
+
+Published to `main` and `gh-pages` as `c09bd02`. Live site: https://papigames.alperensenel.com/ — hard refresh with Ctrl+F5. Module URL is `js/main.js?v=cam3`.
+
+## 2026-09-26 — Isometric 3D world
+
+The world canvas is a Three.js scene: pitched camera, directional light, soft shadows, baked ground, block buildings, and KayKit characters (Knight, Barbarian, Mage, Rogue, Rogue Hooded) for the six classes. Click-to-move uses a ground-plane ray. Title preview and the HUD portrait use the same models.
+
+Files: `js/render/view3d.js`, `js/render/renderer.js`, `js/vendor/`, `assets/models/`, `index.html`, `js/ui/ui.js`.
+
+Known limits: environment is stylized block geometry, not a hand-built Lost Ark map. Monsters are chosen from the creature name: Field Boar is a pig, rats, wolves, stags, spiders, slimes, snakes, and crows use their own models. Bandits, knights, witches, and similar roles use the class characters. Nameplates stay a fixed screen size and are larger. Crow model is CC-BY 3.0 via Poly Pizza. Module URL is `js/main.js?v=look8`. Not published yet.
+
 ## 2026-09-26 — Class identity scope clarified
 
 The intended art sequence is now explicit:

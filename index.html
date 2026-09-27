@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>ASTRAYA — 2D MMORPG</title>
+    <title>ASTRAYA</title>
     <meta name="description" content="Astraya: dokuz mühür, altı sınıf, İkinci Şafak. Dawnwatch'tan Abyss Kapısı'na uzanan top-down 2D MMORPG." />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css?v=town21" />
   </head>
   <body>
     <canvas id="world" tabindex="0" aria-label="Astraya oyun alanı"></canvas>
@@ -52,9 +52,18 @@
                 <div id="hair-swatches" class="swatches"></div>
               </div>
               <div class="look-row">
+                <span>Kaş</span>
+                <div id="brow-swatches" class="swatches"></div>
+              </div>
+              <div class="look-row">
                 <span>Ten</span>
                 <div id="skin-swatches" class="swatches"></div>
               </div>
+              <div class="look-row">
+                <span>Göz</span>
+                <div id="eye-swatches" class="swatches"></div>
+              </div>
+              <label class="look-row">Boy <input id="hero-height" type="range" min="86" max="116" value="100" /></label>
               <button type="button" class="btn gold" id="btn-start">Maceraya Başla</button>
               <button type="button" class="btn" id="btn-admin">Admin — sınırsız altın ve seviye</button>
             </div>
@@ -186,6 +195,9 @@
       </div>
     </div>
 
-    <script type="module" src="js/main.js"></script>
+    <script type="importmap">
+      { "imports": { "three": "./js/vendor/three.module.js" } }
+    </script>
+    <script type="module" src="js/main.js?v=town22"></script>
   </body>
 </html>

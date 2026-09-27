@@ -1,5 +1,22 @@
 # ASTRAYA Tasks
 
+## DONE THIS SESSION
+
+### CREATE-SKILL-HOOD-001 — Damage bar, signatures, creator, hoods
+
+- [x] Shrink the overhead HP bar shown while damaged.
+- [x] Add two signature skills per class and pin them on the hotbar.
+- [x] Title creator: hair, brows, skin, eye color, height.
+- [x] Ranger stealth hood and priest hat plus white cowl.
+- Module: `js/main.js?v=town22`. Not published.
+
+### HUD-MAP-QUEST-001 — Real minimap, quest go-to, sharp class cards
+
+- [x] Draw the generated terrain map on the HUD minimap.
+- [x] Right-click a quest to walk to its NPC, mob, or objective.
+- [x] Replace the 128px Yeni Kahraman JPEGs with live 3D class busts.
+- Module: `js/main.js?v=town18`. Not published.
+
 ## IN PROGRESS
 
 ### VIS-CLASS-IDENTITY-001 — Five missing Assassin-style chibi class packs
